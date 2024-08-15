@@ -1,0 +1,92 @@
+﻿<Page
+    x:Class="FTIDataSharingUI.Views.AutoProcessPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea">
+        <!-- Background Image -->
+        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
+        <Grid x:Name="SplitRow" Width="800" Height="530" Background="#FFFFFF" BorderThickness="2" BorderBrush="WhiteSmoke" CornerRadius="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <!-- Header Image and Text Overlay -->
+                <RowDefinition Height="Auto" />
+                <!-- Form Elements Row -->
+            </Grid.RowDefinitions>
+            <!-- Header Image -->
+            <Image Source="/Assets/FTI_Blue_internal_Header_Left.png"  Grid.Row="0" Margin="0,0,0,0" Stretch="UniformToFill"/>
+            <!-- Header Image and Text Overlay -->
+            <!-- Text Overlay -->
+            <Grid x:Name="SplitColHeader" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <!-- Text Blank -->
+                    <ColumnDefinition Width="7*" />
+                    <!-- Text Overlay -->
+                </Grid.ColumnDefinitions>
+                <!-- Text Blank -->
+                <TextBlock Text="" FontSize="14" Foreground="White" Grid.Column="0" FontFamily="Inter" />
+                <Grid x:Name="SplitRowTwo" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <!-- Text One Overlay -->
+                        <RowDefinition Height="2*" />
+                        <!-- Text Two Overlay -->
+
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="TextBlock_UserGreetings"  Text="Hi, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,25,0,5" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <!-- Text One Overlay -->
+                    <TextBlock Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
+                    <!-- Text Two Overlay -->
+                </Grid>
+            </Grid>
+            <!-- Form Elements -->
+            <Grid x:Name="SplitColForm" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="/Assets/Navigation_Pic.png" Grid.Column="0" Stretch="Uniform" />
+                <Grid x:Name="SplitRowThree" Grid.Column="1" BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Background="#FFFFFF" Grid.Row="1" Margin="20,20,20,20">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70" />
+                        <!-- Text One -->
+                        <RowDefinition Height="30" />
+                        <!-- Text Two -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Text Three -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Text Four -->
+                        <RowDefinition Height="100" />
+                        <!-- Text Five -->
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Automatic Data Submission to Fairbanc" FontSize="18" FontWeight="Bold" Grid.Row="0" Margin="25,30,0,0" />
+                    <TextBlock Text="Lorem Ipsum dolor sit amet consectetur, adipiscing elit Ipsum dolor sit amet consecteturctetur." TextWrapping="WrapWholeWords" Grid.Row="1" Margin="25,0,0,0"  />
+                    <StackPanel x:Name="PnlStatus" Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" Margin="25,35,0,0" Width="150" Height="80" Background="LightGray" CornerRadius="8">
+                        <TextBlock x:Name="TxtStatus" Text="Status: " Margin="27,0,0,0" Foreground="Gray" FontSize="16" VerticalAlignment="Center" />
+                        <TextBlock x:Name="TxtStatusValue" Text=" Stop" Foreground="Gray" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="3" Margin="25,12,0,0" VerticalAlignment="Top">
+                        <Button x:Name="StartButton" Margin="0,0,5,0" Content="Start" Height="55" Width="75" CornerRadius="30" Background="ForestGreen" Click="StartButton_Click" Foreground="White"  FontWeight="Bold" ToolTipService.ToolTip="Tekan untuk mengkonfirmasi atau membatalkan eksekusi jadwal upload data yg telah di konfigurasi."/>
+                        <Button x:Name="ConfigButton" Content="Config" Height="55" Width="75" CornerRadius="30" Background="Blue" Foreground="Gold" BorderBrush="AntiqueWhite" BorderThickness="2" FontWeight="Bold" Click="ConfigButton_Click" ToolTipService.ToolTip="Tekan untuk melakuan konfigurasi jadwal pengiriman data otomatis." />
+                    </StackPanel>
+                    <StackPanel  VerticalAlignment="Bottom" Grid.Row="4" Margin="0,0,10,10">
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" BorderBrush="LightGray" />
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+
+
+        </Grid>
+
+        <TextBlock Text="© 2024 by Fairbanc Technologies Indonesia" Foreground="#05437F" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Row="2" />
+
+    </Grid>
+
+</Page>

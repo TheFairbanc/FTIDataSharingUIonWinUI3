@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "FTIDataSharingUI (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "FTIDataSharingUI (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

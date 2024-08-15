@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="FTIDataSharingUI.Views.LogScreenPage"
+
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:FTIDataSharingUI.Models"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea">
+        <Grid x:Name="SplitRow" Width="Auto" Height="600" CornerRadius="8" Background="#FFFFFF" BorderBrush="LightGray" BorderThickness="2" MaxWidth="800" MaxHeight="580" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <!-- Header Image and Text Overlay -->
+                <RowDefinition Height="*" />
+                <!-- Form Elements Row -->
+                <RowDefinition Height="Auto" />
+                <!-- Form Elements Row -->
+            </Grid.RowDefinitions>
+            <!-- Header Image -->
+            <Image Source="/Assets/FTI_Blue_internal_Header_Right.png" Stretch="Fill" Grid.Row="0"  Margin="0,0,0,0"/>
+            <Grid x:Name="SplitColHeader" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0" />
+                    <!-- Text Blank -->
+                    <ColumnDefinition Width="*" />
+                    <!-- Text Overlay -->
+                </Grid.ColumnDefinitions>
+                <!-- Text Blank -->
+                <TextBlock Text="" FontSize="14" Foreground="White" Grid.Column="0" FontFamily="Inter" />
+                <Grid x:Name="SplitRowTwo" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <!-- Text One Overlay -->
+                        <RowDefinition Height="2*" />
+                        <!-- Text Two Overlay -->
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="TextBlock_UserGreetings"  Text="Hi, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <!-- Text One Overlay -->
+                    <TextBlock Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="Inter" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
+                    <!-- Text Two Overlay -->
+                </Grid>
+            </Grid>
+            <StackPanel Margin="20,20,20,0" Padding="0" Grid.Row="1" >
+                <controls:DataGrid x:Name="logDataGrid" Height="400" AutoGenerateColumns="False"  BorderBrush="SteelBlue" BorderThickness="1" FontSize="10" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <controls:DataGrid.Columns>
+                        <controls:DataGridTextColumn Header="Tanggal" Binding="{Binding Time}" Width="Auto" FontSize="12"/>
+                        <controls:DataGridTextColumn Header="Waktu" Binding="{Binding Date}" Width="Auto"  FontSize="12"/>
+                        <controls:DataGridTextColumn Header="Proses" Binding="{Binding Process}" Width="*" FontSize="12"/>
+                        <controls:DataGridTemplateColumn Header="Status" Width="40">
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <FontIcon
+                                    HorizontalAlignment="Left"
+                                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                    Glyph="{Binding Warning}"
+                                    AutomationProperties.Name=""
+                                    Foreground="{Binding Color}"/>
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+                    </controls:DataGrid.Columns>
+                </controls:DataGrid>
+                
+            </StackPanel>
+            <StackPanel Grid.Row="2"  >
+                <Button HorizontalAlignment="Right" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click"  Margin="0,0,20,10"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
+
+

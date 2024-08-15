@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="FTIDataSharingUI.Views.LandingPage"
+
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
+
+        <Grid BorderBrush="WhiteSmoke" BorderThickness="2" CornerRadius="8" Width="600" Height="450" Background="#FFFFFF">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <!-- Header Image and Text Overlay -->
+                <RowDefinition Height="*" />
+                <!-- Form Elements Row -->
+            </Grid.RowDefinitions>
+            <!-- Header Image -->
+            <Image Source="/Assets/FTI_Blue_internal_Header_Left.png" Stretch="None" Grid.Row="0"/>
+            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
+
+                <!-- Logo -->
+                <Image Source="/Assets/FTI_Header_Left.png" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Height="100"/>
+                <!-- Title -->
+                <TextBlock Text="Syarat dan Ketentuan" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" Foreground="#0093CD"/>
+                <!-- Checkbox -->
+                <CheckBox Name="agreeCheckBox" Content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non condimentum mauris, vitae aliquam nisl. Suspendisse vitae enim massa" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,20,30,0" Checked="agreeCheckBox_Checked" Unchecked="agreeCheckBox_Unchecked"/>
+                <!-- Agree Button -->
+                <Button Content="Agree" IsEnabled="False" Name="ButtonAgree" Background="#0078D7" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30,20,30,0" Click="ButtonAgree_Click" />
+            </StackPanel>
+        </Grid>
+        <!-- Footer -->
+        <TextBlock Text="© 2024 by Fairbanc Technologies Indonesia" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Foreground="#05437F"/>
+    </Grid>
+</Page>
+
