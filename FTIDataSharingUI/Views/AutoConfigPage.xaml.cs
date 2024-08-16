@@ -65,10 +65,10 @@ public sealed partial class AutoConfigPage : Page
         dialog.XamlRoot = this.XamlRoot;
         dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
         dialog.Title = "Konfirmasi";
-        dialog.Content = "Apakah anda ingin menabaikan perubahan konfigurasi?";
+        dialog.Content = "Apakah anda ingin mengbaikan perubahan konfigurasi ?";
         dialog.PrimaryButtonText = "Ya";
         dialog.CloseButtonText = "Tidak";
-        dialog.DefaultButton = ContentDialogButton.Primary;
+        dialog.DefaultButton = ContentDialogButton.Secondary;
 
         var result = await dialog.ShowAsync();
         var navigationService = App.GetService<INavigationService>();
@@ -132,6 +132,9 @@ public sealed partial class AutoConfigPage : Page
             return;
         }
 
+        TextBox_NamaFileSales.Text = TextBox_NamaFileSales.Text.ToLower();
+        TextBox_NamaFileAR.Text = TextBox_NamaFileAR.Text.ToLower();
+        TextBox_NamaFileOutlet.Text = TextBox_NamaFileOutlet.Text.ToLower();
         var blnSuccess = WriteConfigToFileAsync();
 
         if (blnSuccess.Result)
@@ -149,6 +152,8 @@ public sealed partial class AutoConfigPage : Page
             await errorDialog.ShowAsync();
         }
 
+
+
         var navigationService = App.GetService<INavigationService>();
         _ = navigationService.GoBack();
     }
@@ -157,7 +162,7 @@ public sealed partial class AutoConfigPage : Page
     {
         try
         {
-            var folder = @"c:\temp";
+            var folder = @"C:\ProgramData\FairbancData";
             var filePath = Path.Combine(folder, "DateTimeInfo.ini");
 
             if (File.Exists(filePath))
@@ -199,7 +204,7 @@ public sealed partial class AutoConfigPage : Page
 
     async Task<bool> ReadDateTimeFromFileAsync()
     {
-        var folder = @"c:\temp";
+        var folder = @"C:\ProgramData\FairbancData";
         var filePath = Path.Combine(folder, "DateTimeInfo.ini");
         try
         {

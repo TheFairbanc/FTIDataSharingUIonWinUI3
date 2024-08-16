@@ -42,8 +42,8 @@ public sealed partial class LogScreenPage : Page
     {
         try
         {
-            // Get the Downloads folder
-            var downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            // Get the Data Sharing working folder
+            var downloadsPath = Path.Combine(@"C:\ProgramData\FairbancData", "Datasharing-result");
             var downloadsFolder = await StorageFolder.GetFolderFromPathAsync(downloadsPath);
 
             // Get all files in the Downloads folder
@@ -60,7 +60,7 @@ public sealed partial class LogScreenPage : Page
                 // Split log content into individual entries
                 var logEntries = logContent.Split(new[] { "Log Entry :" }, StringSplitOptions.RemoveEmptyEntries);
 
-                foreach (var entry in logEntries)
+                foreach (var entry in logEntries.Reverse())
                 {
                     var lines = entry.Split(new[] { '-' }, 2);
                     if (lines.Length >= 2)
@@ -78,7 +78,7 @@ public sealed partial class LogScreenPage : Page
                                 Process = messagePart.Contains("WARNING") ? messagePart.Substring(1) : messagePart.Substring(1),
                                 Warning = messagePart.Contains("WARNING") ? "\uE7BA" : "\uE73E",
                                 Color = messagePart.Contains("WARNING") ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.ForestGreen)
-                            }) ;
+                            });
                         }
                     }
                 }

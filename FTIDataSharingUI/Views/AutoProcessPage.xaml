@@ -76,7 +76,7 @@
                         <Button x:Name="ConfigButton" Content="Config" Height="55" Width="75" CornerRadius="30" Background="Blue" Foreground="Gold" BorderBrush="AntiqueWhite" BorderThickness="2" FontWeight="Bold" Click="ConfigButton_Click" ToolTipService.ToolTip="Tekan untuk melakuan konfigurasi jadwal pengiriman data otomatis." />
                     </StackPanel>
                     <StackPanel  VerticalAlignment="Bottom" Grid.Row="4" Margin="0,0,10,10">
-                        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" BorderBrush="LightGray" />
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" BorderBrush="Gray" />
                     </StackPanel>
                 </Grid>
 

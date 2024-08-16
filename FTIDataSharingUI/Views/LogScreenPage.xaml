@@ -48,25 +48,30 @@
                     <controls:DataGrid.Columns>
                         <controls:DataGridTextColumn Header="Tanggal" Binding="{Binding Time}" Width="Auto" FontSize="12"/>
                         <controls:DataGridTextColumn Header="Waktu" Binding="{Binding Date}" Width="Auto"  FontSize="12"/>
-                        <controls:DataGridTextColumn Header="Proses" Binding="{Binding Process}" Width="*" FontSize="12"/>
+                        <controls:DataGridTextColumn Header="Proses" Binding="{Binding Process}" Width="*" FontSize="12">
+                            <controls:DataGridTextColumn.ElementStyle>
+                                <Style TargetType="Button">
+                                    <Setter Property="ToolTipService.ToolTip" Value="{Binding Process}"/>
+                                </Style>
+                            </controls:DataGridTextColumn.ElementStyle>
+                        </controls:DataGridTextColumn>
                         <controls:DataGridTemplateColumn Header="Status" Width="40">
                             <controls:DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <FontIcon
-                                    HorizontalAlignment="Left"
-                                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                    Glyph="{Binding Warning}"
-                                    AutomationProperties.Name=""
-                                    Foreground="{Binding Color}"/>
+                            HorizontalAlignment="Left"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Glyph="{Binding Warning}"
+                            AutomationProperties.Name=""
+                            Foreground="{Binding Color}"/>
                                 </DataTemplate>
                             </controls:DataGridTemplateColumn.CellTemplate>
                         </controls:DataGridTemplateColumn>
                     </controls:DataGrid.Columns>
                 </controls:DataGrid>
-                
             </StackPanel>
             <StackPanel Grid.Row="2"  >
-                <Button HorizontalAlignment="Right" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click"  Margin="0,0,20,10"/>
+                <Button HorizontalAlignment="Right" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click"  Margin="0,0,20,10" BorderBrush="Gray"/>
             </StackPanel>
         </Grid>
     </Grid>

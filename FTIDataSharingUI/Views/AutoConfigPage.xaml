@@ -68,8 +68,8 @@
                         -->
                     </StackPanel>
                     <StackPanel  Margin="0,0,20,0">
-                        <TextBlock Text="Waktu" FontSize="13"/>
-                        <TimePicker ClockIdentifier="24HourClock" FontWeight="Black" FontStretch="UltraExpanded"  Foreground="#A9A9A9" Margin="0,8,0,0" BorderBrush="LightGray" BorderThickness="2" Name="JamMenit_Picker" />
+                        <TextBlock Text="Waktu *" FontSize="13"/>
+                        <TimePicker ClockIdentifier="24HourClock" FontWeight="Black" FontStretch="UltraExpanded"  Margin="0,8,0,0" BorderBrush="LightGray" BorderThickness="2" Name="JamMenit_Picker" />
                         <TextBlock Text=" "/>
                     </StackPanel>
                 </StackPanel>
@@ -82,14 +82,14 @@
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="155" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Folder File Data Excel :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                    <TextBlock Text="Folder File Data Excel * :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" >
                         <TextBox Name="FolderSelected" Width="420" BorderBrush="DarkGray" Background="GhostWhite"  BorderThickness="1" Height="30" IsReadOnly="True"/>
 
-                        <Button PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="BtnSearch_Click" Width="50" Name="Button_Pointer">
+                        <Button PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="BtnSearch_Click" Width="50" Name="Button_Pointer" BorderBrush="#0093CD" Height="30" Margin="5,0,0,0">
                             <AnimatedIcon x:Name="SearchAnimatedIcon">
                                 <AnimatedIcon.Source>
                                     <animatedvisuals:AnimatedFindVisualSource/>
@@ -102,10 +102,10 @@
                         </Button>
                     </StackPanel>
 
-                    <TextBlock Text="Tipe Data Laporan"  Grid.Row="1" Grid.Column="0" FontWeight="ExtraBlack" VerticalAlignment="Center"/>
-                    <TextBlock Text="Nama atau Kandungan Kata " Grid.Row="1" Grid.Column="1" FontWeight="ExtraBlack" VerticalAlignment="Center" Margin="50,0,0,0"/>
+                    <TextBlock Text="Tipe Data Laporan"  Grid.Row="1" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center" Foreground="DarkBlue" />
+                    <TextBlock Text="Nama atau Kandungan Kata" Grid.Row="1" Grid.Column="1" FontWeight="Bold" VerticalAlignment="Center" Margin="50,0,0,0" Foreground="DarkBlue"/>
 
-                    <TextBlock Text="Data Penjualan : "  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Data Penjualan * : "  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
                     <TextBox Width="300" Grid.Row="2" Grid.Column="1" PlaceholderText="contoh kata -> jual,sales, sell,beli" VerticalAlignment="Center" Background="GhostWhite" BorderThickness="1" HorizontalAlignment="Left" UseSystemFocusVisuals="False" Name="TextBox_NamaFileSales"/>
 
                     <TextBlock Text="Data Pembayaran : "  Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
@@ -115,7 +115,7 @@
                     <TextBox Width="300" Grid.Row="4" Grid.Column="1" PlaceholderText="contoh kata -> toko,outlet,customer,klien" VerticalAlignment="Center" Background="GhostWhite" BorderThickness="1" HorizontalAlignment="Left" Name="TextBox_NamaFileOutlet"/>
                 </Grid>
                 <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="1500" Y2="15" StrokeThickness="3"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
                     <Button Content="Cancel" x:Name="btnCancel" Click="btnCancel_Click" Margin="0,0,10,0"/>
                     <Button Content="Save" x:Name="bntSave" Click="bntSave_Click"/>
                 </StackPanel>

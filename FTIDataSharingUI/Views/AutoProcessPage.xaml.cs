@@ -116,7 +116,7 @@ public sealed partial class AutoProcessPage : Page
     {
         try
         {
-            var ConfogFolder = @"c:\temp";
+            var ConfogFolder = @"C:\ProgramData\FairbancData";
             var filePath = Path.Combine(ConfogFolder, "DateTimeInfo.ini");
 
             if (File.Exists(filePath))

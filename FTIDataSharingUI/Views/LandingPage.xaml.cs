@@ -53,7 +53,7 @@ public sealed partial class LandingPage : Page
     {
         try
         {
-            var configFolder = @"c:\temp";
+            var configFolder = @"C:\ProgramData\FairbancData";
             var filePath = Path.Combine(configFolder, "DateTimeInfo.ini");
 
             if (File.Exists(filePath))

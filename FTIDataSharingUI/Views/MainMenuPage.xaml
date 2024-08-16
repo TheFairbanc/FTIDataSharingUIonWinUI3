@@ -46,9 +46,9 @@
                 </Grid>
             </Grid>
             <!-- Form Elements -->
-            <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Grid.Row="1" Spacing="15" Margin="0,20,0,0">
+            <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Grid.Row="1" Spacing="15" Margin="20,20,0,0">
                 <!-- Automatic Setting Button -->
-                <Button x:Name="ButtonAuto" MaxWidth="450" Height="90" Click="ButtonAuto_Click"  ToolTipService.ToolTip="Data excel akan ter-upload secara otomatis pada tanggal tertentu setiap bulan-nya.">
+                <Button x:Name="ButtonAuto" MaxWidth="450" Height="90" Click="ButtonAuto_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Data excel akan ter-upload secara otomatis pada tanggal tertentu setiap bulan-nya.">
                     <StackPanel Orientation="Horizontal">
                         <Grid x:Name="SplitColTwo">
                             <Grid.ColumnDefinitions>
@@ -60,45 +60,45 @@
                             <Image Source="/Assets/WindowIcon.ico" Height="25" Grid.Column="0" HorizontalAlignment="Right" Margin="20,0,20,0" />
                             <StackPanel Orientation="Vertical" Grid.Column="1" >
                                 <TextBlock Text="Automatic Data Submission" FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Left" FontFamily="Inter" FontSize="14"/>
-                                <TextBlock MaxWidth="350" x:Name="Desc1" Text="Program otomatisasi dalam pengiriman laporan bulanan distributor melalui pengaturan tanggal dan waktu setiap bulan" Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="WrapWholeWords"/>
+                                <TextBlock MaxWidth="350" Text="Program otomatisasi dalam pengiriman laporan bulanan distributor melalui pengaturan tanggal dan waktu setiap bulan" Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="WrapWholeWords"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
                 </Button>
 
                 <!-- Manual Setting Button -->
-                <Button x:Name="ButtonManual" Width="450" Height="90" Click="ButtonManual_Click" ToolTipService.ToolTip="Data excel akan di-upload oleh penguna pada saat yang di inginkan.">
+                <Button x:Name="ButtonManual" Width="450" Height="90" Click="ButtonManual_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Data excel akan di-upload oleh penguna pada saat yang di inginkan.">
                     <StackPanel Orientation="Horizontal">
                         <Grid x:Name="SplitColThree">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="67"/>
                                 <!-- Text Blank -->
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="383" />
                                 <!-- Text Overlay -->
                             </Grid.ColumnDefinitions>
                             <Image Source="/Assets/WindowIcon.ico" Height="25" Grid.Column="0" HorizontalAlignment="Right" Margin="20,0,20,0"/>
                             <StackPanel Orientation="Vertical" Grid.Column="1" >
                                 <TextBlock Text="Manual Data Submission" FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Left" FontFamily="Inter" FontSize="14"/>
-                                <TextBlock MaxWidth="350" Text="Mempermudah distributor dalam mengupload laporan bulanan hanya dengan cara drag and drop." Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="Wrap"/>
+                                <TextBlock MaxWidth="350" Text="Mempermudah distributor dalam mengupload laporan bulanan hanya dengan cara drag and drop." Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="WrapWholeWords"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
                 </Button>
 
                 <!-- Logs Setting Button -->
-                <Button x:Name="ButtonLogs" Width="450" Height="90" Click="ButtonLogs_Click" ToolTipService.ToolTip="Melihat sejarah peng-upload-an data pada tanggal sebelumnya." >
+                <Button x:Name="ButtonLogs" Width="450" Height="90" Click="ButtonLogs_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Melihat sejarah peng-upload-an data pada tanggal sebelumnya." >
                     <StackPanel Orientation="Horizontal">
                         <Grid x:Name="SplitColFour">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="67"/>
                                 <!-- Text Blank -->
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="383" />
                                 <!-- Text Overlay -->
                             </Grid.ColumnDefinitions>
                             <Image Source="/Assets/WindowIcon.ico" Height="25" Grid.Column="0" Margin="20,0,20,0"/>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="History Log" FontWeight="SemiBold" Foreground="Black" FontFamily="Inter" FontSize="14"/>
-                                <TextBlock MaxWidth="350" Text="Membantu distributor untuk melihat riwayat pengiriman laporan bulanan kepadaFairbanc, baik menggunakan otomatisasi maupun manual." Foreground="Black" FontSize="11" FontFamily="Inter" TextWrapping="WrapWholeWords" Margin="0,0,0,0"/>
+                                <TextBlock MaxWidth="350" Text="Membantu distributor untuk melihat riwayat pengiriman laporan bulanan kepadaFairbanc, baik menggunakan otomatisasi maupun manual." Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="Wrap"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
