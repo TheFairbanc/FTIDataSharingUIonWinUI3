@@ -22,12 +22,12 @@
             <Image Source="/Assets/WindowIcon.ico"
                    HorizontalAlignment="Left"
                    Width="16"
-                   Height="16" Margin="0,0,0,0"/>
+                   Height="16" Margin="-35,0,0,0"/>
             <TextBlock x:Name="AppTitleBarText"
                        VerticalAlignment="Center"
                        TextWrapping="NoWrap"
                        Style="{StaticResource CaptionTextBlockStyle}"
-                       Margin="25,0,0,0"/>
+                       Margin="0,0,0,0"/>
         </Grid>
         <NavigationView
             x:Name="NavigationViewControl"
@@ -40,7 +40,7 @@
             Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}"
             Visibility="Visible"
             IsPaneOpen="False" 
-            IsPaneVisible="True">
+            IsPaneVisible="False">
             <!-- <<== kalau mau di hide navigasi menu-nya, ganti valuenya 'IsPaneVisible' jadi false -->
             <NavigationView.MenuItems>
                 <!--

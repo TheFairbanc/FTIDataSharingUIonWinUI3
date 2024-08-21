@@ -33,7 +33,8 @@ public sealed partial class ShellPage : Page
         App.MainWindow.ExtendsContentIntoTitleBar = true;
         App.MainWindow.SetTitleBar(AppTitleBar);
         App.MainWindow.Activated += MainWindow_Activated;
-        AppTitleBarText.Text = "AppDisplayName".GetLocalized();
+        //AppTitleBarText.Text = "AppDisplayName".GetLocalized();
+        AppTitleBarText.Text = "Fairbanc - Data Submissions App";
     }
 
     private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -42,11 +43,13 @@ public sealed partial class ShellPage : Page
 
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
+
     }
 
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
     {
         App.AppTitlebar = AppTitleBarText as UIElement;
+        CheckandRefreshFolder("C:\\ProgramData\\FairbancData");
     }
 
     private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
@@ -82,4 +85,44 @@ public sealed partial class ShellPage : Page
 
         args.Handled = result;
     }
+
+    private static void CheckandRefreshFolder(string location)
+    {
+        try
+        {
+            if (Directory.Exists(location))
+            {
+                DeleteAllFilesAndSubdirectories(location);
+            }
+            Directory.CreateDirectory(location);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    private static void DeleteAllFilesAndSubdirectories(string folderPath)
+    {
+        // Create a DirectoryInfo object
+        DirectoryInfo directory = new DirectoryInfo(folderPath);
+
+        // Check if the directory exists
+        if (directory.Exists)
+        {
+            // Delete all files in the directory
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                file.Delete();
+            }
+
+            // Optionally, delete all subdirectories
+            foreach (DirectoryInfo subDirectory in directory.GetDirectories())
+            {
+                subDirectory.Delete(true); // true to delete subdirectories and files
+            }
+            directory.Delete();
+        }
+    }
 }
+

@@ -64,7 +64,7 @@ public sealed partial class LoginPage : Page
                 infoDialog.Title = "Info";
                 infoDialog.CloseButtonText = "OK";
                 infoDialog.DefaultButton = ContentDialogButton.Close;
-                infoDialog.Content = "Nomer DT tidak di temukan di server Fairbanc !";
+                infoDialog.Content = "Nomer registrasi DT tidak di temukan di basis data Fairbanc !";
                 await infoDialog.ShowAsync();
                 return;
             }
@@ -83,35 +83,42 @@ public sealed partial class LoginPage : Page
 
     public async Task<string> GetDistributorNameAsync()
     {
-        if (DTIDTextBox.Text.Trim() == "")
+        try
+        {
+            if (DTIDTextBox.Text.Trim() == "")
+            {
+                return "";
+            }
+            string apiUrl = "https://dashboard.fairbanc.app/api/distributors/" + DTIDTextBox.Text.Trim() + "?api_token=2S0VtpYzETxDrL6WClmxXXnOcCkNbR5nUCCLak6EHmbPbSSsJiTFTPNZrXKk2S0VtpYzETxDrL6WClmx";
+
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+
+                    // Parse the JSON response
+                    using (JsonDocument doc = JsonDocument.Parse(responseData))
+                    {
+                        JsonElement root = doc.RootElement;
+                        dtIDandName = root.GetProperty("name").GetString();
+                        return dtIDandName;
+                    }
+                }
+                else
+                {
+                    // Handle error response here
+                    return "";
+                }
+            }
+        }
+        catch (Exception)
         {
             return "";
         }
-        string apiUrl = "https://dashboard.fairbanc.app/api/distributors/" + DTIDTextBox.Text.Trim() + "?api_token=2S0VtpYzETxDrL6WClmxXXnOcCkNbR5nUCCLak6EHmbPbSSsJiTFTPNZrXKk2S0VtpYzETxDrL6WClmx";
 
-        using (HttpClient client = new HttpClient())
-        {
-            HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-            if (response.IsSuccessStatusCode)
-            {
-                string responseData = await response.Content.ReadAsStringAsync();
-
-                // Parse the JSON response
-                using (JsonDocument doc = JsonDocument.Parse(responseData))
-                {
-                    JsonElement root = doc.RootElement;
-                    dtIDandName = root.GetProperty("name").GetString();
-                    return dtIDandName;
-                }
-            }
-            else
-            {
-                // Handle error response here
-                return "";
-            }
-        }
     }
-
 }
 

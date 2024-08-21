@@ -36,15 +36,20 @@ public sealed partial class LogScreenPage : Page
         }
     }
 
+
     public ObservableCollection<LogEntry> LogData { get; } = new ObservableCollection<LogEntry>();
 
     private async void LoadLogData()
     {
         try
         {
+            var downloadsFolder = await StorageFolder.GetFolderFromPathAsync("C:\\");
+
             // Get the Data Sharing working folder
             var downloadsPath = Path.Combine(@"C:\ProgramData\FairbancData", "Datasharing-result");
-            var downloadsFolder = await StorageFolder.GetFolderFromPathAsync(downloadsPath);
+
+            Directory.CreateDirectory(downloadsPath);
+            downloadsFolder = await StorageFolder.GetFolderFromPathAsync(downloadsPath);
 
             // Get all files in the Downloads folder
             var files = await downloadsFolder.GetFilesAsync();
@@ -91,8 +96,8 @@ public sealed partial class LogScreenPage : Page
                 ContentDialog noLogFileDialog = new ContentDialog
                 {
                     XamlRoot = this.XamlRoot,
-                    Title = "Log File Not Found",
-                    Content = "No log file matching the pattern DEBUG-???.log was found in the downloads folder.",
+                    Title = "Log File tidak ditemukan",
+                    Content = "",
                     CloseButtonText = "Ok"
                 };
 
