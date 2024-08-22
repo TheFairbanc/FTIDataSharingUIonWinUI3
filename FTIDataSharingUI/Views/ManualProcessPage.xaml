@@ -6,19 +6,98 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="ContentArea" Background="LightGray" AllowDrop="True" DragOver="OnDragOver" Drop="OnDrop">
-        <Border Background="White" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel>
-                <TextBlock Text="Drag Excel files here!" />
-                <TextBlock x:Name="MessageTextBlock" Text="" Foreground="Red" Margin="10" />
-                <StackPanel x:Name="IconsPanel" Orientation="Horizontal" Margin="10">
-                    
+    <Grid x:Name="ContentArea" VerticalAlignment="Center">
+        <!-- Background Image -->
+        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
+        <Grid x:Name="SplitRow" Width="Auto" Height="600" CornerRadius="8" Background="#FFFFFF" BorderBrush="LightGray" BorderThickness="2" MaxWidth="800" MaxHeight="580" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <!-- Header Image and Text Overlay -->
+                <RowDefinition Height="*" />
+                <!-- Form Elements Row -->
+            </Grid.RowDefinitions>
+            <!-- Header Image -->
+            <Image Source="/Assets/FTI_Blue_internal_Header_Right.png" Stretch="Fill" Grid.Row="0"  Margin="0,0,0,0"/>
+            <Grid x:Name="SplitColHeader" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0" />
+                    <!-- Text Blank -->
+                    <ColumnDefinition Width="*" />
+                    <!-- Text Overlay -->
+                </Grid.ColumnDefinitions>
+                <!-- Text Blank -->
+                <TextBlock Text="" FontSize="14" Foreground="White" Grid.Column="0" FontFamily="Inter" />
+                <Grid x:Name="SplitRowTwo" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <!-- Text One Overlay -->
+                        <RowDefinition Height="2*" />
+                        <!-- Text Two Overlay -->
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="TextBlock_UserGreetings"  Text="Hi, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <!-- Text One Overlay -->
+                    <TextBlock Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="Inter" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
+                    <!-- Text Two Overlay -->
+                </Grid>
+            </Grid>
+            <StackPanel Margin="0" Padding="20" Grid.Row="1" >
+                <TextBlock Text="Manual Data Submission to Fairbanc" FontSize="16" FontWeight="Bold"/>
+                <TextBlock Text="Silahkan atur bulan dan tahun untuk pengiriman data file secara manual." Margin="0,10,0,20"/>
+                <Grid Margin="0,10,0,0 ">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="75" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="155" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Periode Data * :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" >
+                        <ComboBox Name="DataPeriod" Width="420" BorderBrush="DarkGray" Background="GhostWhite"  BorderThickness="1" Height="30" ItemsSource="{x:Bind cbitem}" />
+                    </StackPanel>
+
+                    <TextBlock Text="do not delete this textbock"  Grid.Row="1" Grid.Column="0" />
+                    <TextBlock Text="do not delete this textbock" Grid.Row="1" Grid.Column="1" />
+
+                    <TextBlock Text="Data Penjualan * : "  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Grid x:Name="Drop01" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropSales" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel x:Name="IconsPanel01" Orientation="Vertical" />
+                            <TextBlock x:Name="MessageTextBlock01" Text="Drag dan drop file Invoice Penjualan (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
+                            <Button x:Name="btnRemove01"  Content="Remove" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="Data Pembayaran : "  Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Grid x:Name="Drop02" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropAR" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"  Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel x:Name="IconsPanel02" Orientation="Vertical"/>
+                            <TextBlock x:Name="MessageTextBlock02" Text="Drag dan drop file Pembayaran Invoice (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
+                            <Button x:Name="btnRemove02"  Content="Remove" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click"/>  
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="Data Customer : "  Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Grid x:Name="Drop03" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropOutlet" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel x:Name="IconsPanel03" Orientation="Vertical" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="MessageTextBlock03" Text="Drag dan drop file data Customer (Excel) di sini !" Foreground="DodgerBlue" Margin="0"  VerticalAlignment="Center"/>
+                            <Button x:Name="btnRemove03"  Content="Remove" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="1500" Y2="15" StrokeThickness="3"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                    <Button Content="Cancel" x:Name="btnCancel" Click="btnBack_Click" Margin="0,0,10,0"/>
+                    <Button Content="Save" x:Name="bntSave" Click="btnBack_Click"/>
                 </StackPanel>
             </StackPanel>
-            
-        </Border>
-        <StackPanel  VerticalAlignment="Bottom" Grid.Row="4" Margin="0,0,10,10">
-            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" BorderBrush="Gray" />
-        </StackPanel>
+
+        </Grid>
+
     </Grid>
 </Page>
