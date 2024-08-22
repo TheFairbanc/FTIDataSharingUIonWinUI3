@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net7.0-windows10.0.18362.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>FTIDataSharingUI</RootNamespace>
 		<ApplicationIcon>Assets/WindowIcon.ico</ApplicationIcon>
@@ -14,8 +14,8 @@
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<WindowsPackageType>None</WindowsPackageType>
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+		<PlatformTarget>x64</PlatformTarget>
+		
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Views\FilePreviewPage.xaml" />
@@ -66,6 +66,9 @@
 		</Content>
 		<Content Update="Assets\FTI_Logo_Transparent.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="Assets\Navigation_Pic.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Update="Assets\StoreLogo.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>

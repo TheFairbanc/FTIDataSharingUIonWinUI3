@@ -49,7 +49,7 @@ public sealed partial class ShellPage : Page
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
     {
         App.AppTitlebar = AppTitleBarText as UIElement;
-        CheckandRefreshFolder("C:\\ProgramData\\FairbancData");
+        CheckFolder("C:\\ProgramData\\FairbancData");
     }
 
     private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
@@ -86,15 +86,18 @@ public sealed partial class ShellPage : Page
         args.Handled = result;
     }
 
-    private static void CheckandRefreshFolder(string location)
+    private static void CheckFolder(string location)
     {
         try
         {
             if (Directory.Exists(location))
             {
-                DeleteAllFilesAndSubdirectories(location);
+                //DeleteAllFilesAndSubdirectories(location);
             }
-            Directory.CreateDirectory(location);
+            else
+            {
+                Directory.CreateDirectory(location);
+            }
         }
         catch (Exception)
         {

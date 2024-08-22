@@ -43,21 +43,38 @@ public sealed partial class AutoProcessPage : Page
             TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
 
             if (GetServiceState(command) == "RUNNING")
+            //{
+            //    StartButton.Background = new SolidColorBrush(Colors.LightGray);
+            //    StartButton.Content = "Stop";
+            //    TxtStatusValue.Text = " Start";
+            //    PnlStatus.Background = new SolidColorBrush(Colors.LightGreen);
+            //    TxtStatus.Foreground = new SolidColorBrush(Colors.Green);
+            //    TxtStatusValue.Foreground = new SolidColorBrush(Colors.Green);
+            //}
+            //else
+            //{
+            //    StartButton.Background = new SolidColorBrush(Colors.ForestGreen);
+            //    StartButton.Content = "Start";
+            //    TxtStatusValue.Text = " Stop";
+            //    PnlStatus.Background = new SolidColorBrush(Colors.LightGray);
+            //    TxtStatus.Foreground = new SolidColorBrush(Colors.Gray);
+            //    TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
+            //}
             {
                 StartButton.Background = new SolidColorBrush(Colors.LightGray);
                 StartButton.Content = "Stop";
                 TxtStatusValue.Text = " Start";
-                PnlStatus.Background = new SolidColorBrush(Colors.LightGreen);
-                TxtStatus.Foreground = new SolidColorBrush(Colors.Green);
+                PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xD4, 0xF1, 0xEB));//#D4F1EB
+                TxtStatus.Foreground = new SolidColorBrush(Colors.Green); //#D4F1EB;
                 TxtStatusValue.Foreground = new SolidColorBrush(Colors.Green);
             }
             else
             {
-                StartButton.Background = new SolidColorBrush(Colors.ForestGreen);
+                StartButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0x44, 0xAB, 0x96)); //background: #D4F1EB;
                 StartButton.Content = "Start";
                 TxtStatusValue.Text = " Stop";
-                PnlStatus.Background = new SolidColorBrush(Colors.LightGray);
-                TxtStatus.Foreground = new SolidColorBrush(Colors.Gray);
+                PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xEA, 0xEC, 0xF0)); //background: #EAECF0; //new SolidColorBrush(Colors.LightGreen);
+                TxtStatus.Foreground = new SolidColorBrush(Colors.Gray); ;
                 TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
             }
         }
@@ -113,10 +130,10 @@ public sealed partial class AutoProcessPage : Page
             {
                 ContentDialog infoDialog = new ContentDialog();
                 infoDialog.XamlRoot = this.XamlRoot;
-                infoDialog.Title = "Info";
+                infoDialog.Title = "Informasi";
                 infoDialog.CloseButtonText = "OK";
                 infoDialog.DefaultButton = ContentDialogButton.Close;
-                infoDialog.Content = "Konfigurasi belum tersedia.\nMohon melakukan konfigurasi terlebih dahulu !";
+                infoDialog.Content = "Belum tersedia konfigurasi untuk upload data.\nMohon melakukan konfigurasi terlebih dahulu.\nSilahkan gunakan tombol 'Config'.";
                 await infoDialog.ShowAsync();
                 return;
             }
@@ -150,17 +167,17 @@ public sealed partial class AutoProcessPage : Page
                 StartButton.Background = new SolidColorBrush(Colors.LightGray);
                 StartButton.Content = "Stop";
                 TxtStatusValue.Text = " Start";
-                PnlStatus.Background = new SolidColorBrush(Colors.LightGreen);
-                TxtStatus.Foreground = new SolidColorBrush(Colors.Green);
+                PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xD4, 0xF1, 0xEB));//#D4F1EB
+                TxtStatus.Foreground = new SolidColorBrush(Colors.Green); //#D4F1EB;
                 TxtStatusValue.Foreground = new SolidColorBrush(Colors.Green);
             }
             else
             {
-                StartButton.Background = new SolidColorBrush(Colors.ForestGreen);
+                StartButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0x44, 0xAB, 0x96)); //background: #D4F1EB;
                 StartButton.Content = "Start";
                 TxtStatusValue.Text = " Stop";
-                PnlStatus.Background = new SolidColorBrush(Colors.LightGray);
-                TxtStatus.Foreground = new SolidColorBrush(Colors.Gray);
+                PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xEA, 0xEC, 0xF0)); //background: #EAECF0; //new SolidColorBrush(Colors.LightGreen);
+                TxtStatus.Foreground = new SolidColorBrush(Colors.Gray); ;
                 TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
             }
         }
@@ -181,10 +198,10 @@ public sealed partial class AutoProcessPage : Page
             {
                 ContentDialog infoDialog = new ContentDialog();
                 infoDialog.XamlRoot = this.XamlRoot;
-                infoDialog.Title = "Info";
+                infoDialog.Title = "Informasi";
                 infoDialog.CloseButtonText = "OK";
                 infoDialog.DefaultButton = ContentDialogButton.Close;
-                infoDialog.Content = "Konfigurasi belum tersedia.\nSistem akan membuat konfigurasi baru !";
+                infoDialog.Content = "Sistem akan membuat konfigurasi baru. Lanjukan ?";
                 await infoDialog.ShowAsync();
                 //return;
             }

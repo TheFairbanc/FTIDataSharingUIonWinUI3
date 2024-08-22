@@ -72,8 +72,8 @@
                         <TextBlock x:Name="TxtStatusValue" Text=" Stop" Foreground="Gray" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="3" Margin="25,12,0,0" VerticalAlignment="Top">
-                        <Button x:Name="StartButton" Margin="0,0,5,0" Content="Start" Height="55" Width="75" CornerRadius="30" Background="ForestGreen" Click="StartButton_Click" Foreground="White"  FontWeight="Bold" ToolTipService.ToolTip="Tekan untuk mengkonfirmasi atau membatalkan eksekusi jadwal upload data yg telah di konfigurasi."/>
-                        <Button x:Name="ConfigButton" Content="Config" Height="55" Width="75" CornerRadius="30" Background="Blue" Foreground="Gold" BorderBrush="AntiqueWhite" BorderThickness="2" FontWeight="Bold" Click="ConfigButton_Click" ToolTipService.ToolTip="Tekan untuk melakuan konfigurasi jadwal pengiriman data otomatis." />
+                        <Button x:Name="StartButton" Margin="0,0,5,0" Content="Start" Height="55" Width="75" CornerRadius="30" Background="#44AB96" Click="StartButton_Click" Foreground="White"  FontWeight="Bold" ToolTipService.ToolTip="Tekan untuk mengkonfirmasi atau membatalkan eksekusi jadwal upload data yg telah di konfigurasi."/>
+                        <Button x:Name="ConfigButton" Content="Config" Height="55" Width="75" CornerRadius="30" Background="Blue" Foreground="White" BorderBrush="AntiqueWhite" BorderThickness="2" FontWeight="Bold" Click="ConfigButton_Click" ToolTipService.ToolTip="Tekan untuk melakuan konfigurasi jadwal pengiriman data otomatis." />
                     </StackPanel>
                     <StackPanel  VerticalAlignment="Bottom" Grid.Row="4" Margin="0,0,10,10">
                         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" BorderBrush="Gray" />

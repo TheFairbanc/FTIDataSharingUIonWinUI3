@@ -1,6 +1,9 @@
-﻿using FTIDataSharingUI.ViewModels;
+﻿using FTIDataSharingUI.Contracts.Services;
+using FTIDataSharingUI.Models;
+using FTIDataSharingUI.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 
@@ -8,6 +11,8 @@ namespace FTIDataSharingUI.Views;
 
 public sealed partial class ManualProcessPage : Page
 {
+    private MyParameterType _ParameterType = new();
+
     public ManualProcessViewModel ViewModel
     {
         get;
@@ -17,6 +22,17 @@ public sealed partial class ManualProcessPage : Page
     {
         ViewModel = App.GetService<ManualProcessViewModel>();
         InitializeComponent();
+    }
+
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        if (e.Parameter is MyParameterType parameter)
+        {
+            // Use the parameter
+            _ParameterType = parameter;
+            //TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
+        }
     }
 
     private const int MaxFiles = 3;
@@ -66,6 +82,12 @@ public sealed partial class ManualProcessPage : Page
             Margin = new Thickness(5)
         };
         IconsPanel.Children.Add(icon);
+    }
+
+    private void btnBack_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var navigationService = App.GetService<INavigationService>();
+        navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, _ParameterType, true);
     }
 }
 

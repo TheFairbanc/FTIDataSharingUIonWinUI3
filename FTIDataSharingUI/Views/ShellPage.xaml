@@ -22,12 +22,12 @@
             <Image Source="/Assets/WindowIcon.ico"
                    HorizontalAlignment="Left"
                    Width="16"
-                   Height="16" Margin="-35,0,0,0"/>
+                   Height="16" Margin="-35,0,0,15"/>
             <TextBlock x:Name="AppTitleBarText"
                        VerticalAlignment="Center"
                        TextWrapping="NoWrap"
                        Style="{StaticResource CaptionTextBlockStyle}"
-                       Margin="0,0,0,0"/>
+                       Margin="-12,0,0,15"/>
         </Grid>
         <NavigationView
             x:Name="NavigationViewControl"
