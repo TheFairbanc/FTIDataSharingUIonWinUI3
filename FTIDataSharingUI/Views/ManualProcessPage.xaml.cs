@@ -1,15 +1,24 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
+using System.Xml.Linq;
 using FTIDataSharingUI.Contracts.Services;
+using FTIDataSharingUI.Helpers;
 using FTIDataSharingUI.Models;
 using FTIDataSharingUI.Services;
 using FTIDataSharingUI.ViewModels;
 using Microsoft.UI;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using Windows.ApplicationModel.Appointments.AppointmentsProvider;
+using OfficeOpenXml.Style;
+using Serilog;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Networking;
+using Windows.Services.Store;
 using Windows.Storage;
 using WinUIEx;
 
@@ -17,14 +26,20 @@ namespace FTIDataSharingUI.Views;
 
 public sealed partial class ManualProcessPage : Page
 {
-    private MyParameterType _ParameterType = new();
-
     private ObservableCollection<string> cbitem = new ObservableCollection<string>();
-
+    private MyParameterType _ParameterType = new();
     //private const int MaxFiles = 1;
     private List<StorageFile> droppedFilesSales = new List<StorageFile>();
     private List<StorageFile> droppedFilesAR = new List<StorageFile>();
     private List<StorageFile> droppedFilesOutlet = new List<StorageFile>();
+    private static int indexOfComboBoxDataPeriod = -1;
+
+    private const string DEFAULT_FOLDER = @"C:\ProgramData\FairbancData";
+    private string AppWorkingFolder = DEFAULT_FOLDER;
+
+    private readonly ILogger _logger;
+
+    private UploadProcess? _uploadProcess;
 
     public ManualProcessViewModel ViewModel
     {
@@ -35,6 +50,8 @@ public sealed partial class ManualProcessPage : Page
     {
         ViewModel = App.GetService<ManualProcessViewModel>();
         InitializeComponent();
+        _logger = Log.Logger;
+
         cbitem.Add(DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"));
         cbitem.Add(DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"));
         cbitem.Add(DateTime.Now.AddMonths(-3).ToString("MMMM yyyy"));
@@ -44,8 +61,9 @@ public sealed partial class ManualProcessPage : Page
             if (PresistentFiles.droppedFilesSales.Count > 0)
             {
                 droppedFilesSales = PresistentFiles.droppedFilesSales;
-                this.UpdateMessageTextBlock(Drop01,droppedFilesSales.First().Name);
-            } else { btnPreview01.Visibility = Visibility.Collapsed; }
+                this.UpdateMessageTextBlock(Drop01, droppedFilesSales.First().Name);
+            }
+            else { btnPreview01.Visibility = Visibility.Collapsed; }
             if (PresistentFiles.droppedFilesAR.Count > 0)
             {
                 droppedFilesAR = PresistentFiles.droppedFilesAR;
@@ -58,15 +76,20 @@ public sealed partial class ManualProcessPage : Page
                 this.UpdateMessageTextBlock(Drop03, droppedFilesOutlet.First().Name);
             }
             else { btnPreview03.Visibility = Visibility.Collapsed; }
+
         }
+
+        if (indexOfComboBoxDataPeriod >= 0) { DataPeriod.SelectedIndex = indexOfComboBoxDataPeriod; }
+
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
+    protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+
+        // Use the parameter
         if (e.Parameter is MyParameterType parameter)
         {
-            // Use the parameter
             _ParameterType = parameter;
             TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
         }
@@ -167,7 +190,7 @@ public sealed partial class ManualProcessPage : Page
             }
             if (!message.StartsWith("Only"))
             {
-                AddFileIcon(sender); 
+                AddFileIcon(sender);
             }
         }
     }
@@ -216,7 +239,7 @@ public sealed partial class ManualProcessPage : Page
             IconsPanel02.Children.Clear();
             IconsPanel02.Children.Add(icon);
             btnRemove02.Visibility = Visibility.Visible;
-            btnPreview02.Visibility = Visibility.Visible;   
+            btnPreview02.Visibility = Visibility.Visible;
         }
         if (senderGrid.Name == "Drop03")
         {
@@ -229,6 +252,12 @@ public sealed partial class ManualProcessPage : Page
 
     private void btnBack_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        //Clear droppedFiles static class
+        droppedFilesSales.Clear();
+        droppedFilesAR.Clear();
+        droppedFilesOutlet.Clear();
+        indexOfComboBoxDataPeriod = -1;
+
         var navigationService = App.GetService<INavigationService>();
         navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, _ParameterType, true);
     }
@@ -271,16 +300,181 @@ public sealed partial class ManualProcessPage : Page
         var senderButton = sender as Button;
         if (senderButton.Name == "btnPreview01")
         {
-            navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesSales, true);
+            if (CheckDropFileInFolder(droppedFilesSales))  navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesSales, true);
         }
         if (senderButton.Name == "btnPreview02")
         {
-            navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesAR, true);
+            if (CheckDropFileInFolder(droppedFilesAR))  navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesAR, true); 
         }
         if (senderButton.Name == "btnPreview03")
         {
-            navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesOutlet, true);
+            if (CheckDropFileInFolder(droppedFilesOutlet)) navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesOutlet, true);
         }
     }
-}
 
+    private bool CheckDropFileInFolder(List<StorageFile> DroppedFiles)
+    {
+        if (DroppedFiles.Count > 0)
+        {
+            bool fileExists = (File.Exists(DroppedFiles.First().Path));
+
+            return fileExists ? true : false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private async void btnProcess_Click(object sender, RoutedEventArgs e)
+    {
+        //if (DataPeriod.SelectedIndex < 0 || droppedFilesSales.Count == 0)
+        //{
+        //    return;
+        //}
+
+
+        var progressBar = new ProgressBar
+        {
+            IsIndeterminate = true,
+            //Height = 10,
+            //Margin = new Thickness(10), 
+            VerticalAlignment = VerticalAlignment.Center,
+            //Width = 140
+
+        };
+
+        var progressBarBorder = new Microsoft.UI.Xaml.Controls.Border
+        {
+            BorderBrush = new SolidColorBrush(Colors.Blue),
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(5),
+            Background = new SolidColorBrush(Colors.GhostWhite),
+            Child = progressBar
+        };
+
+        var waitingTextBlock = new TextBlock
+        {
+            Text = "Mohon menunggu...",
+            FontSize = 20,
+            FontWeight = FontWeights.Bold,
+            Foreground = new SolidColorBrush(Colors.DodgerBlue), // Set the desired text color
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        OverlayGrid.Children.Add(waitingTextBlock);
+        //OverlayGrid.Children.Add(progressBarBorder);
+
+        OverlayGrid.BorderBrush = new SolidColorBrush(Colors.DodgerBlue);
+        OverlayGrid.BorderThickness = new Thickness(1);
+        OverlayGrid.CornerRadius = new CornerRadius(0);
+        OverlayGrid.Background = new SolidColorBrush(Colors.GhostWhite);
+
+        OverlayGrid.Visibility = Visibility.Visible;
+
+        var timer = new DispatcherTimer();
+        timer.Interval = TimeSpan.FromSeconds(7);
+
+        timer.Start();
+        timer.Tick += (s, args) =>
+        {
+            ContentArea.Children.Remove(progressBar); 
+            OverlayGrid.Visibility = Visibility.Collapsed;
+            timer.Stop();
+        };
+
+    }
+
+
+    public string DataFolder
+    {
+        get; private set;
+    } = "";
+
+    private async Task<bool> PerformTask()
+    {
+
+        try
+        {
+            // Its default location for App Summission is Path.Combine(@"C:\ProgramData\FairbancData", "Datasharing-result")
+            AppWorkingFolder = AppWorkingFolder + @"\Datasharing-result";
+
+
+            string SalesFile = "", RepaymentFile = "", OutletFile = "";
+            string SalesFileABS = "", RepaymentFileABS = "", OutletFileABS = "";
+            if (droppedFilesSales.Count == 0) { return false; }
+            CheckandRefreshFolder(AppWorkingFolder);
+            SalesFileABS = droppedFilesSales.First().Path;
+            //SalesFile = droppedFilesSales.First().Name;
+            //File.Copy(SalesFileABS, DataFolder + Path.DirectorySeparatorChar + SalesFile, true);
+            if (droppedFilesAR.Count > 0)
+            {
+                RepaymentFileABS = droppedFilesAR.First().Path;
+                //RepaymentFile = droppedFilesAR.First().Name;
+                //File.Copy(RepaymentFileABS, DataFolder + Path.DirectorySeparatorChar + RepaymentFile, true);
+            }
+            if (droppedFilesAR.Count > 0)
+            {
+                OutletFileABS = droppedFilesOutlet.First().Path;
+                //OutletFile = droppedFilesOutlet.First().Name;
+                //File.Copy(OutletFileABS, DataFolder + Path.DirectorySeparatorChar + OutletFile, true);
+            }
+
+            _uploadProcess = new UploadProcess("N", "Y", SalesFileABS, RepaymentFileABS, OutletFileABS, "",
+                _ParameterType.Property1, _ParameterType.Property2, AppWorkingFolder , _logger);
+
+            _logger.Information(">> At {time} performing data upload by executing Data Sharing app at the specified time.", DateTimeOffset.Now);
+            //_logger.LogInformation($">>>> [RESULT] File info value in sequence are {Date1} ,{Date2} ,{Date3} ,{Time} ,{Sales}, {Repayment}, {Outlet}, {DataFolder} {DTid} and {DistName} ...");
+
+            if (_uploadProcess != null)
+            {
+                await _uploadProcess.ExecuteAsync();
+                _logger.Information(">>>> [OUTPUT] UploadProcess execution completed.");
+                return true;
+            }
+            else
+            {
+                _logger.Information("UploadProcess is not initialized. Cannot perform task.");
+                return false;
+            }
+
+            //TODO: Done = > need to check result of logging after performing manual upload
+
+        }
+        catch (Exception ex)
+        {
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Info Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Gagal melakukan pengkinian data pada {DateTimeOffset.Now}."
+            };
+            await errorDialog.ShowAsync();
+            return false;
+        }
+    }
+
+    private void CheckandRefreshFolder(string location)
+    {
+        try
+        {
+            if (Directory.Exists(location))
+            {
+                return;
+            }
+            Directory.CreateDirectory(location);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    private void DataPeriod_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        indexOfComboBoxDataPeriod = DataPeriod.SelectedIndex;
+    }
+}

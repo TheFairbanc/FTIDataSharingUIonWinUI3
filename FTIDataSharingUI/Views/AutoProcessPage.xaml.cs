@@ -224,8 +224,8 @@ public sealed partial class AutoProcessPage : Page
     {
         try
         {
-            var ConfogFolder = @"C:\ProgramData\FairbancData";
-            var filePath = Path.Combine(ConfogFolder, "DateTimeInfo.ini");
+            var ConfigFolder = @"C:\ProgramData\FairbancData";
+            var filePath = Path.Combine(ConfigFolder, "DateTimeInfo.ini");
 
             if (File.Exists(filePath))
             {

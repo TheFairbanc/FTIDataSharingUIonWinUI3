@@ -9,6 +9,10 @@ namespace FTIDataSharingUI.Views;
 
 public sealed partial class LandingPage : Page
 {
+    private enum IniFileMode
+    {
+        AutomaticUpload,ManualUpload
+    }
     public LandingViewModel ViewModel
     {
         get;
@@ -26,7 +30,7 @@ public sealed partial class LandingPage : Page
     {
         base.OnNavigatedTo(e);
 
-        if (await CheckInitialFileExist())
+        if (await CheckInitialFileExist( IniFileMode.AutomaticUpload) || await CheckInitialFileExist(IniFileMode.ManualUpload))
         {
             var navigationService = App.GetService<INavigationService>();
             navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, _ParameterType, false);
@@ -49,12 +53,14 @@ public sealed partial class LandingPage : Page
         navigationService.NavigateTo(typeof(LoginViewModel).FullName!, null, true);
     }
 
-    private async Task<bool> CheckInitialFileExist()
+    private async Task<bool> CheckInitialFileExist(IniFileMode param)
     {
         try
         {
             var configFolder = @"C:\ProgramData\FairbancData";
-            var filePath = Path.Combine(configFolder, "DateTimeInfo.ini");
+            var filePath = "";
+            filePath = param == IniFileMode.AutomaticUpload ? Path.Combine(configFolder, "DateTimeInfo.ini") : Path.Combine(configFolder, "ManualUploadInfo.ini");
+
 
             if (File.Exists(filePath))
             {
@@ -73,7 +79,14 @@ public sealed partial class LandingPage : Page
                         }
                     }
                 }
-                return true;
+                if (_ParameterType.Property1 == null || _ParameterType.Property2 == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {

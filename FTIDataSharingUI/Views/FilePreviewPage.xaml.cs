@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using Windows.Storage;
 using FTIDataSharingUI.Contracts.Services;
+using System.IO;
 
 namespace FTIDataSharingUI.Views
 {
@@ -24,7 +25,7 @@ namespace FTIDataSharingUI.Views
             get;
         }
 
-        private MyParameterType _ParameterType = new MyParameterType();
+        private MyParameterType _ParameterType = new();
 
         public FilePreviewPage()
         {
@@ -39,6 +40,7 @@ namespace FTIDataSharingUI.Views
             // Retrieve the passed data (e.Parameter) and cast it to the correct type
             if (e.Parameter is List<StorageFile> files)
             {
+
                 // Store the dropped files in your property
                 DroppedFiles = files;
 
@@ -47,7 +49,7 @@ namespace FTIDataSharingUI.Views
             }
         }
 
-        private void LoadExcelData(LicenseContext licenseContext)
+        private async void LoadExcelData(LicenseContext licenseContext)
         {
             try
             {
@@ -81,12 +83,12 @@ namespace FTIDataSharingUI.Views
                 ContentDialog errorDialog = new ContentDialog
                 {
                     XamlRoot = this.XamlRoot,
-                    Title = "Info",
+                    Title = "Info Kesalahan",
                     CloseButtonText = "OK",
                     DefaultButton = ContentDialogButton.Close,
-                    Content = $"Error - Gagal membaca file excel di folder {DroppedFiles[0].Path}."
+                    Content = $"Gagal membaca file excel di folder {DroppedFiles[0].Path}."
                 };
-                errorDialog.ShowAsync();
+                await errorDialog.ShowAsync();
             }
         }
 
@@ -94,15 +96,15 @@ namespace FTIDataSharingUI.Views
         {
             var navigationService = App.GetService<INavigationService>();
             checkDTName();
-            navigationService.NavigateTo(typeof(ManualProcessViewModel).FullName!, _ParameterType , true);
+            navigationService.NavigateTo(typeof(ManualProcessViewModel).FullName!, _ParameterType, false);
         }
 
-        private  bool checkDTName()
+        private bool checkDTName()
         {
             try
             {
                 var configFolder = @"C:\ProgramData\FairbancData";
-                var filePath = Path.Combine(configFolder, "DateTimeInfo.ini");
+                var filePath = Path.Combine(configFolder, "ManualUploadInfo.ini");
                 if (File.Exists(filePath))
                 {
                     using (StreamReader reader = new StreamReader(filePath))
@@ -132,6 +134,7 @@ namespace FTIDataSharingUI.Views
                 return false;
             }
         }
+
     }
 
 

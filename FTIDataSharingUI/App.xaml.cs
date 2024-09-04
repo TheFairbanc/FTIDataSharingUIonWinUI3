@@ -6,10 +6,14 @@ using FTIDataSharingUI.Helpers;
 using FTIDataSharingUI.Services;
 using FTIDataSharingUI.ViewModels;
 using FTIDataSharingUI.Views;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
+using OfficeOpenXml.FormulaParsing.Logging;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FTIDataSharingUI;
 
@@ -53,7 +57,7 @@ public partial class App : Application
             // Default Activation Handler
             services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
 
-            // Other Activation Handlers
+
 
             // Services
             services.AddTransient<INavigationViewService, NavigationViewService>();
@@ -89,6 +93,12 @@ public partial class App : Application
             services.AddTransient<FilePreviewViewModel>();
             services.AddTransient<FilePreviewPage>();
 
+            // Create your custom LogBroker
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Debug(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
+            .CreateLogger();
+
             // Configuration
         }).
         Build();
@@ -98,14 +108,30 @@ public partial class App : Application
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-        // TODO: Log and handle exceptions as appropriate.
+        // TODO: Done => Log and handle exceptions as appropriate.
         // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
+        if (sender is Page _page)
+        {
+            ;
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = _page.XamlRoot,
+                Title = "Info Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Gagal melakukan pengkinian data pada {DateTimeOffset.Now}."
+            };
+            errorDialog.ShowAsync();
+        }
+
     }
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
+        
 
         await App.GetService<IActivationService>().ActivateAsync(args);
+        // Initialize logging
     }
 }
