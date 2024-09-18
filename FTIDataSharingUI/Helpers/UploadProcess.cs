@@ -216,19 +216,15 @@ public class UploadProcess
 
     private static void DeleteAllFilesAndSubdirectories(string folderPath)
     {
-        // Create a DirectoryInfo object
         DirectoryInfo directory = new DirectoryInfo(folderPath);
 
-        // Check if the directory exists
         if (directory.Exists)
         {
-            // Delete all files in the directory
             foreach (FileInfo file in directory.GetFiles())
             {
                 file.Delete();
             }
 
-            // Optionally, delete all subdirectories
             foreach (DirectoryInfo subDirectory in directory.GetDirectories())
             {
                 subDirectory.Delete(true); // true to delete subdirectories and files
@@ -291,6 +287,5 @@ public class UploadProcess
 
         strDsExpDir = Path.Combine(_strWorkingFolder, "FTI-sharing");
 
-        // Log the update
     }
 }
