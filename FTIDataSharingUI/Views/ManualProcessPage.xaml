@@ -32,7 +32,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*" />
                         <!-- Text One Overlay -->
-                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="Auto" />
                         <!-- Text Two Overlay -->
                     </Grid.RowDefinitions>
                     <TextBlock Name="TextBlock_UserGreetings"  Text="Hi, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
@@ -41,83 +41,90 @@
                     <!-- Text Two Overlay -->
                 </Grid>
             </Grid>
-            <StackPanel Margin="0" Padding="20" Grid.Row="1" >
-                <TextBlock Text="Manual Data Submission to Fairbanc" FontSize="16" FontWeight="Bold"/>
-                <TextBlock Text="Silahkan atur bulan dan tahun untuk pengiriman data file secara manual." Margin="0,10,0,20"/>
-                <Grid Margin="0,10,0,0 ">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="0" />
-                        <RowDefinition Height="75" />
-                        <RowDefinition Height="75" />
-                        <RowDefinition Height="75" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="155" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Periode Data * :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
-                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" >
-                        <ComboBox Name="DataPeriod" Width="420" BorderBrush="DarkGray" Background="GhostWhite"  BorderThickness="1" Height="30" ItemsSource="{x:Bind cbitem}" SelectionChanged="DataPeriod_SelectionChanged" />
+            <Grid x:Name="SplitColHeader02" Grid.Row="1"  Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="/Assets/Navigation_Pic2.png" Grid.Column="0" Stretch="Fill" />
+                <StackPanel Margin="20,20,0,0" Grid.Column="1"  >
+                    <TextBlock Text="Manual Data Submission to Fairbanc" FontSize="16" FontWeight="Bold"/>
+                    <TextBlock Text="Silahkan atur bulan dan tahun untuk pengiriman data file secara manual." Margin="0,10,0,20"/>
+                    <Grid Margin="0,10,0,0 ">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="0" />
+                            <RowDefinition Height="75" />
+                            <RowDefinition Height="75" />
+                            <RowDefinition Height="75" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Periode Data * :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" >
+                            <ComboBox Name="DataPeriod" Width="300" BorderBrush="DarkGray" Background="GhostWhite"  BorderThickness="1" Height="30" ItemsSource="{x:Bind cbitem}" SelectionChanged="DataPeriod_SelectionChanged" />
+                        </StackPanel>
+
+                        <TextBlock Text="do not delete this textbock"  Grid.Row="1" Grid.Column="0" />
+                        <TextBlock Text="do not delete this textbock" Grid.Row="1" Grid.Column="1" />
+
+                        <TextBlock Text="Data Penjualan * : "  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                        <Grid x:Name="Drop01" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropSales" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <StackPanel x:Name="IconsPanel01" Orientation="Vertical" />
+                                <TextBlock x:Name="MessageTextBlock01" Text="Drag dan drop file Invoice Penjualan (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
+                                <Button x:Name="btnRemove01"  Content="&#xE711;" FontFamily="Segoe MDL2 Assets" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" />
+                            </StackPanel>
+                        </Grid>
+                        <Button x:Name="btnPreview01" Grid.Row="2" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE7B3;" FontFamily="Segoe Fluent Icons" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
+                                <TextBlock Text="Lihat" />
+                            </StackPanel>
+                        </Button>
+
+                        <TextBlock Text="Data Pembayaran : "  Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                        <Grid x:Name="Drop02" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropAR" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"  Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <StackPanel x:Name="IconsPanel02" Orientation="Vertical"/>
+                                <TextBlock x:Name="MessageTextBlock02" Text="Drag dan drop file Pembayaran Invoice (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
+                                <Button x:Name="btnRemove02"  Content="&#xE711;"  FontFamily="Segoe MDL2 Assets" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke"/>
+                            </StackPanel>
+                        </Grid>
+                        <Button x:Name="btnPreview02"  Grid.Row="3" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE7B3;" FontFamily="Segoe Fluent Icons" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
+                                <TextBlock Text="Lihat" />
+                            </StackPanel>
+                        </Button>
+
+
+                        <TextBlock Text="Data Customer : "  Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+                        <Grid x:Name="Drop03" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropOutlet" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel x:Name="IconsPanel03" Orientation="Vertical" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="MessageTextBlock03" Text="Drag dan drop file data Customer (Excel) di sini !" Foreground="DodgerBlue" Margin="0"  VerticalAlignment="Center"/>
+                                <Button x:Name="btnRemove03"  Content="&#xE711;" FontFamily="Segoe MDL2 Assets" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" BorderThickness="0"/>
+                            </StackPanel>
+                        </Grid>
+                        <Button x:Name="btnPreview03" Grid.Row="4" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE7B3;" FontFamily="Segoe Fluent Icons" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
+                                <TextBlock Text="Lihat" />
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+                    <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="1500" Y2="15" StrokeThickness="3"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,10,0">
+                        <Button Content="Process" x:Name="btnProcess" Click="btnProcess_Click" Margin="0,0,10,0"/>
+                        <Button Content="Close" Width="75" x:Name="bntClose" Click="btnBack_Click"/>
                     </StackPanel>
-
-                    <TextBlock Text="do not delete this textbock"  Grid.Row="1" Grid.Column="0" />
-                    <TextBlock Text="do not delete this textbock" Grid.Row="1" Grid.Column="1" />
-
-                    <TextBlock Text="Data Penjualan * : "  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Grid x:Name="Drop01" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropSales" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <StackPanel x:Name="IconsPanel01" Orientation="Vertical" />
-                            <TextBlock x:Name="MessageTextBlock01" Text="Drag dan drop file Invoice Penjualan (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
-                            <Button x:Name="btnRemove01"  Content="&#xE711;" FontFamily="Segoe MDL2 Assets" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" />
-                        </StackPanel>
-                    </Grid>
-                    <Button x:Name="btnPreview01" Grid.Row="2" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE7B3;" FontFamily="Segoe Fluent Icons" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                            <TextBlock Text="Lihat" />
-                        </StackPanel>
-                    </Button>
-
-                    <TextBlock Text="Data Pembayaran : "  Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
-                    <Grid x:Name="Drop02" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropAR" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"  Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <StackPanel x:Name="IconsPanel02" Orientation="Vertical"/>
-                            <TextBlock x:Name="MessageTextBlock02" Text="Drag dan drop file Pembayaran Invoice (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
-                            <Button x:Name="btnRemove02"  Content="&#xE711;"  FontFamily="Segoe MDL2 Assets" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke"/>
-                        </StackPanel>
-                    </Grid>
-                    <Button x:Name="btnPreview02"  Grid.Row="3" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE7B3;" FontFamily="Segoe Fluent Icons" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                            <TextBlock Text="Lihat" />
-                        </StackPanel>
-                    </Button>
-
-
-                    <TextBlock Text="Data Customer : "  Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Grid x:Name="Drop03" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropOutlet" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <StackPanel x:Name="IconsPanel03" Orientation="Vertical" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="MessageTextBlock03" Text="Drag dan drop file data Customer (Excel) di sini !" Foreground="DodgerBlue" Margin="0"  VerticalAlignment="Center"/>
-                            <Button x:Name="btnRemove03"  Content="&#xE711;" FontFamily="Segoe MDL2 Assets" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" BorderThickness="0"/>
-                        </StackPanel>
-                    </Grid>
-                    <Button x:Name="btnPreview03" Grid.Row="4" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE7B3;" FontFamily="Segoe Fluent Icons" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                            <TextBlock Text="Lihat" />
-                        </StackPanel>
-                    </Button>
-
-                </Grid>
-                <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="1500" Y2="15" StrokeThickness="3"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-                    <Button Content="Process" x:Name="btnProcess" Click="btnProcess_Click" Margin="0,0,10,0"/>
-                    <Button Content="Close" x:Name="bntClose" Click="btnBack_Click"/>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
 
         </Grid>
 

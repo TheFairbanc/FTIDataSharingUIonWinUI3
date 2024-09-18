@@ -328,10 +328,10 @@ public sealed partial class ManualProcessPage : Page
 
     private async void btnProcess_Click(object sender, RoutedEventArgs e)
     {
-        //if (DataPeriod.SelectedIndex < 0 || droppedFilesSales.Count == 0)
-        //{
-        //    return;
-        //}
+        if (DataPeriod.SelectedIndex < 0 || droppedFilesSales.Count == 0)
+        {
+            return;
+        }
 
 
         var progressBar = new ProgressBar

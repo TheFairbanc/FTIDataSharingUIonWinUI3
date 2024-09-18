@@ -77,6 +77,9 @@
 		<Content Update="Assets\Navigation_Pic.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Update="Assets\Navigation_Pic2.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Update="Assets\StoreLogo.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
