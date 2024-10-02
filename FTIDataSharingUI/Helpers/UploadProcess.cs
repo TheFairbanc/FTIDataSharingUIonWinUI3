@@ -8,7 +8,7 @@ using Microsoft.UI.Xaml.Controls;
 using Serilog;
 
 namespace FTIDataSharingUI.Helpers;
-public class UploadProcess
+public class UploadProcessz
 {
     private readonly ILogger _logger;
 
@@ -233,7 +233,7 @@ public class UploadProcess
         }
     }
 
-    public UploadProcess(string _strSandboxBoolean, string _strSecureHTTP, string _strSalesPattern, string _strPayPattern, 
+    public UploadProcessz(string _strSandboxBoolean, string _strSecureHTTP, string _strSalesPattern, string _strPayPattern, 
         string _strOutletPattern, string _strDataFolder, string _strDistID, string _strDistName, string _strWorkingFolder, 
         ILogger logger)
     {

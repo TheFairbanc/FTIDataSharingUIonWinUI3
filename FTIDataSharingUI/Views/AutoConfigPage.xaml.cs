@@ -22,8 +22,9 @@ public sealed partial class AutoConfigPage : Page
         ViewModel = App.GetService<AutoConfigViewModel>();
         InitializeComponent();
         JamMenit_Picker.Time = DateTime.Now.TimeOfDay;
-        ReadDateTimeFromFileAsync();
+        _ = ReadDateTimeFromFileAsync();
     }
+
 
     private MyParameterType _ParameterType;
 

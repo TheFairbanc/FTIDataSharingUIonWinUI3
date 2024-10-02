@@ -63,7 +63,7 @@ public sealed partial class HelpScreenPage : Page
                                 Date = dateTimeParts[0],
                                 Process = messagePart.Contains("WARNING") ? messagePart : messagePart,
                                 Warning = messagePart.Contains("WARNING") ? "\uE7BA" : "\uE73E",
-                                Color = messagePart.Contains("WARNING") ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.ForestGreen)
+                                //Color = messagePart.Contains("WARNING") ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.ForestGreen)
                             });
                         }
                     }

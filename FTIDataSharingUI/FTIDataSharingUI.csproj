@@ -15,8 +15,12 @@
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<WindowsPackageType>None</WindowsPackageType>
 		<PlatformTarget>x64</PlatformTarget>
+		<SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
 		
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Helpers\UploadProcess.cs" />
+	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Views\FilePreviewPage.xaml" />
 	</ItemGroup>
@@ -96,5 +100,17 @@
 
 	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
 		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm64'">
+	  <Optimize>False</Optimize>
 	</PropertyGroup>
 </Project>

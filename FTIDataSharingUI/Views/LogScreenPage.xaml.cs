@@ -7,6 +7,9 @@ using Windows.Storage;
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Extensions.Logging;
+using Serilog.Core;
+using WinUIEx.Messaging;
 
 namespace FTIDataSharingUI.Views;
 
@@ -34,8 +37,8 @@ public sealed partial class LogScreenPage : Page
             _ParameterType = parameter;
             TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
         }
-    }
 
+    }
 
     public ObservableCollection<LogEntry> LogData { get; } = new ObservableCollection<LogEntry>();
 
@@ -43,6 +46,7 @@ public sealed partial class LogScreenPage : Page
     {
         try
         {
+
             var downloadsFolder = await StorageFolder.GetFolderFromPathAsync("C:\\");
 
             // Get the Data Sharing working folder
@@ -54,45 +58,59 @@ public sealed partial class LogScreenPage : Page
             // Get all files in the Downloads folder
             var files = await downloadsFolder.GetFilesAsync();
 
-            // Find the file that matches the pattern DEBUG-???.log
-            var logFile = files.FirstOrDefault(file => file.Name.StartsWith("DEBUG-") && file.Name.EndsWith(".log"));
+            StorageFile latestLogFile = null;
+            DateTime latestCreationTime = DateTime.MinValue;
 
-            if (logFile != null)
+            foreach (var file in files)
             {
-                // Read log data from Debug.Log (adjust the path as needed)
-                string logContent = await FileIO.ReadTextAsync(logFile);
+                if (file.FileType == ".log" && file.DateCreated > latestCreationTime.ToLocalTime())
+                {
+                    latestLogFile = file;
+                }
+            }
+
+            if (latestLogFile != null)
+            {
+                // Read log data from Log file
+                string logContent = await FileIO.ReadTextAsync(latestLogFile);
 
                 // Split log content into individual entries
                 var logEntries = logContent.Split(new[] { "Log Entry :" }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var entry in logEntries.Reverse())
+                try
                 {
-                    var lines = entry.Split(new[] { '-' }, 2);
-                    if (lines.Length >= 2)
+                    foreach (var entry in logEntries.Reverse())
                     {
-                        var dateTimePart = lines[0].Trim();
-                        var messagePart = lines[1].Trim();
-
-                        var dateTimeParts = dateTimePart.Split(new[] { ' ' }, 2);
-                        if (dateTimeParts.Length == 2)
+                        var lines = entry.Split(new[] { '-' }, 2);
+                        if (lines.Length >= 2)
                         {
-                            LogData.Add(new LogEntry
+                            var dateTimePart = lines[0].Trim();
+                            var messagePart = lines[1].Trim();
+
+                            var dateTimeParts = dateTimePart.Split(new[] { ' ' }, 2);
+                            if (dateTimeParts.Length == 2)
                             {
-                                Time = DateTime.Parse(dateTimeParts[1]).ToString("dd-MMM-yyyy"),
-                                Date = dateTimeParts[0],
-                                Process = messagePart.Contains("WARNING") ? messagePart.Substring(1) : messagePart.Substring(1),
-                                Warning = messagePart.Contains("WARNING") ? "\uE7BA" : "\uE73E",
-                                Color = messagePart.Contains("WARNING") ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.ForestGreen)
-                            });
+                                LogData.Add(new LogEntry
+                                {
+                                    Time = DateTime.Parse(dateTimeParts[1]).ToString("dd-MMM-yyyy"),
+                                    Date = dateTimeParts[0],
+                                    Process = messagePart.Contains("WARNING") ? messagePart.Substring(1) : messagePart.Substring(1),
+                                    Warning = messagePart.Contains("WARNING") ? "\uE7BA" : "\uE73E",
+                                    Color = messagePart.Contains("WARNING") ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.ForestGreen)
+                                });
+                            }
                         }
                     }
-                }
+                    logDataGrid.ItemsSource = LogData;
 
-                logDataGrid.ItemsSource = LogData;
+                }
+                catch (Exception ex)
+                {
+
+                    LogException(ex);
+                }
             }
             else
             {
-                // Handle the case where the log file is not found
                 ContentDialog noLogFileDialog = new ContentDialog
                 {
                     XamlRoot = this.XamlRoot,
@@ -106,7 +124,6 @@ public sealed partial class LogScreenPage : Page
         }
         catch (Exception ex)
         {
-            // Handle exceptions
             ContentDialog errorDialog = new ContentDialog
             {
                 XamlRoot = this.XamlRoot,
@@ -114,8 +131,9 @@ public sealed partial class LogScreenPage : Page
                 Content = $"An error occurred while loading log data: {ex.Message}",
                 CloseButtonText = "Ok"
             };
-
             await errorDialog.ShowAsync();
+
+            LogException(ex);
         }
     }
 
@@ -123,5 +141,21 @@ public sealed partial class LogScreenPage : Page
     {
         var navigationService = App.GetService<INavigationService>();
         navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, _ParameterType, true);
+    }
+
+
+    // Create a function to log exceptions
+    string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs", "error.log");
+
+    void LogException(Exception ex)
+    {
+        try
+        {
+            File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n{ex.StackTrace}\n\n");
+        }
+        catch (Exception logEx)
+        {
+            Console.WriteLine($"Error while logging exception: {logEx.Message}");
+        }
     }
 }

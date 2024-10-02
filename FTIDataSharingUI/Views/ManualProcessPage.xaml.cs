@@ -39,7 +39,7 @@ public sealed partial class ManualProcessPage : Page
 
     private readonly ILogger _logger;
 
-    private UploadProcess? _uploadProcess;
+    private UploadProcessAsync? _uploadProcess;
 
     public ManualProcessViewModel ViewModel
     {
@@ -421,7 +421,7 @@ public sealed partial class ManualProcessPage : Page
                 //File.Copy(OutletFileABS, DataFolder + Path.DirectorySeparatorChar + OutletFile, true);
             }
 
-            _uploadProcess = new UploadProcess("N", "Y", SalesFileABS, RepaymentFileABS, OutletFileABS, "",
+            _uploadProcess = new UploadProcessAsync("N", "Y", SalesFileABS, RepaymentFileABS, OutletFileABS, "",
                 _ParameterType.Property1, _ParameterType.Property2, AppWorkingFolder , _logger);
 
             _logger.Information(">> At {time} performing data upload by executing Data Sharing app at the specified time.", DateTimeOffset.Now);
