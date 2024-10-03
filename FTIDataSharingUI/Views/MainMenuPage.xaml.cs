@@ -1,5 +1,6 @@
 ﻿using FTIDataSharingUI.Contracts.Services;
 using FTIDataSharingUI.Models;
+using FTIDataSharingUI.Services;
 using FTIDataSharingUI.ViewModels;
 
 using Microsoft.UI.Xaml.Controls;
@@ -67,6 +68,8 @@ public sealed partial class MainMenuPage : Page
         {
             var navigationService = App.GetService<INavigationService>();
             navigationService.NavigateTo(typeof(LogScreenViewModel).FullName!, _ParameterType, true);
+            navigationService = null;
+
         }
         catch (Exception ex)
         {

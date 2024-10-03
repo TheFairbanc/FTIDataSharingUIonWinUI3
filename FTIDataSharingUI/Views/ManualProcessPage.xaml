@@ -120,8 +120,8 @@
                     </Grid>
                     <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="1500" Y2="15" StrokeThickness="3"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,10,0">
-                        <Button Content="Process" x:Name="btnProcess" Click="btnProcess_Click" Margin="0,0,10,0"/>
-                        <Button Content="Close" Width="75" x:Name="bntClose" Click="btnBack_Click"/>
+                        <Button Content="Proses" x:Name="btnProcess" Click="btnProcess_Click" Margin="0,0,10,0"/>
+                        <Button Content="Tutup" Width="75" x:Name="bntClose" Click="btnBack_Click"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

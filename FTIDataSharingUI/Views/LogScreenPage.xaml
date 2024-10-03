@@ -46,8 +46,8 @@
             <StackPanel Margin="20,20,20,0" Padding="0" Grid.Row="1" >
                 <controls:DataGrid x:Name="logDataGrid" Height="400" AutoGenerateColumns="False"  BorderBrush="SteelBlue" BorderThickness="1" FontSize="10" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible">
                     <controls:DataGrid.Columns>
-                        <controls:DataGridTextColumn Header="Tanggal" Binding="{Binding Time}" Width="Auto" FontSize="12"/>
-                        <controls:DataGridTextColumn Header="Waktu" Binding="{Binding Date}" Width="Auto"  FontSize="12"/>
+                        <controls:DataGridTextColumn Header="Tanggal" Binding="{Binding Date}" Width="Auto" FontSize="12"/>
+                        <controls:DataGridTextColumn Header="Waktu" Binding="{Binding Time}" Width="Auto"  FontSize="12"/>
                         <controls:DataGridTextColumn Header="Proses" Binding="{Binding Process}" Width="*" FontSize="11"/>
                         <controls:DataGridTemplateColumn Header="Status" Width="40">
                             <controls:DataGridTemplateColumn.CellTemplate>

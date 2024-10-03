@@ -10,6 +10,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Extensions.Logging;
 using Serilog.Core;
 using WinUIEx.Messaging;
+using System.Text.RegularExpressions;
 
 namespace FTIDataSharingUI.Views;
 
@@ -80,19 +81,28 @@ public sealed partial class LogScreenPage : Page
                 {
                     foreach (var entry in logEntries.Reverse())
                     {
+                        var pattern = @"[A-Za-z]+, ([A-Za-z]+ \d+, \d{4} \d+:\d+:\d+ [APap][Mm])";
+
+                        Match match = Regex.Match(entry, pattern);
+                        if (!match.Success)
+                        { break; }
+                        var dateTimeStr = match.Groups[1].Value;
+
                         var lines = entry.Split(new[] { '-' }, 2);
                         if (lines.Length >= 2)
                         {
-                            var dateTimePart = lines[0].Trim();
-                            var messagePart = lines[1].Trim();
 
-                            var dateTimeParts = dateTimePart.Split(new[] { ' ' }, 2);
-                            if (dateTimeParts.Length == 2)
+                            var messagePart = lines[1].Trim();
+                            string[] dateTimeParts = dateTimeStr.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                            string datePart = $"{dateTimeParts[0]} {dateTimeParts[1]}";
+
+                            if (dateTimeParts.Length >= 5)
                             {
                                 LogData.Add(new LogEntry
                                 {
-                                    Time = DateTime.Parse(dateTimeParts[1]).ToString("dd-MMM-yyyy"),
-                                    Date = dateTimeParts[0],
+                                    //Date = DateTime.Parse(dateTimeParts[0]).ToLongDateString(),
+                                    Date = $"{dateTimeParts[0]} {dateTimeParts[1]} {dateTimeParts[2]}",
+                                    Time = $"{dateTimeParts[3]} {dateTimeParts[4]}",
                                     Process = messagePart.Contains("WARNING") ? messagePart.Substring(1) : messagePart.Substring(1),
                                     Warning = messagePart.Contains("WARNING") ? "\uE7BA" : "\uE73E",
                                     Color = messagePart.Contains("WARNING") ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.ForestGreen)
@@ -101,7 +111,6 @@ public sealed partial class LogScreenPage : Page
                         }
                     }
                     logDataGrid.ItemsSource = LogData;
-
                 }
                 catch (Exception ex)
                 {
@@ -134,6 +143,9 @@ public sealed partial class LogScreenPage : Page
             await errorDialog.ShowAsync();
 
             LogException(ex);
+        }
+        finally {
+            //LogData.Clear();
         }
     }
 
