@@ -3,8 +3,8 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net7.0-windows10.0.18362.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-		<RootNamespace>FTIDataSharingUI</RootNamespace>
-		<ApplicationIcon>Assets/WindowIcon.ico</ApplicationIcon>
+		<RootNamespace>DataSubmission</RootNamespace>
+		<ApplicationIcon>Assets\WindowIcon.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<Platforms>x86;x64;arm64</Platforms>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
@@ -13,9 +13,21 @@
 		<Nullable>enable</Nullable>
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
-		<WindowsPackageType>None</WindowsPackageType>
+		<WindowsPackageType>MSIX</WindowsPackageType>
 		<PlatformTarget>x64</PlatformTarget>
 		<SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
+		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<PackageCertificateThumbprint>58E08780649D30DD2176ACFE0A9EAB555178F8CE</PackageCertificateThumbprint>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+		<AppxPackageDir>C:\Users\iputeh\Downloads\PublishAndDeploy\DataSubmissionApp\</AppxPackageDir>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<AppxBundle>Auto</AppxBundle>
+		<AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
+		<AssemblyName>FTI Data Submission App</AssemblyName>
+		<SignAssembly>False</SignAssembly>
 		
 	</PropertyGroup>
 	<ItemGroup>
@@ -83,9 +95,6 @@
 		</Content>
 		<Content Update="Assets\Navigation_Pic2.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Update="Assets\StoreLogo.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Update="Assets\WindowIcon.ico">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>

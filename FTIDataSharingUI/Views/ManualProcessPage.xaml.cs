@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
 using FTIDataSharingUI.Contracts.Services;
@@ -35,7 +36,6 @@ public sealed partial class ManualProcessPage : Page
     private static int indexOfComboBoxDataPeriod = -1;
 
     private const string DEFAULT_FOLDER = @"C:\ProgramData\FairbancData";
-    private string AppWorkingFolder = DEFAULT_FOLDER;
 
     private readonly ILogger _logger;
 
@@ -300,15 +300,15 @@ public sealed partial class ManualProcessPage : Page
         var senderButton = sender as Button;
         if (senderButton.Name == "btnPreview01")
         {
-            if (CheckDropFileInFolder(droppedFilesSales))  navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesSales, true);
+            if (CheckDropFileInFolder(droppedFilesSales))  navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesSales, false);
         }
         if (senderButton.Name == "btnPreview02")
         {
-            if (CheckDropFileInFolder(droppedFilesAR))  navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesAR, true); 
+            if (CheckDropFileInFolder(droppedFilesAR))  navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesAR, false); 
         }
         if (senderButton.Name == "btnPreview03")
         {
-            if (CheckDropFileInFolder(droppedFilesOutlet)) navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesOutlet, true);
+            if (CheckDropFileInFolder(droppedFilesOutlet)) navigationService.NavigateTo(typeof(FilePreviewViewModel).FullName!, droppedFilesOutlet, false);
         }
     }
 
@@ -326,7 +326,7 @@ public sealed partial class ManualProcessPage : Page
         }
     }
 
-    private async void btnProcess_Click(object sender, RoutedEventArgs e)
+    private async void btnProcess_Click_old(object sender, RoutedEventArgs e)
     {
         if (DataPeriod.SelectedIndex < 0 || droppedFilesSales.Count == 0)
         {
@@ -379,24 +379,95 @@ public sealed partial class ManualProcessPage : Page
         timer.Start();
         timer.Tick += (s, args) =>
         {
-            ContentArea.Children.Remove(progressBar); 
+            ContentArea.Children.Remove(progressBar);
             OverlayGrid.Visibility = Visibility.Collapsed;
             timer.Stop();
         };
 
     }
 
+    private async void btnProcess_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataPeriod.SelectedIndex < 0 || droppedFilesSales.Count == 0)
+        {
+            return;
+        }
+
+        var progressBar = new ProgressBar
+        {
+            IsIndeterminate = true,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+
+        var waitingTextBlock = new TextBlock
+        {
+            Text = "Mohon menunggu...",
+            FontSize = 20,
+            FontWeight = FontWeights.Bold,
+            Foreground = new SolidColorBrush(Colors.DodgerBlue),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        OverlayGrid.BorderBrush = new SolidColorBrush(Colors.IndianRed);
+        OverlayGrid.BorderThickness = new Thickness(1);
+        OverlayGrid.CornerRadius = new CornerRadius(0);
+        OverlayGrid.Background = new SolidColorBrush(Colors.GhostWhite);
+        OverlayGrid.Children.Add(waitingTextBlock);
+        OverlayGrid.Visibility = Visibility.Visible;
+
+        var timer = new DispatcherTimer();
+        timer.Interval = TimeSpan.FromSeconds(7);
+
+        timer.Start();
+
+        // Call PerformUploadTask asynchronously
+        bool uploadResult = await PerformUploadTask();
+
+        timer.Stop();
+        ContentArea.Children.Remove(progressBar);
+        OverlayGrid.Visibility = Visibility.Collapsed;
+
+        // Handle the upload result (e.g., show a message or take further action)
+        if (uploadResult)
+        {
+            ContentDialog resultDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Informasi",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Berhasil melakukan pengkinian data pada waktu {DateTimeOffset.Now}."
+            };
+            await resultDialog.ShowAsync();
+        }
+        else
+        {
+            ContentDialog resultDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Info Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Gagal melakukan pengkinian data pada waktu: {DateTimeOffset.Now}."
+            };
+            await resultDialog.ShowAsync();
+
+        }
+
+    }
 
     public string DataFolder
     {
         get; private set;
     } = "";
 
-    private async Task<bool> PerformTask()
+    private async Task<bool> PerformUploadTask()
     {
 
         try
         {
+            var AppWorkingFolder = DEFAULT_FOLDER;
+
             // Its default location for App Summission is Path.Combine(@"C:\ProgramData\FairbancData", "Datasharing-result")
             AppWorkingFolder = AppWorkingFolder + @"\Datasharing-result";
 
@@ -447,7 +518,7 @@ public sealed partial class ManualProcessPage : Page
             ContentDialog errorDialog = new ContentDialog
             {
                 XamlRoot = this.XamlRoot,
-                Title = "Info Kesalahan",
+                Title = "Informasi Kesalahan",
                 CloseButtonText = "OK",
                 DefaultButton = ContentDialogButton.Close,
                 Content = $"Gagal melakukan pengkinian data pada {DateTimeOffset.Now}."
@@ -476,5 +547,51 @@ public sealed partial class ManualProcessPage : Page
     private void DataPeriod_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         indexOfComboBoxDataPeriod = DataPeriod.SelectedIndex;
+    }
+
+    private async Task<bool> CheckInitialFileExist()
+    {
+        try
+        {
+            var configFolder = @"C:\ProgramData\FairbancData";
+            var filePath = "";
+            filePath = Path.Combine(configFolder, "DateTimeInfo.ini");
+
+
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string line;
+                    while ((line = await reader.ReadLineAsync()) != null)
+                    {
+                        if (line.Trim() == "[DTID]")
+                        {
+                            _ParameterType.Property1 = await reader.ReadLineAsync();
+                        }
+                        else if (line.Trim() == "[DTNAME]")
+                        {
+                            _ParameterType.Property2 = await reader.ReadLineAsync();
+                        }
+                    }
+                }
+                if (_ParameterType.Property1 == null || _ParameterType.Property2 == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 }

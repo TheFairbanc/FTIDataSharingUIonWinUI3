@@ -104,7 +104,7 @@ namespace FTIDataSharingUI.Views
             try
             {
                 var configFolder = @"C:\ProgramData\FairbancData";
-                var filePath = Path.Combine(configFolder, "ManualUploadInfo.ini");
+                var filePath = Path.Combine(configFolder, "DateTimeInfo.ini");
                 if (File.Exists(filePath))
                 {
                     using (StreamReader reader = new StreamReader(filePath))

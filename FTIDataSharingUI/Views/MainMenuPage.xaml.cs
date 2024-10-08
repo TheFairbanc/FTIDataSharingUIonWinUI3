@@ -2,7 +2,6 @@
 using FTIDataSharingUI.Models;
 using FTIDataSharingUI.Services;
 using FTIDataSharingUI.ViewModels;
-
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 

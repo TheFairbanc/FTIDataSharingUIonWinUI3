@@ -13,7 +13,6 @@ public class UploadProcessAsync
     private readonly ILogger _logger;
 
     private string _statusCode = "-1";
-    private string _responseBody = "";
     private string _zipFile = "";
     private string _logFileName = "";
     private string _sandboxBoolean = "";
@@ -96,6 +95,7 @@ public class UploadProcessAsync
                     ? $"ds-{_distID}-{_distName}-{_period}_SALES.xls"
                     : $"ds-{_distID}-{_distName}-{_period}_SALES.xlsx";
 
+                File.Copy(_salesFileName, Path.Combine(_uploadDir, Path.GetFileName(_salesFileName)), true);
                 await CopyAndDeleteFileAsync(_salesFileName, Path.Combine(_expDir, salesFileDataName), _logFileName);
             }
 
@@ -105,6 +105,7 @@ public class UploadProcessAsync
                     ? $"ds-{_distID}-{_distName}-{_period}_PAYMENT.xls"
                     : $"ds-{_distID}-{_distName}-{_period}_PAYMENT.xlsx";
 
+                File.Copy(_payFileName, Path.Combine(_uploadDir, Path.GetFileName(_payFileName)), true);
                 await CopyAndDeleteFileAsync(_payFileName, Path.Combine(_expDir, payFileDataName), _logFileName);
             }
 
@@ -114,19 +115,24 @@ public class UploadProcessAsync
                     ? $"ds-{_distID}-{_distName}-{_period}_OUTLET.xls"
                     : $"ds-{_distID}-{_distName}-{_period}_OUTLET.xlsx";
 
+                File.Copy(_outletFileName, Path.Combine(_uploadDir, Path.GetFileName(_outletFileName)), true);
                 await CopyAndDeleteFileAsync(_outletFileName, Path.Combine(_expDir, outletFileDataName), _logFileName);
             }
 
-            if (!await IsDirectoryEmptyAsync(_expDir))
+            if (!await IsDirectoryEmptyAsync(_uploadDir))
             {
                 await WriteLogAsync("Copy process for Excel files (sales, payment, outlet) done, starting archive process.", _logFileName);
                 _zipFile = $"{_distID}-{_distName}_{_period}.zip";
 
-                ZipFile.CreateFromDirectory(_expDir, Path.Combine(_uploadDir, _zipFile));
-                await WriteLogAsync("Archive process for Excel files sales, payment, and outlet done.", _logFileName);
+                //ZipFile.CreateFromDirectory(_expDir, Path.Combine(_uploadDir, _zipFile));
+                
 
-                _statusCode = await SendRequestAsync(Path.Combine(_uploadDir, _zipFile), _sandboxBoolean, _secureHTTP);
-                await WriteLogAsync("Upload process for Excel files sales, payment, and outlet done.", _logFileName);
+                ZipFile.CreateFromDirectory(_expDir, _workingDir + Path.DirectorySeparatorChar + _zipFile);
+                File.Move(_workingDir + Path.DirectorySeparatorChar + _zipFile, _expDir + Path.DirectorySeparatorChar + _zipFile,true);
+                await WriteLogAsync("Archive process for Excel files (sales, payment, outlet) done.", _logFileName);
+
+                _statusCode = await SendRequestAsync(Path.Combine(_expDir, _zipFile), _sandboxBoolean, _secureHTTP);
+                await WriteLogAsync("Upload process for Excel files (sales, payment, outlet) done.", _logFileName);
 
                 if (_statusCode == "200")
                 {
@@ -167,8 +173,13 @@ public class UploadProcessAsync
         _distID = dtid;
         _distName = distName;
 #endif
+        _dataSourceDir = dataFolder;
+        _workingDir = workingFolder;
 
-        _expDir = Path.Combine(workingFolder, "FTI-sharing");
+        _period = DateTime.Now.AddMonths(-1).ToString("yyyyMM");
+
+        _expDir = Path.Combine(_workingDir, $"FTI-sharing{_period}");
+        _uploadDir = Path.Combine(_workingDir, "FTI-upload");
     }
 
     private async Task CheckAndRefreshFolderAsync(string location)
@@ -198,7 +209,7 @@ public class UploadProcessAsync
         {
             using (StreamWriter streamWriter = new StreamWriter(fileName, append: true))
             {
-                await streamWriter.WriteLineAsync($"Log Entry : {DateTime.Now:G} - :{logMessage}");
+                await streamWriter.WriteLineAsync($"Log Entry : {DateTime.Now:F} - :{logMessage}");
             }
         }
         catch (Exception ex)
@@ -231,11 +242,14 @@ public class UploadProcessAsync
                 };
 
                 HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
-                await Task.Delay(5000);
+                //await Task.Delay(5000);
                 httpResponseMessage.EnsureSuccessStatusCode();
-                _responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                string[] array = _responseBody.Split(':', ',');
-                return array.Length > 1 ? array[1].Trim() : "-1";
+                //var _responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                //Console.WriteLine(_responseBody);
+                //string[] array = _responseBody.Split(':', ',');
+                //return array.Length > 1 ? array[1].Trim() : "-1";
+                var response = await IsResponseSuccessfulAsync(httpResponseMessage);
+                return response ? "200" : "-1";
             }
         }
         catch (Exception ex)
@@ -244,6 +258,21 @@ public class UploadProcessAsync
             return "-1";
         }
     }
+
+    private async Task<bool> IsResponseSuccessfulAsync(HttpResponseMessage httpResponseMessage)
+    {
+        try
+        {
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            // Log the exception if needed
+            await WriteLogAsync(ex.Message, _logFileName);
+            return false;
+        }
+    }
+
 
     private async Task DeleteAllFilesAndSubdirectoriesAsync(string folderPath)
     {
