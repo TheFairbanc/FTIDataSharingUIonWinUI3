@@ -1,7 +1,6 @@
 ﻿using FTIDataSharingUI.Contracts.Services;
 using FTIDataSharingUI.Helpers;
 using FTIDataSharingUI.ViewModels;
-
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -11,7 +10,7 @@ using Windows.System;
 
 namespace FTIDataSharingUI.Views;
 
-// TODO: Update NavigationViewItem titles and icons in ShellPage.xaml.
+// TODO: Done (updating Resources.resw) =>Update NavigationViewItem titles and icons in ShellPage.xaml.
 public sealed partial class ShellPage : Page
 {
     public ShellViewModel ViewModel
@@ -31,8 +30,7 @@ public sealed partial class ShellPage : Page
         App.MainWindow.ExtendsContentIntoTitleBar = true;
         App.MainWindow.SetTitleBar(AppTitleBar);
         App.MainWindow.Activated += MainWindow_Activated;
-        //AppTitleBarText.Text = "AppDisplayName".GetLocalized();
-        AppTitleBarText.Text = "Fairbanc - Data Submissions App";
+        AppTitleBarText.Text = "AppDisplayName".GetLocalized();
     }
 
     private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

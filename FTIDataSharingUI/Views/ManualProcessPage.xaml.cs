@@ -318,11 +318,25 @@ public sealed partial class ManualProcessPage : Page
         {
             bool fileExists = (File.Exists(DroppedFiles.First().Path));
 
-            return fileExists ? true : false;
+            if (!fileExists)
+            {
+                ContentDialog resultDialog = new ContentDialog
+                {
+                    XamlRoot = this.XamlRoot,
+                    Title = "Info Kesalahan",
+                    CloseButtonText = "OK",
+                    DefaultButton = ContentDialogButton.Close,
+                    Content = $"File excel\n{ DroppedFiles.First().DisplayName }\ntidak di temukan di dalam folder."
+                };
+                resultDialog.ShowAsync();
+                return false;
+            }
+            return true;
         }
         else
         {
-            return false;
+            // if there is no file to check, then its ok - return true
+            return true;
         }
     }
 
@@ -388,10 +402,38 @@ public sealed partial class ManualProcessPage : Page
 
     private async void btnProcess_Click(object sender, RoutedEventArgs e)
     {
-        if (DataPeriod.SelectedIndex < 0 || droppedFilesSales.Count == 0)
+        if (DataPeriod.SelectedIndex < 0 )
         {
+            ContentDialog resultDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Info Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Periode penkinian data belum di pilih."
+            };
+            await resultDialog.ShowAsync();
             return;
         }
+
+        if (droppedFilesSales.Count == 0)
+        {
+            ContentDialog resultDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Info Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Periode pengkinian data belum di pilih."
+            };
+            await resultDialog.ShowAsync();
+            return;
+        }
+
+        //= > call CheckDropFileInFolder
+        if (!CheckDropFileInFolder(droppedFilesSales)) return;
+        if (!CheckDropFileInFolder(droppedFilesAR)) return;
+        if (!CheckDropFileInFolder(droppedFilesOutlet)) return;
 
         var progressBar = new ProgressBar
         {
@@ -439,6 +481,12 @@ public sealed partial class ManualProcessPage : Page
                 Content = $"Berhasil melakukan pengkinian data pada waktu {DateTimeOffset.Now}."
             };
             await resultDialog.ShowAsync();
+
+            // On UI page, lock "Preview Buttons" and Upload "Process" button"
+            btnProcess.IsEnabled = false;
+            btnPreview01.IsEnabled = false;
+            btnPreview02.IsEnabled = false;
+            btnPreview03.IsEnabled = false;
         }
         else
         {
@@ -502,6 +550,7 @@ public sealed partial class ManualProcessPage : Page
             {
                 await _uploadProcess.ExecuteAsync();
                 _logger.Information(">>>> [OUTPUT] UploadProcess execution completed.");
+
                 return true;
             }
             else

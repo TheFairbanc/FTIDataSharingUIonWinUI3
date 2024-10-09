@@ -89,9 +89,11 @@ public class UploadProcessAsync
             if (!string.IsNullOrWhiteSpace(_outletFileName))
                 await WriteLogAsync($"Outlet file to process: {_outletFileName.Trim()}", _logFileName);
 
+            string salesFileDataName = "", payFileDataName = "", outletFileDataName =  "";
+
             if (!string.IsNullOrWhiteSpace(_salesFileName))
             {
-                string salesFileDataName = _salesFileName.ToLower().EndsWith("xls")
+                salesFileDataName = _salesFileName.ToLower().EndsWith("xls")
                     ? $"ds-{_distID}-{_distName}-{_period}_SALES.xls"
                     : $"ds-{_distID}-{_distName}-{_period}_SALES.xlsx";
 
@@ -101,7 +103,7 @@ public class UploadProcessAsync
 
             if (!string.IsNullOrWhiteSpace(_payFileName))
             {
-                string payFileDataName = _payFileName.ToLower().EndsWith("xls")
+                payFileDataName = _payFileName.ToLower().EndsWith("xls")
                     ? $"ds-{_distID}-{_distName}-{_period}_PAYMENT.xls"
                     : $"ds-{_distID}-{_distName}-{_period}_PAYMENT.xlsx";
 
@@ -111,7 +113,7 @@ public class UploadProcessAsync
 
             if (!string.IsNullOrWhiteSpace(_outletFileName))
             {
-                string outletFileDataName = _outletFileName.ToLower().EndsWith("xls")
+                outletFileDataName = _outletFileName.ToLower().EndsWith("xls")
                     ? $"ds-{_distID}-{_distName}-{_period}_OUTLET.xls"
                     : $"ds-{_distID}-{_distName}-{_period}_OUTLET.xlsx";
 
@@ -140,6 +142,16 @@ public class UploadProcessAsync
                 }
                 else
                 {
+                    await CopyAndDeleteFileAsync(Path.Combine(_expDir, salesFileDataName), _salesFileName, _logFileName);
+                    try
+                    {
+                        // in the anticipation of Sales Data File only uploaded, use try-catch block but then don't throws anything
+                        await CopyAndDeleteFileAsync(Path.Combine(_expDir, payFileDataName), _payFileName, _logFileName);
+                        await CopyAndDeleteFileAsync(Path.Combine(_expDir, outletFileDataName), _outletFileName, _logFileName);
+                    }
+                    catch
+                    { }
+
                     await WriteLogAsync($"WARNING: Failed to upload, Data Sharing cURL STATUS CODE: {_statusCode}", _logFileName);
                 }
             }
