@@ -1,6 +1,4 @@
-﻿
-
-namespace FTIDataSharingUI.Models;
+﻿namespace DataSubmission.Models;
 public class MyParameterType
 {
     public string Property1

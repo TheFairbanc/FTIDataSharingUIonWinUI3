@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Text;
-using FTIDataSharingUI.Contracts.Services;
-using FTIDataSharingUI.Models;
-using FTIDataSharingUI.ViewModels;
+using DataSubmission.Contracts.Services;
+using DataSubmission.Models;
+using DataSubmission.ViewModels;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

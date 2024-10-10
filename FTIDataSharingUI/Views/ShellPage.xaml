@@ -4,12 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:helpers="using:FTIDataSharingUI.Helpers"
-    xmlns:behaviors="using:FTIDataSharingUI.Behaviors"
+    xmlns:helpers="using:DataSubmission.Helpers"
+    xmlns:behaviors="using:DataSubmission.Behaviors"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     Loaded="OnLoaded">
-
-
 
     <Grid Width="Auto" MaxHeight="800">
         <!-- Background Image -->
@@ -50,49 +48,49 @@
                 TODO: Update item icons by updating FontIcon.Glyph properties.
                 https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
                 -->
-                <NavigationViewItem x:Uid="Shell_Landing" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.LandingViewModel">
+                <NavigationViewItem x:Uid="Shell_Landing" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.LandingViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_Login" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.LoginViewModel">
+                <NavigationViewItem x:Uid="Shell_Login" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.LoginViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_MainMenu" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.MainMenuViewModel">
+                <NavigationViewItem x:Uid="Shell_MainMenu" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.MainMenuViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_AutoConfig" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.AutoProcessViewModel">
+                <NavigationViewItem x:Uid="Shell_AutoConfig" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.AutoProcessViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_ConfigScreen" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.AutoConfigViewModel">
+                <NavigationViewItem x:Uid="Shell_ConfigScreen" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.AutoConfigViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_ManualUpload" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.ManualProcessViewModel">
+                <NavigationViewItem x:Uid="Shell_ManualUpload" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.ManualProcessViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem x:Uid="Shell_UploadLogs" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.LogScreenViewModel">
+                <NavigationViewItem x:Uid="Shell_UploadLogs" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.LogScreenViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe80a;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_HelpScreen" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.HelpScreenViewModel">
+                <NavigationViewItem x:Uid="Shell_HelpScreen" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.HelpScreenViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem x:Uid="Shell_FilePreview" helpers:NavigationHelper.NavigateTo="FTIDataSharingUI.ViewModels.FilePreviewViewModel">
+                <NavigationViewItem x:Uid="Shell_FilePreview" helpers:NavigationHelper.NavigateTo="DataSubmission.ViewModels.FilePreviewViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>

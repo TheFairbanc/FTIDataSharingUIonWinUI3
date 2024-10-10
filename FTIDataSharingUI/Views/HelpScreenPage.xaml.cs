@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using FTIDataSharingUI.ViewModels;
-using FTIDataSharingUI.Models;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Windows.Storage;
 using Microsoft.UI;
+using DataSubmission.ViewModels;
+using DataSubmission.Models;
 
 namespace FTIDataSharingUI.Views;
 

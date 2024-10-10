@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 
-namespace FTIDataSharingUI.Helpers;
+namespace DataSubmission.Helpers;
 
 public class UploadProcessAsync
 {
@@ -89,7 +89,7 @@ public class UploadProcessAsync
             if (!string.IsNullOrWhiteSpace(_outletFileName))
                 await WriteLogAsync($"Outlet file to process: {_outletFileName.Trim()}", _logFileName);
 
-            string salesFileDataName = "", payFileDataName = "", outletFileDataName =  "";
+            string salesFileDataName = "", payFileDataName = "", outletFileDataName = "";
 
             if (!string.IsNullOrWhiteSpace(_salesFileName))
             {
@@ -127,10 +127,10 @@ public class UploadProcessAsync
                 _zipFile = $"{_distID}-{_distName}_{_period}.zip";
 
                 //ZipFile.CreateFromDirectory(_expDir, Path.Combine(_uploadDir, _zipFile));
-                
+
 
                 ZipFile.CreateFromDirectory(_expDir, _workingDir + Path.DirectorySeparatorChar + _zipFile);
-                File.Move(_workingDir + Path.DirectorySeparatorChar + _zipFile, _expDir + Path.DirectorySeparatorChar + _zipFile,true);
+                File.Move(_workingDir + Path.DirectorySeparatorChar + _zipFile, _expDir + Path.DirectorySeparatorChar + _zipFile, true);
                 await WriteLogAsync("Archive process for Excel files (sales, payment, outlet) done.", _logFileName);
 
                 _statusCode = await SendRequestAsync(Path.Combine(_expDir, _zipFile), _sandboxBoolean, _secureHTTP);
@@ -235,8 +235,8 @@ public class UploadProcessAsync
         try
         {
             string apiUrl = sandboxBool == "Y"
-                ? (secureHTTP == "Y" ? "https://sandbox.fairbanc.app/api/documents" : "http://sandbox.fairbanc.app/api/documents")
-                : (secureHTTP == "Y" ? "https://dashboard.fairbanc.app/api/documents" : "http://dashboard.fairbanc.app/api/documents");
+                ? secureHTTP == "Y" ? "https://sandbox.fairbanc.app/api/documents" : "http://sandbox.fairbanc.app/api/documents"
+                : secureHTTP == "Y" ? "https://dashboard.fairbanc.app/api/documents" : "http://dashboard.fairbanc.app/api/documents";
 
             using (var httpClient = new HttpClient())
             {

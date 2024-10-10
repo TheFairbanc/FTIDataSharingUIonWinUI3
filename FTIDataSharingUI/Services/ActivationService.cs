@@ -1,11 +1,12 @@
-﻿using FTIDataSharingUI.Activation;
-using FTIDataSharingUI.Contracts.Services;
+﻿using DataSubmission.Activation;
+using DataSubmission.Contracts.Services;
+using FTIDataSharingUI;
 using FTIDataSharingUI.Views;
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace FTIDataSharingUI.Services;
+namespace DataSubmission.Services;
 
 public class ActivationService : IActivationService
 {

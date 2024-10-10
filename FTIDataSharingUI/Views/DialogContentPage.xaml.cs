@@ -1,5 +1,4 @@
-﻿using FTIDataSharingUI.ViewModels;
-
+﻿using DataSubmission.ViewModels;
 using Microsoft.UI.Xaml.Controls;
 
 namespace FTIDataSharingUI.Views;

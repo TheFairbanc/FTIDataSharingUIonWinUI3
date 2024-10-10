@@ -1,13 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-
-using FTIDataSharingUI.Contracts.Services;
-using FTIDataSharingUI.Contracts.ViewModels;
-using FTIDataSharingUI.Helpers;
-
+using DataSubmission.Contracts.Services;
+using DataSubmission.Contracts.ViewModels;
+using DataSubmission.Helpers;
+using FTIDataSharingUI;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace FTIDataSharingUI.Services;
+namespace DataSubmission.Services;
 
 // For more information on navigation between pages see
 // https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/navigation.md
@@ -85,7 +84,7 @@ public class NavigationService : INavigationService
     {
         var pageType = _pageService.GetPageType(pageKey);
 
-        if (_frame != null && (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed))))
+        if (_frame != null && (_frame.Content?.GetType() != pageType || parameter != null && !parameter.Equals(_lastParameterUsed)))
         {
             _frame.Tag = clearNavigation;
             var vmBeforeNavigation = _frame.GetPageViewModel();

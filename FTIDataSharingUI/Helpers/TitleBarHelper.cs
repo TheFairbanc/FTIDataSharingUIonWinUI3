@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-
+using FTIDataSharingUI;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
@@ -7,7 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 
-namespace FTIDataSharingUI.Helpers;
+namespace DataSubmission.Helpers;
 
 // Helper class to workaround custom title bar bugs.
 // DISCLAIMER: The resource key names and color values used below are subject to change. Do not depend on them.
@@ -19,10 +19,10 @@ internal class TitleBarHelper
     private const int WMACTIVATE = 0x0006;
 
     [DllImport("user32.dll")]
-    private static extern IntPtr GetActiveWindow();
+    private static extern nint GetActiveWindow();
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, IntPtr lParam);
+    private static extern nint SendMessage(nint hWnd, int msg, int wParam, nint lParam);
 
     public static void UpdateTitleBar(ElementTheme theme)
     {
@@ -74,13 +74,13 @@ internal class TitleBarHelper
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
             if (hwnd == GetActiveWindow())
             {
-                SendMessage(hwnd, WMACTIVATE, WAINACTIVE, IntPtr.Zero);
-                SendMessage(hwnd, WMACTIVATE, WAACTIVE, IntPtr.Zero);
+                SendMessage(hwnd, WMACTIVATE, WAINACTIVE, nint.Zero);
+                SendMessage(hwnd, WMACTIVATE, WAACTIVE, nint.Zero);
             }
             else
             {
-                SendMessage(hwnd, WMACTIVATE, WAACTIVE, IntPtr.Zero);
-                SendMessage(hwnd, WMACTIVATE, WAINACTIVE, IntPtr.Zero);
+                SendMessage(hwnd, WMACTIVATE, WAACTIVE, nint.Zero);
+                SendMessage(hwnd, WMACTIVATE, WAINACTIVE, nint.Zero);
             }
         }
     }

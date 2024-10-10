@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Media;
 using Windows.UI;
 
-namespace FTIDataSharingUI.Models;
+namespace DataSubmission.Models;
 // Models/LogEntry.cs
 public class LogEntry
 {

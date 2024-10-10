@@ -1,9 +1,8 @@
-﻿using FTIDataSharingUI.Contracts.Services;
-using FTIDataSharingUI.ViewModels;
-
+﻿using DataSubmission.Contracts.Services;
+using DataSubmission.ViewModels;
 using Microsoft.UI.Xaml;
 
-namespace FTIDataSharingUI.Activation;
+namespace DataSubmission.Activation;
 
 public class DefaultActivationHandler : ActivationHandler<LaunchActivatedEventArgs>
 {

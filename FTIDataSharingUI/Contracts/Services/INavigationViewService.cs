@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 
-namespace FTIDataSharingUI.Contracts.Services;
+namespace DataSubmission.Contracts.Services;
 
 public interface INavigationViewService
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Windows.ApplicationModel.Resources;
 
-namespace FTIDataSharingUI.Helpers;
+namespace DataSubmission.Helpers;
 
 public static class ResourceExtensions
 {

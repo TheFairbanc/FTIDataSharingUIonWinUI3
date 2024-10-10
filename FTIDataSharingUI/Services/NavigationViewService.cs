@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-
-using FTIDataSharingUI.Contracts.Services;
-using FTIDataSharingUI.Helpers;
+using DataSubmission.Contracts.Services;
+using DataSubmission.Helpers;
 using FTIDataSharingUI.ViewModels;
 
 using Microsoft.UI.Xaml.Controls;
 
-namespace FTIDataSharingUI.Services;
+namespace DataSubmission.Services;
 
 public class NavigationViewService : INavigationViewService
 {

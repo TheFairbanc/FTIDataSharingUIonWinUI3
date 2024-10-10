@@ -1,4 +1,4 @@
-﻿namespace FTIDataSharingUI.Contracts.Services;
+﻿namespace DataSubmission.Contracts.Services;
 
 public interface IActivationService
 {

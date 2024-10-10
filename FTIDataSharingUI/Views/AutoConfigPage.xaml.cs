@@ -1,12 +1,12 @@
-﻿using FTIDataSharingUI.Contracts.Services;
-using FTIDataSharingUI.Models;
-using System.Diagnostics;
-using FTIDataSharingUI.ViewModels;
+﻿using System.Diagnostics;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Windows.Storage.Pickers;
 using Microsoft.UI.Xaml.Navigation;
+using DataSubmission.ViewModels;
+using DataSubmission.Contracts.Services;
+using DataSubmission.Models;
 
 namespace FTIDataSharingUI.Views;
 

@@ -1,4 +1,4 @@
-﻿namespace FTIDataSharingUI.Contracts.ViewModels;
+﻿namespace DataSubmission.Contracts.ViewModels;
 
 public interface INavigationAware
 {

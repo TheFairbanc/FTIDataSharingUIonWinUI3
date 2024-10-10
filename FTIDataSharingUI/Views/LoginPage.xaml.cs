@@ -1,9 +1,9 @@
-﻿using FTIDataSharingUI.Contracts.Services;
-using System.Text.Json;
-using FTIDataSharingUI.ViewModels;
-using FTIDataSharingUI.Models;
+﻿using System.Text.Json;
+using DataSubmission.Models;
 
 using Microsoft.UI.Xaml.Controls;
+using DataSubmission.ViewModels;
+using DataSubmission.Contracts.Services;
 
 namespace FTIDataSharingUI.Views;
 

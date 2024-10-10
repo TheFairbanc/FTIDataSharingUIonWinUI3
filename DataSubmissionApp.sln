@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34526.213
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FTIDataSharing", "FTIDataSharingUI\FTIDataSharing.csproj", "{61F099D4-8B41-4930-BE02-0D748C05FF93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSubmissionApp", "FTIDataSharingUI\DataSubmissionApp.csproj", "{61F099D4-8B41-4930-BE02-0D748C05FF93}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FTIDataSharingUI.Core", "FTIDataSharingUI.Core\FTIDataSharingUI.Core.csproj", "{8E887C93-14DB-443A-AF11-39B9A7AC8632}"
 EndProject

@@ -1,11 +1,11 @@
-﻿using FTIDataSharingUI.Contracts.Services;
-
+﻿using DataSubmission.Contracts.Services;
+using FTIDataSharingUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Xaml.Interactivity;
 
-namespace FTIDataSharingUI.Behaviors;
+namespace DataSubmission.Behaviors;
 
 public class NavigationViewHeaderBehavior : Behavior<NavigationView>
 {

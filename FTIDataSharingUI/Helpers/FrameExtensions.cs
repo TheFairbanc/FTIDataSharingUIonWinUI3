@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 
-namespace FTIDataSharingUI.Helpers;
+namespace DataSubmission.Helpers;
 
 public static class FrameExtensions
 {

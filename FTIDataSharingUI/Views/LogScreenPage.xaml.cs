@@ -1,7 +1,4 @@
-﻿using FTIDataSharingUI.Contracts.Services;
-using System.Collections.ObjectModel;
-using FTIDataSharingUI.ViewModels;
-using FTIDataSharingUI.Models;
+﻿using System.Collections.ObjectModel;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
 using Microsoft.UI;
@@ -11,6 +8,9 @@ using Microsoft.Extensions.Logging;
 using Serilog.Core;
 using WinUIEx.Messaging;
 using System.Text.RegularExpressions;
+using DataSubmission.ViewModels;
+using DataSubmission.Contracts.Services;
+using DataSubmission.Models;
 
 namespace FTIDataSharingUI.Views;
 

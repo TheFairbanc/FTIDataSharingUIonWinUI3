@@ -1,7 +1,7 @@
-﻿using FTIDataSharingUI.Contracts.Services;
-using FTIDataSharingUI.Models;
-using FTIDataSharingUI.Services;
-using FTIDataSharingUI.ViewModels;
+﻿using DataSubmission.Contracts.Services;
+using DataSubmission.Models;
+using DataSubmission.ViewModels;
+using DataSubmission.Services;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 

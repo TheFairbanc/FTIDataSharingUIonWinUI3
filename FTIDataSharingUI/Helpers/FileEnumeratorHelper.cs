@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Serilog;
 using Microsoft.UI.Xaml.Controls;
 
-namespace FTIDataSharingUI.Helpers;
+namespace DataSubmission.Helpers;
 internal class FileEnumeratorHelper
 {
 
@@ -194,7 +194,7 @@ internal class FileEnumeratorHelper
     }
     private static List<string> strLatesFileOf(List<FileInfo> files)
     {
-        files.RemoveAll((FileInfo item) => item == null);
+        files.RemoveAll((item) => item == null);
         string text = "";
         string text2 = "";
         if (files.Any())

@@ -1,4 +1,4 @@
-﻿namespace FTIDataSharingUI.Behaviors;
+﻿namespace DataSubmission.Behaviors;
 
 public enum NavigationViewHeaderMode
 {

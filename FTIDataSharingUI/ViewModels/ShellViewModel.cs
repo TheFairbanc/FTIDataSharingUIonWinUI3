@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-using FTIDataSharingUI.Contracts.Services;
+using DataSubmission.Contracts.Services;
 using FTIDataSharingUI.Views;
 
 using Microsoft.UI.Xaml.Navigation;

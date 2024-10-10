@@ -1,9 +1,6 @@
-﻿using FTIDataSharingUI.Activation;
-using FTIDataSharingUI.Contracts.Services;
-using FTIDataSharingUI.Core.Contracts.Services;
+﻿using FTIDataSharingUI.Core.Contracts.Services;
 using FTIDataSharingUI.Core.Services;
-using FTIDataSharingUI.Helpers;
-using FTIDataSharingUI.Services;
+using DataSubmission.Helpers;
 using FTIDataSharingUI.ViewModels;
 using FTIDataSharingUI.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +11,10 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using OfficeOpenXml.FormulaParsing.Logging;
 using Microsoft.UI.Xaml.Controls;
+using DataSubmission.Contracts.Services;
+using DataSubmission.ViewModels;
+using DataSubmission.Activation;
+using DataSubmission.Services;
 
 namespace FTIDataSharingUI;
 

@@ -1,12 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-using FTIDataSharingUI.Contracts.Services;
-using FTIDataSharingUI.ViewModels;
+using DataSubmission.Contracts.Services;
+using DataSubmission.ViewModels;
 using FTIDataSharingUI.Views;
 
 using Microsoft.UI.Xaml.Controls;
 
-namespace FTIDataSharingUI.Services;
+namespace DataSubmission.Services;
 
 public class PageService : IPageService
 {

@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 
-namespace FTIDataSharingUI.Helpers;
+namespace DataSubmission.Helpers;
 
 public class RuntimeHelper
 {

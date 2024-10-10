@@ -1,6 +1,4 @@
 using CommunityToolkit.WinUI.UI.Controls;
-using FTIDataSharingUI.ViewModels;
-using FTIDataSharingUI.Models;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using OfficeOpenXml;
@@ -8,8 +6,10 @@ using OfficeOpenXml.Style;
 using System.Collections.Generic;
 using System.Data;
 using Windows.Storage;
-using FTIDataSharingUI.Contracts.Services;
 using System.IO;
+using DataSubmission.ViewModels;
+using DataSubmission.Contracts.Services;
+using DataSubmission.Models;
 
 namespace FTIDataSharingUI.Views
 {

@@ -1,4 +1,4 @@
-﻿namespace FTIDataSharingUI.Activation;
+﻿namespace DataSubmission.Activation;
 
 public interface IActivationHandler
 {
