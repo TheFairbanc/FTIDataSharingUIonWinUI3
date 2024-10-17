@@ -72,7 +72,7 @@
                         <TextBlock Text="do not delete this textbock" Grid.Row="1" Grid.Column="1" />
 
                         <TextBlock Text="Data Penjualan * : "  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                        <Grid x:Name="Drop01" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropSales" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
+                        <Grid x:Name="Drop01" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropSales" DragEnter="Drop01_DragEnter" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <StackPanel x:Name="IconsPanel01" Orientation="Vertical" />
                                 <TextBlock x:Name="MessageTextBlock01" Text="Drag dan drop file Invoice Penjualan (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />

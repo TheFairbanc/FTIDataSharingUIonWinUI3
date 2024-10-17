@@ -424,7 +424,7 @@ public sealed partial class ManualProcessPage : Page
                 Title = "Info Kesalahan",
                 CloseButtonText = "OK",
                 DefaultButton = ContentDialogButton.Close,
-                Content = $"Periode pengkinian data belum di pilih."
+                Content = $"File Excel belum di pilih."
             };
             await resultDialog.ShowAsync();
             return;
@@ -642,5 +642,10 @@ public sealed partial class ManualProcessPage : Page
         {
             return false;
         }
+    }
+
+    private void Drop01_DragEnter(object sender, DragEventArgs e)
+    {
+
     }
 }

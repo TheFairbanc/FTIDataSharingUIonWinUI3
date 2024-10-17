@@ -97,10 +97,9 @@ public partial class App : Application
             // Create your custom LogBroker
             Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
-            .WriteTo.Debug(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
+            //.WriteTo.Debug(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
             .CreateLogger();
 
-            // Configuration
         }).
         Build();
 
