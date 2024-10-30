@@ -19,17 +19,17 @@ namespace DataSubmission.Views
     {
         public static void ApplyTheme(FrameworkElement element)
         {
-            var oriColor = (Color)element.Resources["SystemAccentColor"];
-            var textColor = GetContrastingColor((Color)element.Resources["SystemAccentColor"]);
-            UpdateTheme(element, textColor, oriColor);
+            //var oriColor = (Color)element.Resources["SystemAccentColor"];
+            //var textColor = GetContrastingColor((Color)element.Resources["SystemAccentColor"]);
+            UpdateTheme(element);
         }
 
-        private static void UpdateTheme(FrameworkElement rootElement, Color textColor, Color themeColor)
+        private static void UpdateTheme(FrameworkElement rootElement)
         {
-            UpdateTextBlocks(rootElement, textColor, themeColor);
+            UpdateTextBlocks(rootElement);
         }
 
-        private static void UpdateTextBlocks(DependencyObject parent, Color textColor, Color themeColor)
+        private static void UpdateTextBlocks(DependencyObject parent)
         {
             int count = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < count; i++)
@@ -37,31 +37,26 @@ namespace DataSubmission.Views
                 var child = VisualTreeHelper.GetChild(parent, i);
                 if (child is TextBlock textBlock)
                 {
-                    //
                     var clrs = (SolidColorBrush)textBlock.Foreground;
-                    if (clrs.Color == new SolidColorBrush(Microsoft.UI.Colors.White).Color)
+                    if (textBlock.Name.StartsWith("UserGreetings"))
                     {
-                        Debug.WriteLine(textBlock.Name.ToString());
-                        break;  }
-                    if (GetTheme() == "Black")
+                        //Debug.WriteLine(textBlock.Name.ToString());
+                        break;  
+                    }
+                    if (GetTheme() == "Dark")
                     {
-                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
+                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Black);
                     }else
                     {
-                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.DarkSlateGray);
+                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
                     }
 
                 }
                 else if (child is DependencyObject)
                 {
-                    UpdateTextBlocks(child, textColor, themeColor);
+                    UpdateTextBlocks(child);
                 }
             }
-        }
-
-        private static Color GetContrastingColor(Color color)
-        {
-            return (color.R + color.G + color.B) / 3 > 128 ? Colors.White : Colors.Black;
         }
 
         private static string GetTheme() 

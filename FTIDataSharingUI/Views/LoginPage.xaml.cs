@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using DataSubmission.Models;
-
 using Microsoft.UI.Xaml.Controls;
 using DataSubmission.ViewModels;
 using DataSubmission.Contracts.Services;
+using DataSubmission.Views;
 
 namespace FTIDataSharingUI.Views;
 
@@ -18,6 +18,7 @@ public sealed partial class LoginPage : Page
     {
         ViewModel = App.GetService<LoginViewModel>();
         InitializeComponent();
+        ThemeHelper.ApplyTheme(this);
     }
     private string dtIDandName
     {

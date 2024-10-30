@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Navigation;
 using DataSubmission.ViewModels;
 using DataSubmission.Contracts.Services;
 using DataSubmission.Models;
+using DataSubmission.Views;
 
 namespace FTIDataSharingUI.Views;
 
@@ -23,6 +24,7 @@ public sealed partial class AutoConfigPage : Page
         InitializeComponent();
         JamMenit_Picker.Time = DateTime.Now.TimeOfDay;
         _ = ReadDateTimeFromFileAsync();
+        ThemeHelper.ApplyTheme(this);
     }
 
 
@@ -35,7 +37,7 @@ public sealed partial class AutoConfigPage : Page
         {
             // Use the parameter
             _ParameterType = parameter;
-            TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
+            UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
         }
     }
 

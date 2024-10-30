@@ -92,7 +92,7 @@ public sealed partial class ManualProcessPage : Page
         if (e.Parameter is MyParameterType parameter)
         {
             _ParameterType = parameter;
-            TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
+            UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
         }
     }
 

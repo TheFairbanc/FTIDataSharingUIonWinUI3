@@ -3,6 +3,7 @@ using System.Text;
 using DataSubmission.Contracts.Services;
 using DataSubmission.Models;
 using DataSubmission.ViewModels;
+using DataSubmission.Views;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -27,6 +28,7 @@ public sealed partial class AutoProcessPage : Page
     {
         ViewModel = App.GetService<AutoProcessViewModel>();
         InitializeComponent();
+        ThemeHelper.ApplyTheme(this);
     }
 
     private int _StartButclickCount = 0;
@@ -40,7 +42,7 @@ public sealed partial class AutoProcessPage : Page
         {
             // Use the parameter
             _ParameterType = parameter;
-            TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
+            UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
 
             if (GetServiceState(command) == "RUNNING")
             //{

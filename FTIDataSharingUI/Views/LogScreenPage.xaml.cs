@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using DataSubmission.ViewModels;
 using DataSubmission.Contracts.Services;
 using DataSubmission.Models;
+using DataSubmission.Views;
 
 namespace FTIDataSharingUI.Views;
 
@@ -26,6 +27,7 @@ public sealed partial class LogScreenPage : Page
         ViewModel = App.GetService<LogScreenViewModel>();
         InitializeComponent();
         LoadLogData();
+        ThemeHelper.ApplyTheme(this);
     }
     private MyParameterType _ParameterType = new();
 
@@ -36,7 +38,7 @@ public sealed partial class LogScreenPage : Page
         {
             // Use the parameter
             _ParameterType = parameter;
-            TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
+            UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
         }
 
     }
