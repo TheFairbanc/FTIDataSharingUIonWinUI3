@@ -22,6 +22,7 @@ using Windows.Networking;
 using Windows.Services.Store;
 using Windows.Storage;
 using WinUIEx;
+using DataSubmission.Views;
 
 namespace FTIDataSharingUI.Views;
 
@@ -647,5 +648,10 @@ public sealed partial class ManualProcessPage : Page
     private void Drop01_DragEnter(object sender, DragEventArgs e)
     {
 
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        ThemeHelper.ApplyTheme(this);
     }
 }
