@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" VerticalAlignment="Center">
+    <Grid x:Name="ContentArea" VerticalAlignment="Center" RequestedTheme="Light">
         <!-- Background Image -->
         <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
         <Grid x:Name="SplitRow" Width="Auto" Height="600" CornerRadius="8" Background="#FFFFFF" BorderBrush="LightGray" BorderThickness="2" MaxWidth="800" MaxHeight="580" HorizontalAlignment="Center">
