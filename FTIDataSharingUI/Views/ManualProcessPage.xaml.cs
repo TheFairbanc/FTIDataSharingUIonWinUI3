@@ -337,7 +337,7 @@ public sealed partial class ManualProcessPage : Page
         else
         {
             // if there is no file to check, then its ok - return true
-            return true;
+            return false;
         }
     }
 

@@ -48,7 +48,7 @@
             <!-- Form Elements -->
             <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Grid.Row="1" Spacing="15" Margin="20,20,0,0">
                 <!-- Automatic Setting Button -->
-                <Button x:Name="ButtonAuto" MaxWidth="450" Height="90" Click="ButtonAuto_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Data excel akan ter-upload secara otomatis pada tanggal tertentu setiap bulan-nya.">
+                <Button x:Name="ButtonAuto" MaxWidth="450" Height="90" Click="ButtonAuto_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Data excel akan ter-upload secara otomatis pada tanggal tertentu setiap bulan-nya." IsEnabled="False">
                     <StackPanel Orientation="Horizontal">
                         <Grid x:Name="SplitColTwo">
                             <Grid.ColumnDefinitions>
