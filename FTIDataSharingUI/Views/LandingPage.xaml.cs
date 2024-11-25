@@ -93,7 +93,7 @@ public sealed partial class LandingPage : Page
                 return false;
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return false;
         }

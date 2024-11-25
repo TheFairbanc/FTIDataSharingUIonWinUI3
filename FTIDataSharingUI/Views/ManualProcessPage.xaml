@@ -7,7 +7,7 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded">
 
-    <Grid x:Name="ContentArea" VerticalAlignment="Center" AllowDrop="True">
+    <Grid x:Name="ContentArea" VerticalAlignment="Center" AllowDrop="True" RequestedTheme="Light">
         <Grid x:Name="OverlayGrid" Visibility="Collapsed" Canvas.ZIndex="1" Width="300" Height="75" />
         <!-- Background Image -->
         <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
@@ -36,7 +36,7 @@
                         <RowDefinition Height="Auto" />
                         <!-- Text Two Overlay -->
                     </Grid.RowDefinitions>
-                    <TextBlock Name="UserGreetings01"  Text="Hi, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Name="UserGreetings01"  Text="Hai, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
                     <!-- Text One Overlay -->
                     <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="Inter" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
                     <!-- Text Two Overlay -->

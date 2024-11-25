@@ -9,7 +9,7 @@
 
     <Grid x:Name="ContentArea">
         <!-- Background Image -->
-        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
+        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" RequestedTheme="Light"/>
 
         <!-- Content -->
         <Grid x:Name="SplitRow" BorderBrush="WhiteSmoke" BorderThickness="2" CornerRadius="8" Width="600" Height="450" Background="#FFFFFF">
@@ -40,15 +40,15 @@
                         <RowDefinition Height="*" />
                         <!-- Text Two Overlay -->
                     </Grid.RowDefinitions>
-                    <TextBlock Name="TextBlock_UserGreetings" Text="Hi, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="10,20,5,5" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Name="UserGreetings01" Text="Hai, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="10,20,5,5" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
                     <!-- Text Overlay -->
-                    <TextBlock MaxWidth="460" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1"/>
+                    <TextBlock Name="UserGreetings02" MaxWidth="460" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1"/>
                 </Grid>
             </Grid>
             <!-- Form Elements -->
             <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Grid.Row="1" Spacing="15" Margin="20,20,0,0">
                 <!-- Automatic Setting Button -->
-                <Button x:Name="ButtonAuto" MaxWidth="450" Height="90" Click="ButtonAuto_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Data excel akan ter-upload secara otomatis pada tanggal tertentu setiap bulan-nya." IsEnabled="False">
+                <Button x:Name="ButtonAuto" MaxWidth="450" Height="90" Click="ButtonAuto_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Data excel akan ter-upload secara otomatis pada tanggal tertentu setiap bulan-nya." IsEnabled="True">
                     <StackPanel Orientation="Horizontal">
                         <Grid x:Name="SplitColTwo">
                             <Grid.ColumnDefinitions>

@@ -11,7 +11,6 @@ using Windows.UI;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using System.Diagnostics;
-using Microsoft.UI;
 
 namespace DataSubmission.Views
 {
@@ -45,10 +44,10 @@ namespace DataSubmission.Views
                     }
                     if (GetTheme() == "Dark")
                     {
-                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Black);
+                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
                     }else
                     {
-                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
+                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Black);
                     }
 
                 }

@@ -4,6 +4,7 @@ using DataSubmission.ViewModels;
 using DataSubmission.Services;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using DataSubmission.Views;
 
 namespace FTIDataSharingUI.Views;
 
@@ -18,6 +19,7 @@ public sealed partial class MainMenuPage : Page
     {
         ViewModel = App.GetService<MainMenuViewModel>();
         InitializeComponent();
+        ThemeHelper.ApplyTheme(this);
     }
 
     private MyParameterType _ParameterType = new MyParameterType();
@@ -29,7 +31,7 @@ public sealed partial class MainMenuPage : Page
         {
             // Use the parameter
             _ParameterType = parameter;
-            TextBlock_UserGreetings.Text = "Hai, " + _ParameterType.Property2;
+            UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using DataSubmission.ViewModels;
+using DataSubmission.Views;
 using Microsoft.UI.Xaml.Controls;
 
 namespace FTIDataSharingUI.Views;
@@ -14,5 +15,6 @@ public sealed partial class DialogContentPage : Page
     {
         ViewModel = App.GetService<DialogContentViewModel>();
         InitializeComponent();
+        ThemeHelper.ApplyTheme(this);
     }
 }

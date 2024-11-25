@@ -1,10 +1,11 @@
-﻿{
-    "profiles": {
-      "FTIDataSharingUI (Package)": {
-        "commandName": "MsixPackage"
-      },
-      "FTIDataSharingUI (Unpackaged)": {
-        "commandName": "Project"
-      }
+{
+  "profiles": {
+    "FTIDataSharingUI (Package)": {
+      "commandName": "MsixPackage",
+      "alwaysReinstallApp": true
+    },
+    "FTIDataSharingUI (Unpackaged)": {
+      "commandName": "Project"
     }
+  }
 }

@@ -51,6 +51,7 @@ public sealed partial class ManualProcessPage : Page
     {
         ViewModel = App.GetService<ManualProcessViewModel>();
         InitializeComponent();
+        ThemeHelper.ApplyTheme(this);
         _logger = Log.Logger;
 
         cbitem.Add(DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"));
@@ -521,7 +522,7 @@ public sealed partial class ManualProcessPage : Page
             AppWorkingFolder = AppWorkingFolder + @"\Datasharing-result";
 
 
-            string SalesFile = "", RepaymentFile = "", OutletFile = "";
+            //string SalesFile = "", RepaymentFile = "", OutletFile = "";
             string SalesFileABS = "", RepaymentFileABS = "", OutletFileABS = "";
             if (droppedFilesSales.Count == 0) { return false; }
             CheckandRefreshFolder(AppWorkingFolder);
@@ -563,7 +564,7 @@ public sealed partial class ManualProcessPage : Page
             //TODO: Done = > need to check result of logging after performing manual upload
 
         }
-        catch (Exception ex)
+        catch (Exception )
         {
             ContentDialog errorDialog = new ContentDialog
             {
@@ -639,7 +640,7 @@ public sealed partial class ManualProcessPage : Page
                 return false;
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return false;
         }

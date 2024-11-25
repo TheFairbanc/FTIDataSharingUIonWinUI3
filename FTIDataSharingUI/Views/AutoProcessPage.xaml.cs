@@ -258,7 +258,7 @@ public sealed partial class AutoProcessPage : Page
                 return false;
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return false;
         }

@@ -253,7 +253,7 @@ public sealed partial class AutoConfigPage : Page
                 return false;
             }
         }
-        catch (Exception ex)
+        catch (Exception )
         {
             //Debug.WriteLine($"Exception: {ex.Message}");
 

@@ -2,12 +2,11 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net7.0-windows10.0.18362.0</TargetFramework>
-		<RootNamespace>DataSubmission</RootNamespace>
+		<RootNamespace>DataSubmissionApp</RootNamespace>
 		<ApplicationIcon>Assets\WindowIcon.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<Platforms>x86;x64;arm64</Platforms>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
-		<PublishProfile>Properties\PublishProfiles\win10-$(Platform).pubxml</PublishProfile>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<UseWinUI>true</UseWinUI>
@@ -24,8 +23,7 @@
 		<AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<AppxBundle>Always</AppxBundle>
-		<AppxBundlePlatforms>x64</AppxBundlePlatforms>
-		<AssemblyName>FTI Data Submission App</AssemblyName>
+		<AssemblyName>FTIDataSubmissionApp</AssemblyName>
 		<SignAssembly>False</SignAssembly>
 		<StartupObject>FTIDataSharingUI.Program</StartupObject>
 		<WindowsSdkPackageVersion>10.0.18362.38</WindowsSdkPackageVersion>
@@ -58,7 +56,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\FTIDataSharingUI.Core\FTIDataSharingUI.Core.csproj" />
+		<ProjectReference Include="..\FTIDataSharingUI.Core\FTIDataSharingUI.Core.csproj">
+		  <Private>True</Private>
+		</ProjectReference>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -97,8 +97,14 @@
 		</Content>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Properties\PublishProfiles\" />
+	</ItemGroup>
+
 	<PropertyGroup Label="Globals">
 	  <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
+	  <DefaultLanguage>EN-us</DefaultLanguage>
+	  <AppxBundlePlatforms>x64</AppxBundlePlatforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
