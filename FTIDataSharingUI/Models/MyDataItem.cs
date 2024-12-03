@@ -8,23 +8,23 @@ namespace DataSubmission.Models
 {
     public class MyDataItem
     {
-        public string Coloum1
+        public string Data_01
         {
             get; set;
         }
-        public string Coloum2
+        public string Data_02
         {
             get; set;
         }
-        public string Coloum3
+        public string Data_03
         {
             get; set;
         }
-        public string Coloum4
+        public string Data_04
         {
             get; set;
         }
-        public string Coloum5
+        public string Data_05
         {
             get; set;
         }

@@ -62,14 +62,15 @@ namespace FTIDataSharingUI.Views
 
                         // Read data from the worksheet
                         var data = new List<MyDataItem>();
-                        for (int row = 1; row <= worksheet.Dimension.Rows; row++)
+                        //for (int row = 1; row <= worksheet.Dimension.Rows; row++)
+                        for (int row = 1; row <= 21; row++)
                         {
                             var item = new MyDataItem();
-                            item.Coloum1 = worksheet.Cells[row, 1].Text;
-                            item.Coloum2 = worksheet.Cells[row, 2].Text;
-                            item.Coloum3 = worksheet.Cells[row, 3].Text;
-                            item.Coloum4 = worksheet.Cells[row, 4].Text;
-                            item.Coloum5 = worksheet.Cells[row, 5].Text;
+                            item.Data_01 = worksheet.Cells[row, 1].Text.ToString();
+                            item.Data_02 = worksheet.Cells[row, 2].Text.ToString();
+                            item.Data_03 = worksheet.Cells[row, 3].Text.ToString();
+                            item.Data_04 = worksheet.Cells[row, 4].Text.ToString();
+                            item.Data_05 = worksheet.Cells[row, 5].Text.ToString();
                             data.Add(item);
                         }
 

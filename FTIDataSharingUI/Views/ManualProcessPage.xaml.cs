@@ -1,28 +1,26 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection.Metadata.Ecma335;
+﻿using System.IO;
 using System.Xml.Linq;
-using DataSubmission.Contracts.Services;
-using DataSubmission.Helpers;
+using System.Diagnostics;
+using System.Collections.ObjectModel;
+using System.Reflection.Metadata.Ecma335;
+using DataSubmission.Views;
 using DataSubmission.Models;
-using DataSubmission.ViewModels;
+using DataSubmission.Helpers;
 using DataSubmission.Services;
+using DataSubmission.ViewModels;
+using DataSubmission.Contracts.Services;
 using Microsoft.UI;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using OfficeOpenXml.Style;
-using Serilog;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.Networking;
-using Windows.Services.Store;
-using Windows.Storage;
 using WinUIEx;
-using DataSubmission.Views;
+using Serilog;
+using Windows.Storage;
+using OfficeOpenXml.Style;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace FTIDataSharingUI.Views;
 
@@ -82,7 +80,6 @@ public sealed partial class ManualProcessPage : Page
         }
 
         if (indexOfComboBoxDataPeriod >= 0) { DataPeriod.SelectedIndex = indexOfComboBoxDataPeriod; }
-
     }
 
     protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -94,6 +91,14 @@ public sealed partial class ManualProcessPage : Page
         {
             _ParameterType = parameter;
             UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
+        }
+        try
+        {
+            await WriteConfigToFileAsync();
+        }
+        catch (Exception)
+        {
+
         }
     }
 
@@ -606,7 +611,7 @@ public sealed partial class ManualProcessPage : Page
         {
             var configFolder = @"C:\ProgramData\FairbancData";
             var filePath = "";
-            filePath = Path.Combine(configFolder, "DateTimeInfo.ini");
+            filePath = Path.Combine(configFolder, "ManualUpload.ini");
 
 
             if (File.Exists(filePath))
@@ -653,6 +658,36 @@ public sealed partial class ManualProcessPage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        ThemeHelper.ApplyTheme(this);
+        // ThemeHelper.ApplyTheme(this);
+    }
+
+    async Task<bool> WriteConfigToFileAsync()
+    {
+        try
+        {
+            var folder = @"C:\ProgramData\FairbancData";
+            var filePath = Path.Combine(folder, "ManualUpload.ini");
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                await writer.WriteLineAsync("[FOLDER]");
+                await writer.WriteLineAsync(@"C:\ProgramData\FairbancData");
+                await writer.WriteLineAsync("[DTID]");
+                await writer.WriteLineAsync(_ParameterType.Property1.Trim());
+                await writer.WriteLineAsync("[DTNAME]");
+                await writer.WriteLineAsync(_ParameterType.Property2.Trim());
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Exception: {ex.Message}");
+            return false;
+        }
     }
 }

@@ -59,7 +59,7 @@ public sealed partial class LandingPage : Page
         {
             var configFolder = @"C:\ProgramData\FairbancData";
             var filePath = "";
-            filePath = param == IniFileMode.AutomaticUpload ? Path.Combine(configFolder, "DateTimeInfo.ini") : Path.Combine(configFolder, "DateTimeInfo.ini");
+            filePath = param == IniFileMode.AutomaticUpload ? Path.Combine(configFolder, "DateTimeInfo.ini") : Path.Combine(configFolder, "ManualUpload.ini");
 
 
             if (File.Exists(filePath))

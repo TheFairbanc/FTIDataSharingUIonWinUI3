@@ -37,32 +37,30 @@ public sealed partial class MainMenuPage : Page
 
     private void ButtonManual_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        var navigationService = App.GetService<INavigationService>();
-        navigationService.NavigateTo(typeof(ManualProcessViewModel).FullName!, _ParameterType, true);
+        try
+        {
+            var navigationService = App.GetService<INavigationService>();
+            navigationService.NavigateTo(typeof(ManualProcessViewModel).FullName!, _ParameterType, true);
+        }
+        catch (Exception ex) 
+        { 
+            LogException(ex); 
+        }
     }
 
     private void ButtonAuto_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        var navigationService = App.GetService<INavigationService>();
-        navigationService.NavigateTo(typeof(AutoProcessViewModel).FullName!, _ParameterType, true);
-    }
-
-    // Create a function to log exceptions
-    string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs", "error.log");
-
-    void LogException(Exception ex)
-    {
         try
         {
-            // Append the exception message and stack trace to the log file
-            File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n{ex.StackTrace}\n\n");
+            var navigationService = App.GetService<INavigationService>();
+            navigationService.NavigateTo(typeof(AutoProcessViewModel).FullName!, _ParameterType, true);
         }
-        catch (Exception logEx)
+        catch (Exception ex)
         {
-            // Handle any exceptions related to logging itself (e.g., permission issues)
-            Console.WriteLine($"Error while logging exception: {logEx.Message}");
+            LogException(ex);
         }
     }
+
     private void ButtonLogs_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         try
@@ -78,6 +76,31 @@ public sealed partial class MainMenuPage : Page
             LogException(ex);  
         }
 
+    }
+
+    // Create a function to log exceptions
+    string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs", "error.log");
+
+    private async void LogException(Exception ex)
+    {
+        try
+        {
+            // Append the exception message and stack trace to the log file
+            File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n{ex.StackTrace}\n\n");
+        }
+        catch (Exception logEx)
+        {
+            // Handle any exceptions related to logging itself (e.g., permission issues)
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Info Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Gagal mencatat error sebagai berikut {logEx.Message} di log file."
+            };
+            await errorDialog.ShowAsync();
+        }
     }
 }
 

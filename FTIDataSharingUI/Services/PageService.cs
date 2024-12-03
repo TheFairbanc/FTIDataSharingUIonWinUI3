@@ -23,6 +23,7 @@ public class PageService : IPageService
         Configure<LogScreenViewModel, LogScreenPage>();
         Configure<DialogContentViewModel, DialogContentPage>();
         Configure<FilePreviewViewModel, FilePreviewPage>();
+        Configure<FilePrevViewModel, FilePrevPage>();
     }
 
     public Type GetPageType(string key)
