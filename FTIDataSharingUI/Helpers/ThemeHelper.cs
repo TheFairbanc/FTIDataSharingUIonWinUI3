@@ -20,6 +20,8 @@ namespace DataSubmission.Views
         [DllImport("UXTheme.dll", SetLastError = true, EntryPoint = "#138")]
         public static extern bool ShouldSystemUseDarkMode();
 
+        private static bool DarkBgColor { get; set; }
+
         public static void ApplyTheme(FrameworkElement element)
         {
             //var originalBackgroundColor = uiSettings.GetColorValue(UIColorType.Accent);
@@ -28,6 +30,7 @@ namespace DataSubmission.Views
 
         private static void UpdateTheme(FrameworkElement rootElement)
         {
+            InitBgColorCheck(rootElement);
             UpdateTextBlocks(rootElement);
         }
 
@@ -48,7 +51,7 @@ namespace DataSubmission.Views
                     }
                     else
                     {
-                        if ((GetTheme() == "Dark" ) && (GetAppTheme() == "Dark"))
+                        if (DarkBgColor)
                         {
                             textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
                         }
@@ -69,7 +72,7 @@ namespace DataSubmission.Views
                     }
                     else
                     {
-                        if ((GetTheme() == "Dark") && (GetAppTheme() == "Dark"))
+                        if (DarkBgColor)
                         {
                             buttonBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
                         }
@@ -87,7 +90,7 @@ namespace DataSubmission.Views
 
         }
 
-        private static string GetTheme() 
+        private static string GetTheme()
         {
             var uiSettings = new UISettings();
             var accentColor = uiSettings.GetColorValue(UIColorType.Accent);
@@ -110,13 +113,31 @@ namespace DataSubmission.Views
             var uiTheme = DefaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
             if (uiTheme == "#FF000000")
             {
-                return  "Dark";
+                return "Dark";
             }
             else if (uiTheme == "#FFFFFFFF")
             {
-                return  "Light";
+                return "Light";
             }
             return "";
+        }
+
+        private static void InitBgColorCheck(DependencyObject parent)
+        {
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if ((child is Grid grid))
+                {
+                    if ((grid.Name == "SplitRow"))
+                    {
+                        SolidColorBrush backgroundColor = (SolidColorBrush)grid.Background;
+                        DarkBgColor = backgroundColor.Color.R < 128 && backgroundColor.Color.G < 128 && backgroundColor.Color.B < 128;
+                        break;
+                    }
+                }
+            }
         }
     }
 

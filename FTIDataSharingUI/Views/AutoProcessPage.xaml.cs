@@ -17,7 +17,7 @@ public sealed partial class AutoProcessPage : Page
     public string serviceName
     {
         get; set;
-    } = "FTI-AppSubmissionsScheduler";
+    } = "DataSubmission";
 
     public AutoProcessViewModel ViewModel
     {
@@ -33,7 +33,7 @@ public sealed partial class AutoProcessPage : Page
 
     private int _StartButclickCount = 0;
     private MyParameterType _ParameterType = new();
-    private readonly string command = "sc query FTI-AppSubmissionsScheduler";
+    private readonly string command = "sc query DataSubmission";
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
