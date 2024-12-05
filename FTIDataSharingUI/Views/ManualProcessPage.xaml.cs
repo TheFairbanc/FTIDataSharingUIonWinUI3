@@ -21,6 +21,9 @@ using Serilog;
 using Windows.Storage;
 using OfficeOpenXml.Style;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage.Pickers;
+using System.Linq.Expressions;
+using System;
 
 namespace FTIDataSharingUI.Views;
 
@@ -80,6 +83,16 @@ public sealed partial class ManualProcessPage : Page
         }
 
         if (indexOfComboBoxDataPeriod >= 0) { DataPeriod.SelectedIndex = indexOfComboBoxDataPeriod; }
+        if (isWindows10())
+        {
+            Penjualan.Visibility = Visibility.Visible;
+            Pembayaran.Visibility = Visibility.Visible;
+            Outlet.Visibility = Visibility.Visible;
+
+            MessageTextBlock01.Text = "File Invoice Penjualan";
+            MessageTextBlock02.Text = "File Penerimaan Pembayaran Invoice";
+            MessageTextBlock03.Text = "File Data Customer/Outlet";
+        }
     }
 
     protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -175,6 +188,10 @@ public sealed partial class ManualProcessPage : Page
                     droppedFilesOutlet.Add(file);
                     PresistentFiles.droppedFilesOutlet = droppedFilesOutlet;
                     UpdateMessageTextBlock(sender, file.Name);
+                }
+                else
+                {
+                    UpdateMessageTextBlock(sender, "Only Excel files (.xls, .xlsx, or .xlsm) are allowed.");
                 }
             }
         }
@@ -280,6 +297,11 @@ public sealed partial class ManualProcessPage : Page
             MessageTextBlock01.Text = "Drag dan drop file Invoice Penjualan (Excel) di sini !";
             droppedFilesSales.Clear();
             PresistentFiles.droppedFilesSales.Clear();
+            if (isWindows10())
+            {
+                Penjualan.Visibility = Visibility.Visible;
+                MessageTextBlock01.Text = "File Invoice Penjualan";
+            }
         }
         if (senderButton.Name == "btnRemove02")
         {
@@ -289,6 +311,11 @@ public sealed partial class ManualProcessPage : Page
             MessageTextBlock02.Text = "Drag dan drop file Pembayaran Invoice (Excel) di sini !";
             droppedFilesAR.Clear();
             PresistentFiles.droppedFilesAR.Clear();
+            if (isWindows10())
+            {
+                Pembayaran.Visibility = Visibility.Visible;
+                MessageTextBlock02.Text = "File Penerimaan Pembayaran Invoice";
+            }
         }
         if (senderButton.Name == "btnRemove03")
         {
@@ -298,6 +325,11 @@ public sealed partial class ManualProcessPage : Page
             MessageTextBlock03.Text = "Drag dan drop file data Customer (Excel) di sini !";
             droppedFilesOutlet.Clear();
             PresistentFiles.droppedFilesOutlet.Clear();
+            if (isWindows10())
+            {
+                Outlet.Visibility = Visibility.Visible;
+                MessageTextBlock03.Text = "File Data Customer/Outlet";
+            }
         }
     }
 
@@ -656,11 +688,6 @@ public sealed partial class ManualProcessPage : Page
 
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
-    {
-        // ThemeHelper.ApplyTheme(this);
-    }
-
     async Task<bool> WriteConfigToFileAsync()
     {
         try
@@ -689,5 +716,106 @@ public sealed partial class ManualProcessPage : Page
             Debug.WriteLine($"Exception: {ex.Message}");
             return false;
         }
+    }
+
+    private async void OpenFileButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var filePicker = new FileOpenPicker();
+            filePicker.FileTypeFilter.Add(".xlsx");
+            filePicker.FileTypeFilter.Add(".xls");
+            filePicker.FileTypeFilter.Add(".xlsm");
+            filePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            filePicker.ViewMode = PickerViewMode.Thumbnail;
+
+            var wind = App.MainWindow;
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(wind);
+            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hwnd);
+
+            var file = await filePicker.PickSingleFileAsync();
+            if (file != null)
+            {
+
+                // Do something with the file stream depending on caller button
+                if ((IsExcelFile(file)) && (sender is Button tb))
+                {
+                    switch (tb.Name)
+                    {
+                        case "Penjualan":
+                            if (droppedFilesSales.Count > 0)
+                            {
+                                droppedFilesSales.RemoveAll(x => IsExcelFile(file));
+                            }
+                            droppedFilesSales.Add(file);
+                            PresistentFiles.droppedFilesSales = droppedFilesSales;
+                            UpdateMessageTextBlock(Drop01, file.Name);
+                            break;
+                        case "Pembayaran":
+                            if (droppedFilesAR.Count > 0)
+                            {
+                                droppedFilesAR.RemoveAll(x => IsExcelFile(file));
+                            }
+                            droppedFilesAR.Add(file);
+                            PresistentFiles.droppedFilesAR = droppedFilesAR;
+                            UpdateMessageTextBlock(Drop02, file.Name);
+                            break;
+                        case "Outlet":
+                            if (droppedFilesOutlet.Count > 0)
+                            {
+                                droppedFilesOutlet.RemoveAll(x => IsExcelFile(file));
+                            }
+                            droppedFilesOutlet.Add(file);
+                            PresistentFiles.droppedFilesOutlet = droppedFilesOutlet;
+                            UpdateMessageTextBlock(Drop03, file.Name);
+
+                            break;
+                        default:
+                            break;
+                    }
+                    tb.Visibility = Visibility.Collapsed;
+
+                }
+                else
+                {
+                    UpdateMessageTextBlock(sender, "Only Excel files (.xls, .xlsx, or .xlsm) are allowed.");
+                }
+            }
+        }
+        catch (Exception)
+        {
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Informasi Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Gagal mengexplor data file excel."
+            };
+            await errorDialog.ShowAsync();
+        }   
+    }
+
+    private bool isWindows10()
+    {
+        try
+        {
+            OperatingSystem os = Environment.OSVersion;
+            Version version = os.Version;
+
+            if (os.Platform == PlatformID.Win32NT && version.Major == 10)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
     }
 }

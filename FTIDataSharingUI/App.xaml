@@ -10,6 +10,8 @@
                 <ResourceDictionary Source="/Styles/Thickness.xaml" />
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="SegoeFluentIcons">ms-appx:/Assets/Fonts/SegoeIcons.ttf#Segoe Fluent Icons</FontFamily>
+            <FontFamily x:Key="SegoeMDL2">ms-appx:/Assets/Fonts/segmdl2.ttf#Segoe MDL2 Assets</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
