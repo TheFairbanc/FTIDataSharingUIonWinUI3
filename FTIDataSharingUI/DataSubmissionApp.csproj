@@ -28,6 +28,7 @@
 		<StartupObject>FTIDataSharingUI.Program</StartupObject>
 		<WindowsSdkPackageVersion>10.0.18362.38</WindowsSdkPackageVersion>
 		<RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 
