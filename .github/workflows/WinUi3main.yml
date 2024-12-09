@@ -16,7 +16,6 @@ jobs:
 
     steps:
 
-
       - name: Sign files with Trusted Signing
         uses: azure/trusted-signing-action@v0.5.0
         with:
