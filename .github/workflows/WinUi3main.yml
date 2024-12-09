@@ -32,10 +32,6 @@ jobs:
       - name: Build
         run: msbuild -p:Configuration=${{ matrix.configuration }} -p:Platform=${{ matrix.platform }}
 
-      - name: Decode and save certificate
-        run: |
-          echo ${{ secrets.BASE64_ENCODED_PFX }} | base64 -d > signing_cert.pfx
-
       - name: Sign files with Trusted Signing
         uses: azure/trusted-signing-action@v0.5.0
         with:
