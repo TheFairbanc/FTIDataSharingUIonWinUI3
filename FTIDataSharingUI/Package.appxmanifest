@@ -11,14 +11,14 @@
   IgnorableNamespaces="uap rescap genTemplate">
 
   <Identity
-    Name="FTIDataSubmissionApp"
-    Publisher="CN=Fairbanc Technologies Indonesia"
+    Name="Fairbanc"
+    Publisher="CN=F1144CFE-12D6-4A79-ACA3-DF288CA4A5A1"
     Version="1.0.0.0" />
     
   <mp:PhoneIdentity PhoneProductId="c60a2914-00d4-4b37-a08a-9bd564dafcac" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
     
   <Properties>
-    <DisplayName>FTI Data Submission App</DisplayName>
+    <DisplayName>Fairbanc</DisplayName>
     <PublisherDisplayName>Fairbanc</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
