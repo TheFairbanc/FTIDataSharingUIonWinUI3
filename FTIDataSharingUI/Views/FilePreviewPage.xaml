@@ -8,7 +8,7 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid x:Name="ContentArea" RequestedTheme="Light">
+    <Grid x:Name="ContentArea" RequestedTheme="Light" Background="White">
         <Grid x:Name="SplitRow" Width="Auto" Height="600" CornerRadius="8" Background="#F5F5F5" BorderBrush="LightGray" BorderThickness="2" MaxWidth="800" MaxHeight="580" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />

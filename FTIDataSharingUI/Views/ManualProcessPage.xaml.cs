@@ -97,21 +97,38 @@ public sealed partial class ManualProcessPage : Page
 
     protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
-        base.OnNavigatedTo(e);
-
-        // Use the parameter
-        if (e.Parameter is MyParameterType parameter)
-        {
-            _ParameterType = parameter;
-            UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
-        }
         try
         {
-            await WriteConfigToFileAsync();
-        }
-        catch (Exception)
-        {
+            base.OnNavigatedTo(e);
 
+            // Use the parameter
+            if (e.Parameter is MyParameterType parameter)
+            {
+                if ((parameter.Property1 is null) || (parameter.Property2 is null))
+                {
+                    await CheckInitialFileExist();
+                }
+                else
+                {
+                    _ParameterType = parameter;
+                    if (!await CheckInitialFileExist())
+                    {
+                        await WriteConfigToFileAsync();
+                    }
+                }
+                UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
+            }
+        }
+        catch (Exception ex)
+        {
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Informasi Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Terjadi kesalahan.\nInfo kesalahan : {ex.Message}."
+            };
         }
     }
 
@@ -237,7 +254,6 @@ public sealed partial class ManualProcessPage : Page
         }
         return null;
     }
-
 
     private void AddFileIcon(object sender)
     {
@@ -538,9 +554,7 @@ public sealed partial class ManualProcessPage : Page
                 Content = $"Gagal melakukan pengkinian data pada waktu: {DateTimeOffset.Now}."
             };
             await resultDialog.ShowAsync();
-
         }
-
     }
 
     public string DataFolder
