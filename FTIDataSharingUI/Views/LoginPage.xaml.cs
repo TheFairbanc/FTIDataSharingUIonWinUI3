@@ -96,7 +96,7 @@ public sealed partial class LoginPage : Page
             {
                 return "";
             }
-            string apiUrl = "https://dashboard.fairbanc.app/api/distributors/" + DTIDTextBox.Text.Trim() + "?api_token=2S0VtpYzETxDrL6WClmxXXnOcCkNbR5nUCCLak6EHmbPbSSsJiTFTPNZrXKk2S0VtpYzETxDrL6WClmx";
+            string apiUrl = "https://dashboard.fairbanc.app/api/distributors/" + DTIDTextBox.Text.Trim() + "?api_token=HSpanHVAijRrrqZpWgLHxhXpvSBxJSutLPpLbbYqjXoxrscxPsbmCLZMeMKRHFzsFcnieMvqpKadiDLx";
 
             using (HttpClient client = new HttpClient())
             {

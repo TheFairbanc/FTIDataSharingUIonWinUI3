@@ -8,6 +8,7 @@ using DataSubmission.ViewModels;
 using DataSubmission.Contracts.Services;
 using DataSubmission.Models;
 using DataSubmission.Views;
+using DataSubmissionApp.Helpers;
 
 namespace FTIDataSharingUI.Views;
 
@@ -30,7 +31,7 @@ public sealed partial class AutoConfigPage : Page
 
     private MyParameterType _ParameterType;
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
+    protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
         if (e.Parameter is MyParameterType parameter)
@@ -43,19 +44,27 @@ public sealed partial class AutoConfigPage : Page
 
     private async void BtnSearch_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        var hwnd = App.MainWindow.GetWindowHandle();
-        FolderPicker openPicker = new Windows.Storage.Pickers.FolderPicker();
-        openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
-        openPicker.FileTypeFilter.Add("*");
-
-        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
-
-        WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
-
-        var folder = await openPicker.PickSingleFolderAsync();
-        if (folder != null)
+        try
         {
-            FolderSelected.Text = @folder.Path;
+            var hwnd = App.MainWindow.GetWindowHandle();
+            FolderPicker openPicker = new Windows.Storage.Pickers.FolderPicker();
+            openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
+            openPicker.FileTypeFilter.Add("*");
+
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
+
+            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
+
+            var folder = await openPicker.PickSingleFolderAsync();
+            if (folder != null)
+            {
+                FolderSelected.Text = @folder.Path;
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
         }
 
     }
@@ -255,8 +264,6 @@ public sealed partial class AutoConfigPage : Page
         }
         catch (Exception )
         {
-            //Debug.WriteLine($"Exception: {ex.Message}");
-
             ContentDialog errorDialog = new ContentDialog();
             errorDialog.XamlRoot = this.XamlRoot;
             errorDialog.Title = "Info";

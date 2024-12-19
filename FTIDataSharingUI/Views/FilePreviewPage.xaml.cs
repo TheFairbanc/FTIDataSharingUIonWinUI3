@@ -10,6 +10,7 @@ using System.IO;
 using DataSubmission.ViewModels;
 using DataSubmission.Contracts.Services;
 using DataSubmission.Models;
+using DataSubmission.Views;
 
 namespace FTIDataSharingUI.Views
 {
@@ -31,6 +32,7 @@ namespace FTIDataSharingUI.Views
         {
             ViewModel = App.GetService<FilePreviewViewModel>();
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -40,7 +40,6 @@ public sealed partial class LogScreenPage : Page
             _ParameterType = parameter;
             UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
         }
-
     }
 
     public ObservableCollection<LogEntry> LogData { get; } = new ObservableCollection<LogEntry>();

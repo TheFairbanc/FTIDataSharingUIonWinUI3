@@ -243,7 +243,7 @@ public class UploadProcessAsync
                 using var multipartFormDataContent = new MultipartFormDataContent();
                 string apiToken = sandboxBool == "Y"
                     ? "KQtbMk32csiJvm8XDAx2KnRAdbtP3YVAnJpF8R5cb2bcBr8boT3dTvGc23c6fqk2NknbxpdarsdF3M4V"
-                    : "2S0VtpYzETxDrL6WClmxXXnOcCkNbR5nUCCLak6EHmbPbSSsJiTFTPNZrXKk2S0VtpYzETxDrL6WClmx";
+                    : "HSpanHVAijRrrqZpWgLHxhXpvSBxJSutLPpLbbYqjXoxrscxPsbmCLZMeMKRHFzsFcnieMvqpKadiDLx";
                 multipartFormDataContent.Add(new StringContent(apiToken), "api_token");
                 byte[] fileBytes = await File.ReadAllBytesAsync(fileDataInfo);
                 multipartFormDataContent.Add(new ByteArrayContent(fileBytes), "file", Path.GetFileName(fileDataInfo));

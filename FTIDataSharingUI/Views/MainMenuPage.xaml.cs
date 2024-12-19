@@ -5,6 +5,7 @@ using DataSubmission.Services;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using DataSubmission.Views;
+using DataSubmissionApp.Helpers;
 
 namespace FTIDataSharingUI.Views;
 
@@ -48,10 +49,17 @@ public sealed partial class MainMenuPage : Page
         }
     }
 
-    private void ButtonAuto_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private async void ButtonAuto_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         try
         {
+            DonwloadAndInstallService _donwloadAndInstallService = new DonwloadAndInstallService();
+            var isServiceDownloaded = await _donwloadAndInstallService.IsServiceInstalled();
+            if (!isServiceDownloaded)
+            {
+                await _donwloadAndInstallService.StartDownloading();
+            }
+            await Task.Delay(3000);
             var navigationService = App.GetService<INavigationService>();
             navigationService.NavigateTo(typeof(AutoProcessViewModel).FullName!, _ParameterType, true);
         }

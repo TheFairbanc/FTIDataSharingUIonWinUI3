@@ -8,7 +8,7 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid x:Name="ContentArea">
+    <Grid x:Name="ContentArea" RequestedTheme="Light">
         <Grid x:Name="SplitRow" Width="Auto" Height="600" CornerRadius="8" Background="#F5F5F5" BorderBrush="LightGray" BorderThickness="2" MaxWidth="800" MaxHeight="580" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
@@ -42,7 +42,7 @@
                     <!-- Text Two Overlay -->
                 </Grid>
             </Grid>
-            <StackPanel Margin="20,20,20,0" Padding="0" Grid.Row="1">
+            <StackPanel Margin="20,20,20,0" Padding="0" Grid.Row="1" RequestedTheme="Light">
                 <controls:DataGrid x:Name="ContentGridView"
                                    GridLinesVisibility="All"
                                    AlternatingRowBackground="LightBlue"
@@ -54,7 +54,7 @@
                                    AutoGenerateColumns="True"
                                    BorderBrush="SteelBlue"
                                    BorderThickness="1"
-                                   FontSize="12">
+                                   FontSize="12" RequestedTheme="Light">
                 </controls:DataGrid>
             </StackPanel>
             <StackPanel Grid.Row="2">
