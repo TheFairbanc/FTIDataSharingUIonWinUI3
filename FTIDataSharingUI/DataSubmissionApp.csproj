@@ -105,6 +105,12 @@
 	  <Folder Include="Properties\PublishProfiles\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="appsetting.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 	<PropertyGroup Label="Globals">
 	  <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
 	  <DefaultLanguage>EN-us</DefaultLanguage>

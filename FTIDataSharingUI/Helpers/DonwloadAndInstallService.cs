@@ -6,16 +6,19 @@ using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Diagnostics;
 using System.Text;
+using System.IO;
+using System.Text.Json;
+using FTIDataSharingUI;
 //using static System.Net.WebRequestMethods;
 
 namespace DataSubmissionApp.Helpers
 {
     public class DonwloadAndInstallService
     {
-        public  async Task StartDownloading()
+        public async Task StartDownloading()
         {
-            string url1 = "http://localhost/data/DataSubmit.zip";
-            string url = "http://dl.dropboxusercontent.com/scl/fi/ad8im5tynj5co31kv6oq3/DataSubmit.zip?rlkey=6pu74c0mv5pmh9rru0xe1b2ef&st=04nuqh1z&dl=0";
+            string winserviceurl = "";
+            /* "https://dl.dropboxusercontent.com/scl/fi/e5frmw5iqw8sgkuzmbtbl/DataSubmit.zip?rlkey=pinjekf4bzqwuub7p6wgtn4t9&st=zv12b5dp&dl=0"; */
             string targetPath = @"C:\ProgramData\FairbancData";
             string downloadPath = Path.Combine(targetPath, "DataSubmit.zip");
             string extractPath = Path.Combine(targetPath, "extracted");
@@ -23,9 +26,13 @@ namespace DataSubmissionApp.Helpers
 
             try
             {
+                ConfigurationSettings config = Configuration.LoadConfiguration();
+                winserviceurl = config.AppSettings.WinServiceUrl;
+
+
                 using (HttpClient client = new HttpClient())
                 {
-                    HttpResponseMessage response = await client.GetAsync(url);
+                    HttpResponseMessage response = await client.GetAsync(winserviceurl);
                     response.EnsureSuccessStatusCode();
                     await using (FileStream fileStream = new FileStream(downloadPath, FileMode.Create))
                     {
@@ -176,16 +183,37 @@ namespace DataSubmissionApp.Helpers
             try
             {
                 var result = await GetServiceStateAsync("sc query DataSubmission");
-                if (result == "NOTINSTALLED") 
+                if (result == "NOTINSTALLED")
                 { return false; }
                 return true;
             }
             catch (Exception ex)
             {
                 return false;
-                throw ex;
             }
         }
     }
 
+    //============================================================================================//
+
+    public class Configuration
+    {
+        public static ConfigurationSettings LoadConfiguration()
+        {
+            string exePath = AppDomain.CurrentDomain.BaseDirectory;
+            string jsonFilePath = Path.Combine(exePath, "appsetting.json");
+            string json = File.ReadAllText(jsonFilePath);
+            return JsonSerializer.Deserialize<ConfigurationSettings>(json);
+        }
+    }
+
+    public class ConfigurationSettings
+    {
+        public AppSettings AppSettings { get; set; }
+    }
+
+    public class AppSettings
+    {
+        public string WinServiceUrl { get; set; }
+    }
 }

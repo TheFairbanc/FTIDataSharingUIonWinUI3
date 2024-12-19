@@ -91,7 +91,7 @@ public sealed partial class MainMenuPage : Page
         try
         {
             // Create a function to log exceptions
-            string logFilePath = Path.Combine(@"C:\ProgramData\FairbancData", "logs", "error.log");
+            string logFilePath = Path.Combine(@"C:\ProgramData\FairbancData", "error.log");
             // Append the exception message and stack trace to the log file
             File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n{ex.StackTrace}\n\n");
         }

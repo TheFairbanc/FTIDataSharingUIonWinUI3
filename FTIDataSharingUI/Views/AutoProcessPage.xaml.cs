@@ -179,6 +179,18 @@ public sealed partial class AutoProcessPage : Page
     {
         try
         {
+            var ServiceStatus = GetServiceState(command);
+            if (ServiceStatus == "RUNNING")
+            {
+                ContentDialog infoDialog = new ContentDialog();
+                infoDialog.XamlRoot = this.XamlRoot;
+                infoDialog.Title = "Peringatan";
+                infoDialog.CloseButtonText = "OK";
+                infoDialog.DefaultButton = ContentDialogButton.Close;
+                infoDialog.Content = "Sebelum melakukan konfigurasi, mohon agar memberhentikan makanisme automatic upload terlebih dahulu, dengan menekan tombol STOP. ";
+                await infoDialog.ShowAsync();
+                return;
+            }
             var readconfig = await ReadDateTimeFromFileAsync();
             if (!readconfig)
             {
