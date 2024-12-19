@@ -86,13 +86,12 @@ public sealed partial class MainMenuPage : Page
 
     }
 
-    // Create a function to log exceptions
-    string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs", "error.log");
-
     private async void LogException(Exception ex)
     {
         try
         {
+            // Create a function to log exceptions
+            string logFilePath = Path.Combine(@"C:\ProgramData\FairbancData", "logs", "error.log");
             // Append the exception message and stack trace to the log file
             File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n{ex.StackTrace}\n\n");
         }
@@ -105,7 +104,7 @@ public sealed partial class MainMenuPage : Page
                 Title = "Info Kesalahan",
                 CloseButtonText = "OK",
                 DefaultButton = ContentDialogButton.Close,
-                Content = $"Gagal mencatat error sebagai berikut {logEx.Message} di log file."
+                Content = $"Terjadi error sebagai berikut:/n {logEx.Message}"
             };
             await errorDialog.ShowAsync();
         }
