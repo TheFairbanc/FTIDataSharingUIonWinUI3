@@ -200,10 +200,18 @@ namespace DataSubmissionApp.Helpers
     {
         public static ConfigurationSettings LoadConfiguration()
         {
-            string exePath = AppDomain.CurrentDomain.BaseDirectory;
-            string jsonFilePath = Path.Combine(exePath, "appsetting.json");
-            string json = File.ReadAllText(jsonFilePath);
-            return JsonSerializer.Deserialize<ConfigurationSettings>(json);
+            try
+            {
+                string exePath = AppDomain.CurrentDomain.BaseDirectory;
+                string jsonFilePath = Path.Combine(exePath, "appsetting.json");
+                string json = File.ReadAllText(jsonFilePath);
+                return JsonSerializer.Deserialize<ConfigurationSettings>(json);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 
