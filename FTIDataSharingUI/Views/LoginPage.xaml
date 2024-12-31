@@ -42,7 +42,7 @@
                     </Grid.RowDefinitions>
                     <Image Source="/Assets/FTI_Logo_Transparent.png" HorizontalAlignment="Left"  Margin="10,10,0,5" Grid.Row="0"/>
                     <!-- Text Overlay -->
-                    <TextBlock MaxWidth="460" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1"/>
+                    <TextBlock MaxWidth="460" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1" Name="UserGreetings01"/>
                 </Grid>
             </Grid>
 

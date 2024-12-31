@@ -16,11 +16,11 @@ public class LogEntry
     public string Process
     {
         get; set;
-    }
-    public string Warning
+    } = "";
+    public string Warning 
     {
         get; set;
-    }
+    } = "";
     public SolidColorBrush Color
     {
         get; set;

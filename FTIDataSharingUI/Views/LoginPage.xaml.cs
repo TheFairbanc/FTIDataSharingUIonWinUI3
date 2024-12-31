@@ -74,10 +74,16 @@ public sealed partial class LoginPage : Page
             var navigationService = App.GetService<INavigationService>();
             navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, parameter, true);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
 
-            throw ex;
+            ContentDialog infoDialog = new ContentDialog();
+            infoDialog.XamlRoot = this.XamlRoot;
+            infoDialog.Title = "Informasi";
+            infoDialog.CloseButtonText = "OK";
+            infoDialog.DefaultButton = ContentDialogButton.Close;
+            infoDialog.Content = "Sistem akan membuat konfigurasi baru. Lanjukan ?";
+            await infoDialog.ShowAsync();
         }
 
     }
@@ -90,7 +96,7 @@ public sealed partial class LoginPage : Page
             {
                 return "";
             }
-            string apiUrl = "https://dashboard.fairbanc.app/api/distributors/" + DTIDTextBox.Text.Trim() + "?api_token=2S0VtpYzETxDrL6WClmxXXnOcCkNbR5nUCCLak6EHmbPbSSsJiTFTPNZrXKk2S0VtpYzETxDrL6WClmx";
+            string apiUrl = "https://dashboard.fairbanc.app/api/distributors/" + DTIDTextBox.Text.Trim() + "?api_token=HSpanHVAijRrrqZpWgLHxhXpvSBxJSutLPpLbbYqjXoxrscxPsbmCLZMeMKRHFzsFcnieMvqpKadiDLx";
 
             using (HttpClient client = new HttpClient())
             {

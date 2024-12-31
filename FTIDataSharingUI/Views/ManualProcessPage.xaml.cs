@@ -1,28 +1,29 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection.Metadata.Ecma335;
+﻿using System.IO;
 using System.Xml.Linq;
-using DataSubmission.Contracts.Services;
-using DataSubmission.Helpers;
+using System.Diagnostics;
+using System.Collections.ObjectModel;
+using System.Reflection.Metadata.Ecma335;
+using DataSubmission.Views;
 using DataSubmission.Models;
-using DataSubmission.ViewModels;
+using DataSubmission.Helpers;
 using DataSubmission.Services;
+using DataSubmission.ViewModels;
+using DataSubmission.Contracts.Services;
 using Microsoft.UI;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using OfficeOpenXml.Style;
-using Serilog;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.Networking;
-using Windows.Services.Store;
-using Windows.Storage;
 using WinUIEx;
-using DataSubmission.Views;
+using Serilog;
+using Windows.Storage;
+using OfficeOpenXml.Style;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage.Pickers;
+using System.Linq.Expressions;
+using System;
 
 namespace FTIDataSharingUI.Views;
 
@@ -51,6 +52,7 @@ public sealed partial class ManualProcessPage : Page
     {
         ViewModel = App.GetService<ManualProcessViewModel>();
         InitializeComponent();
+        ThemeHelper.ApplyTheme(this);
         _logger = Log.Logger;
 
         cbitem.Add(DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"));
@@ -81,18 +83,52 @@ public sealed partial class ManualProcessPage : Page
         }
 
         if (indexOfComboBoxDataPeriod >= 0) { DataPeriod.SelectedIndex = indexOfComboBoxDataPeriod; }
+        if (isWindows10())
+        {
+            Penjualan.Visibility = Visibility.Visible;
+            Pembayaran.Visibility = Visibility.Visible;
+            Outlet.Visibility = Visibility.Visible;
 
+            MessageTextBlock01.Text = "File Invoice Penjualan";
+            MessageTextBlock02.Text = "File Penerimaan Pembayaran Invoice";
+            MessageTextBlock03.Text = "File Data Customer/Outlet";
+        }
     }
 
     protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
-        base.OnNavigatedTo(e);
-
-        // Use the parameter
-        if (e.Parameter is MyParameterType parameter)
+        try
         {
-            _ParameterType = parameter;
-            UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
+            base.OnNavigatedTo(e);
+
+            // Use the parameter
+            if (e.Parameter is MyParameterType parameter)
+            {
+                if ((parameter.Property1 is null) || (parameter.Property2 is null))
+                {
+                    await CheckInitialFileExist();
+                }
+                else
+                {
+                    _ParameterType = parameter;
+                    if (!await CheckInitialFileExist())
+                    {
+                        await WriteConfigToFileAsync();
+                    }
+                }
+                UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
+            }
+        }
+        catch (Exception ex)
+        {
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Informasi Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Terjadi kesalahan.\nInfo kesalahan : {ex.Message}."
+            };
         }
     }
 
@@ -170,6 +206,10 @@ public sealed partial class ManualProcessPage : Page
                     PresistentFiles.droppedFilesOutlet = droppedFilesOutlet;
                     UpdateMessageTextBlock(sender, file.Name);
                 }
+                else
+                {
+                    UpdateMessageTextBlock(sender, "Only Excel files (.xls, .xlsx, or .xlsm) are allowed.");
+                }
             }
         }
     }
@@ -214,7 +254,6 @@ public sealed partial class ManualProcessPage : Page
         }
         return null;
     }
-
 
     private void AddFileIcon(object sender)
     {
@@ -274,6 +313,11 @@ public sealed partial class ManualProcessPage : Page
             MessageTextBlock01.Text = "Drag dan drop file Invoice Penjualan (Excel) di sini !";
             droppedFilesSales.Clear();
             PresistentFiles.droppedFilesSales.Clear();
+            if (isWindows10())
+            {
+                Penjualan.Visibility = Visibility.Visible;
+                MessageTextBlock01.Text = "File Invoice Penjualan";
+            }
         }
         if (senderButton.Name == "btnRemove02")
         {
@@ -283,6 +327,11 @@ public sealed partial class ManualProcessPage : Page
             MessageTextBlock02.Text = "Drag dan drop file Pembayaran Invoice (Excel) di sini !";
             droppedFilesAR.Clear();
             PresistentFiles.droppedFilesAR.Clear();
+            if (isWindows10())
+            {
+                Pembayaran.Visibility = Visibility.Visible;
+                MessageTextBlock02.Text = "File Penerimaan Pembayaran Invoice";
+            }
         }
         if (senderButton.Name == "btnRemove03")
         {
@@ -292,6 +341,11 @@ public sealed partial class ManualProcessPage : Page
             MessageTextBlock03.Text = "Drag dan drop file data Customer (Excel) di sini !";
             droppedFilesOutlet.Clear();
             PresistentFiles.droppedFilesOutlet.Clear();
+            if (isWindows10())
+            {
+                Outlet.Visibility = Visibility.Visible;
+                MessageTextBlock03.Text = "File Data Customer/Outlet";
+            }
         }
     }
 
@@ -500,9 +554,7 @@ public sealed partial class ManualProcessPage : Page
                 Content = $"Gagal melakukan pengkinian data pada waktu: {DateTimeOffset.Now}."
             };
             await resultDialog.ShowAsync();
-
         }
-
     }
 
     public string DataFolder
@@ -521,7 +573,7 @@ public sealed partial class ManualProcessPage : Page
             AppWorkingFolder = AppWorkingFolder + @"\Datasharing-result";
 
 
-            string SalesFile = "", RepaymentFile = "", OutletFile = "";
+            //string SalesFile = "", RepaymentFile = "", OutletFile = "";
             string SalesFileABS = "", RepaymentFileABS = "", OutletFileABS = "";
             if (droppedFilesSales.Count == 0) { return false; }
             CheckandRefreshFolder(AppWorkingFolder);
@@ -563,7 +615,7 @@ public sealed partial class ManualProcessPage : Page
             //TODO: Done = > need to check result of logging after performing manual upload
 
         }
-        catch (Exception ex)
+        catch (Exception )
         {
             ContentDialog errorDialog = new ContentDialog
             {
@@ -605,7 +657,7 @@ public sealed partial class ManualProcessPage : Page
         {
             var configFolder = @"C:\ProgramData\FairbancData";
             var filePath = "";
-            filePath = Path.Combine(configFolder, "DateTimeInfo.ini");
+            filePath = Path.Combine(configFolder, "ManualUpload.ini");
 
 
             if (File.Exists(filePath))
@@ -639,7 +691,7 @@ public sealed partial class ManualProcessPage : Page
                 return false;
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return false;
         }
@@ -650,8 +702,134 @@ public sealed partial class ManualProcessPage : Page
 
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    async Task<bool> WriteConfigToFileAsync()
     {
-        ThemeHelper.ApplyTheme(this);
+        try
+        {
+            var folder = @"C:\ProgramData\FairbancData";
+            var filePath = Path.Combine(folder, "ManualUpload.ini");
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                await writer.WriteLineAsync("[FOLDER]");
+                await writer.WriteLineAsync(@"C:\ProgramData\FairbancData");
+                await writer.WriteLineAsync("[DTID]");
+                await writer.WriteLineAsync(_ParameterType.Property1.Trim());
+                await writer.WriteLineAsync("[DTNAME]");
+                await writer.WriteLineAsync(_ParameterType.Property2.Trim());
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Exception: {ex.Message}");
+            return false;
+        }
+    }
+
+    private async void OpenFileButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var filePicker = new FileOpenPicker();
+            filePicker.FileTypeFilter.Add(".xlsx");
+            filePicker.FileTypeFilter.Add(".xls");
+            filePicker.FileTypeFilter.Add(".xlsm");
+            filePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            filePicker.ViewMode = PickerViewMode.Thumbnail;
+
+            var wind = App.MainWindow;
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(wind);
+            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hwnd);
+
+            var file = await filePicker.PickSingleFileAsync();
+            if (file != null)
+            {
+
+                // Do something with the file stream depending on caller button
+                if ((IsExcelFile(file)) && (sender is Button tb))
+                {
+                    switch (tb.Name)
+                    {
+                        case "Penjualan":
+                            if (droppedFilesSales.Count > 0)
+                            {
+                                droppedFilesSales.RemoveAll(x => IsExcelFile(file));
+                            }
+                            droppedFilesSales.Add(file);
+                            PresistentFiles.droppedFilesSales = droppedFilesSales;
+                            UpdateMessageTextBlock(Drop01, file.Name);
+                            break;
+                        case "Pembayaran":
+                            if (droppedFilesAR.Count > 0)
+                            {
+                                droppedFilesAR.RemoveAll(x => IsExcelFile(file));
+                            }
+                            droppedFilesAR.Add(file);
+                            PresistentFiles.droppedFilesAR = droppedFilesAR;
+                            UpdateMessageTextBlock(Drop02, file.Name);
+                            break;
+                        case "Outlet":
+                            if (droppedFilesOutlet.Count > 0)
+                            {
+                                droppedFilesOutlet.RemoveAll(x => IsExcelFile(file));
+                            }
+                            droppedFilesOutlet.Add(file);
+                            PresistentFiles.droppedFilesOutlet = droppedFilesOutlet;
+                            UpdateMessageTextBlock(Drop03, file.Name);
+
+                            break;
+                        default:
+                            break;
+                    }
+                    tb.Visibility = Visibility.Collapsed;
+
+                }
+                else
+                {
+                    UpdateMessageTextBlock(sender, "Only Excel files (.xls, .xlsx, or .xlsm) are allowed.");
+                }
+            }
+        }
+        catch (Exception)
+        {
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Informasi Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Gagal mengexplor data file excel."
+            };
+            await errorDialog.ShowAsync();
+        }   
+    }
+
+    private bool isWindows10()
+    {
+        try
+        {
+            OperatingSystem os = Environment.OSVersion;
+            Version version = os.Version;
+
+            if (os.Platform == PlatformID.Win32NT && version.Major == 10)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
     }
 }

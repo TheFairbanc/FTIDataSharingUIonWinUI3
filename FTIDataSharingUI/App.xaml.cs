@@ -93,6 +93,8 @@ public partial class App : Application
             services.AddTransient<ShellViewModel>();
             services.AddTransient<FilePreviewViewModel>();
             services.AddTransient<FilePreviewPage>();
+            services.AddTransient<FilePrevViewModel>();
+            services.AddTransient<FilePrevPage>();
 
             // Create your custom LogBroker
             Log.Logger = new LoggerConfiguration()
@@ -106,7 +108,7 @@ public partial class App : Application
         UnhandledException += App_UnhandledException;
     }
 
-    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    private async void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
         // TODO: Done => Log and handle exceptions as appropriate.
         // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
@@ -121,7 +123,7 @@ public partial class App : Application
                 DefaultButton = ContentDialogButton.Close,
                 Content = $"Gagal melakukan pengkinian data pada {DateTimeOffset.Now}."
             };
-            errorDialog.ShowAsync();
+            await errorDialog.ShowAsync();
         }
 
     }

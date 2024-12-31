@@ -17,7 +17,7 @@ public sealed partial class AutoProcessPage : Page
     public string serviceName
     {
         get; set;
-    } = "FTI-AppSubmissionsScheduler";
+    } = "DataSubmission";
 
     public AutoProcessViewModel ViewModel
     {
@@ -29,11 +29,12 @@ public sealed partial class AutoProcessPage : Page
         ViewModel = App.GetService<AutoProcessViewModel>();
         InitializeComponent();
         ThemeHelper.ApplyTheme(this);
+        ConfigButton.Foreground = new SolidColorBrush(Colors.White);
     }
 
     private int _StartButclickCount = 0;
     private MyParameterType _ParameterType = new();
-    private readonly string command = "sc query FTI-AppSubmissionsScheduler";
+    private readonly string command = "sc query DataSubmission";
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
@@ -43,42 +44,6 @@ public sealed partial class AutoProcessPage : Page
             // Use the parameter
             _ParameterType = parameter;
             UserGreetings01.Text = "Hai, " + _ParameterType.Property2;
-
-            if (GetServiceState(command) == "RUNNING")
-            //{
-            //    StartButton.Background = new SolidColorBrush(Colors.LightGray);
-            //    StartButton.Content = "Stop";
-            //    TxtStatusValue.Text = " Start";
-            //    PnlStatus.Background = new SolidColorBrush(Colors.LightGreen);
-            //    TxtStatus.Foreground = new SolidColorBrush(Colors.Green);
-            //    TxtStatusValue.Foreground = new SolidColorBrush(Colors.Green);
-            //}
-            //else
-            //{
-            //    StartButton.Background = new SolidColorBrush(Colors.ForestGreen);
-            //    StartButton.Content = "Start";
-            //    TxtStatusValue.Text = " Stop";
-            //    PnlStatus.Background = new SolidColorBrush(Colors.LightGray);
-            //    TxtStatus.Foreground = new SolidColorBrush(Colors.Gray);
-            //    TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
-            //}
-            {
-                StartButton.Background = new SolidColorBrush(Colors.LightGray);
-                StartButton.Content = "Stop";
-                TxtStatusValue.Text = " Start";
-                PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xD4, 0xF1, 0xEB));//#D4F1EB
-                TxtStatus.Foreground = new SolidColorBrush(Colors.Green); //#D4F1EB;
-                TxtStatusValue.Foreground = new SolidColorBrush(Colors.Green);
-            }
-            else
-            {
-                StartButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0x44, 0xAB, 0x96)); //background: #D4F1EB;
-                StartButton.Content = "Start";
-                TxtStatusValue.Text = " Stop";
-                PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xEA, 0xEC, 0xF0)); //background: #EAECF0; //new SolidColorBrush(Colors.LightGreen);
-                TxtStatus.Foreground = new SolidColorBrush(Colors.Gray); ;
-                TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
-            }
         }
     }
 
@@ -115,12 +80,14 @@ public sealed partial class AutoProcessPage : Page
         {
             return "STOPPED";
         }
+        else if (output.Contains("not exist"))
+        {
+            return "NOTINSTALLED";
+        }
         else
         {
             return "UNKNOWN";
         }
-
-
     }
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
@@ -163,21 +130,33 @@ public sealed partial class AutoProcessPage : Page
             Process.Start(processInfo);
 
             Thread.Sleep(2000);
-
-            if (GetServiceState(command) == "RUNNING")
+            var ServiceStatus = GetServiceState(command);
+            if (ServiceStatus == "RUNNING")
             {
                 StartButton.Background = new SolidColorBrush(Colors.LightGray);
                 StartButton.Content = "Stop";
+                StartButton.IsEnabled = true;
                 TxtStatusValue.Text = " Start";
                 PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xD4, 0xF1, 0xEB));//#D4F1EB
                 TxtStatus.Foreground = new SolidColorBrush(Colors.Green); //#D4F1EB;
                 TxtStatusValue.Foreground = new SolidColorBrush(Colors.Green);
             }
-            else
+            else if (ServiceStatus == "STOPPED")
             {
                 StartButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0x44, 0xAB, 0x96)); //background: #D4F1EB;
                 StartButton.Content = "Start";
+                StartButton.IsEnabled = true;
                 TxtStatusValue.Text = " Stop";
+                PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xEA, 0xEC, 0xF0)); //background: #EAECF0; //new SolidColorBrush(Colors.LightGreen);
+                TxtStatus.Foreground = new SolidColorBrush(Colors.Gray); ;
+                TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+            else 
+            {
+                StartButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0x44, 0xAB, 0x96)); //background: #D4F1EB;
+                StartButton.Content = "Start";
+                StartButton.IsEnabled = false;
+                TxtStatusValue.Text = " N/A";
                 PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xEA, 0xEC, 0xF0)); //background: #EAECF0; //new SolidColorBrush(Colors.LightGreen);
                 TxtStatus.Foreground = new SolidColorBrush(Colors.Gray); ;
                 TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
@@ -185,8 +164,13 @@ public sealed partial class AutoProcessPage : Page
         }
         catch (Exception ex)
         {
-
-            Console.WriteLine($"Error starting service: {ex.Message}");
+            ContentDialog infoDialog = new ContentDialog();
+            infoDialog.XamlRoot = this.XamlRoot;
+            infoDialog.Title = "Peringatan";
+            infoDialog.CloseButtonText = "OK";
+            infoDialog.DefaultButton = ContentDialogButton.Close;
+            infoDialog.Content = "Scheduler service belum data di jalankan/install.\nMohon hubungi pihak Fairbanc.\n\n\"Error starting service: {ex.Message}\"";
+            await infoDialog.ShowAsync();
         }
         
     }
@@ -195,6 +179,18 @@ public sealed partial class AutoProcessPage : Page
     {
         try
         {
+            var ServiceStatus = GetServiceState(command);
+            if (ServiceStatus == "RUNNING")
+            {
+                ContentDialog infoDialog = new ContentDialog();
+                infoDialog.XamlRoot = this.XamlRoot;
+                infoDialog.Title = "Peringatan";
+                infoDialog.CloseButtonText = "OK";
+                infoDialog.DefaultButton = ContentDialogButton.Close;
+                infoDialog.Content = "Sebelum melakukan konfigurasi, mohon agar memberhentikan makanisme automatic upload terlebih dahulu, dengan menekan tombol STOP. ";
+                await infoDialog.ShowAsync();
+                return;
+            }
             var readconfig = await ReadDateTimeFromFileAsync();
             if (!readconfig)
             {
@@ -258,9 +254,60 @@ public sealed partial class AutoProcessPage : Page
                 return false;
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return false;
+        }
+    }
+
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        await Task.Delay(3000);
+        var ServiceStatus = GetServiceState(command);
+        if (ServiceStatus == "RUNNING")
+        //{
+        //    StartButton.Background = new SolidColorBrush(Colors.LightGray);
+        //    StartButton.Content = "Stop";
+        //    TxtStatusValue.Text = " Start";
+        //    PnlStatus.Background = new SolidColorBrush(Colors.LightGreen);
+        //    TxtStatus.Foreground = new SolidColorBrush(Colors.Green);
+        //    TxtStatusValue.Foreground = new SolidColorBrush(Colors.Green);
+        //}
+        //else
+        //{
+        //    StartButton.Background = new SolidColorBrush(Colors.ForestGreen);
+        //    StartButton.Content = "Start";
+        //    TxtStatusValue.Text = " Stop";
+        //    PnlStatus.Background = new SolidColorBrush(Colors.LightGray);
+        //    TxtStatus.Foreground = new SolidColorBrush(Colors.Gray);
+        //    TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
+        //}
+        {
+            StartButton.Background = new SolidColorBrush(Colors.LightGray);
+            StartButton.Content = "Stop";
+            TxtStatusValue.Text = " Start";
+            PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xD4, 0xF1, 0xEB));//#D4F1EB
+            TxtStatus.Foreground = new SolidColorBrush(Colors.Green); //#D4F1EB;
+            TxtStatusValue.Foreground = new SolidColorBrush(Colors.Green);
+        }
+        else if (ServiceStatus == "STOPPED")
+        {
+            StartButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0x44, 0xAB, 0x96)); //background: #D4F1EB;
+            StartButton.Content = "Start";
+            TxtStatusValue.Text = " Stop";
+            PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xEA, 0xEC, 0xF0)); //background: #EAECF0; //new SolidColorBrush(Colors.LightGreen);
+            TxtStatus.Foreground = new SolidColorBrush(Colors.Gray); ;
+            TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
+        }
+        else
+        {
+            StartButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0x44, 0xAB, 0x96)); //background: #D4F1EB;
+            StartButton.Content = "Start";
+            StartButton.IsEnabled = false;
+            TxtStatusValue.Text = " N/A";
+            PnlStatus.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0xEA, 0xEC, 0xF0)); //background: #EAECF0; //new SolidColorBrush(Colors.LightGreen);
+            TxtStatus.Foreground = new SolidColorBrush(Colors.Gray); ;
+            TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
         }
     }
 }

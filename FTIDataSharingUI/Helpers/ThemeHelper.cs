@@ -11,62 +11,93 @@ using Windows.UI;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using System.Diagnostics;
-using Microsoft.UI;
+using System.Runtime.InteropServices;
 
 namespace DataSubmission.Views
 {
     public static class ThemeHelper
     {
+        [DllImport("UXTheme.dll", SetLastError = true, EntryPoint = "#138")]
+        public static extern bool ShouldSystemUseDarkMode();
+
+        private static bool DarkBgColor { get; set; }
+
         public static void ApplyTheme(FrameworkElement element)
         {
-            //var oriColor = (Color)element.Resources["SystemAccentColor"];
-            //var textColor = GetContrastingColor((Color)element.Resources["SystemAccentColor"]);
+            //var originalBackgroundColor = uiSettings.GetColorValue(UIColorType.Accent);
             UpdateTheme(element);
         }
 
         private static void UpdateTheme(FrameworkElement rootElement)
         {
+            InitBgColorCheck(rootElement);
             UpdateTextBlocks(rootElement);
         }
 
         private static void UpdateTextBlocks(DependencyObject parent)
         {
+            //bool isDarkBgr = originalBackgroundColor.R < 128 && originalBackgroundColor.G < 128 && originalBackgroundColor.B < 128;
+
             int count = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < count; i++)
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
                 if (child is TextBlock textBlock)
                 {
-                    var clrs = (SolidColorBrush)textBlock.Foreground;
+                    //var clrs = (SolidColorBrush)textBlock.Foreground;
                     if (textBlock.Name.StartsWith("UserGreetings"))
                     {
                         //Debug.WriteLine(textBlock.Name.ToString());
-                        break;  
                     }
-                    if (GetTheme() == "Dark")
+                    else
                     {
-                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Black);
-                    }else
-                    {
-                        textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
+                        if (DarkBgColor)
+                        {
+                            textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
+                        }
+                        else
+                        {
+                            textBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Black);
+                        }
                     }
 
                 }
-                else if (child is DependencyObject)
+                else if (child is Button buttonBlock)
+                {
+                    //var clrs = (SolidColorBrush)buttonBlock.Foreground;
+                    if (buttonBlock.Name.StartsWith("btnRemove"))
+                    {
+                        Debug.WriteLine(buttonBlock.Name.ToString());
+                        //break;
+                    }
+                    else
+                    {
+                        if (DarkBgColor)
+                        {
+                            buttonBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
+                        }
+                        else
+                        {
+                            buttonBlock.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Black);
+                        }
+                    }
+                }
+                if (child is DependencyObject)
                 {
                     UpdateTextBlocks(child);
                 }
             }
+
         }
 
-        private static string GetTheme() 
+        private static string GetTheme()
         {
             var uiSettings = new UISettings();
             var accentColor = uiSettings.GetColorValue(UIColorType.Accent);
             var backgroundColor = uiSettings.GetColorValue(UIColorType.Background);
             bool isDarkTheme = backgroundColor.R < 128 && backgroundColor.G < 128 && backgroundColor.B < 128;
 
-            if (isDarkTheme)
+            if (ShouldSystemUseDarkMode())
             {
                 return "Dark";
             }
@@ -74,7 +105,39 @@ namespace DataSubmission.Views
             {
                 return "Light";
             }
+        }
 
+        private static string GetAppTheme()
+        {
+            var DefaultTheme = new Windows.UI.ViewManagement.UISettings();
+            var uiTheme = DefaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
+            if (uiTheme == "#FF000000")
+            {
+                return "Dark";
+            }
+            else if (uiTheme == "#FFFFFFFF")
+            {
+                return "Light";
+            }
+            return "";
+        }
+
+        private static void InitBgColorCheck(DependencyObject parent)
+        {
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if ((child is Grid grid))
+                {
+                    if ((grid.Name == "SplitRow"))
+                    {
+                        SolidColorBrush backgroundColor = (SolidColorBrush)grid.Background;
+                        DarkBgColor = backgroundColor.Color.R < 128 && backgroundColor.Color.G < 128 && backgroundColor.Color.B < 128;
+                        break;
+                    }
+                }
+            }
         }
     }
 
