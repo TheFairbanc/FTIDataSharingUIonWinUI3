@@ -96,6 +96,11 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="appsetting.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
 		<PackageCertificateKeyFile>DataSubmissionApp_TemporaryKey.pfx</PackageCertificateKeyFile>
