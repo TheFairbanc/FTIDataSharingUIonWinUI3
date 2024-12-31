@@ -8,12 +8,15 @@
   xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/templatestudio"
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-  IgnorableNamespaces="uap rescap genTemplate">
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+  IgnorableNamespaces="uap rescap genTemplate uap4">
 
   <Identity
-    Name="Fairbanc"
+
+    Name="Fairbanc.Fairbanc"
     Publisher="CN=F1144CFE-12D6-4A79-ACA3-DF288CA4A5A1"
     Version="1.0.6.0" />
+
     
   <mp:PhoneIdentity PhoneProductId="c60a2914-00d4-4b37-a08a-9bd564dafcac" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
     
@@ -50,7 +53,6 @@
             <uap:ShowOn Tile="square310x310Logo"/>
           </uap:ShowNameOnTiles>
         </uap:DefaultTile >
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:LockScreen BadgeLogo="Assets\StoreLogo.png" Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
@@ -72,6 +74,7 @@
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
     <rescap:Capability Name="documentsLibrary" />
+    <Capability Name="internetClient"/>
   </Capabilities>
 
   <genTemplate:Metadata>
