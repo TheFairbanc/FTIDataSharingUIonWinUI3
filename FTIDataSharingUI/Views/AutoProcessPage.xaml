@@ -40,7 +40,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Name="UserGreetings01"  Text="Hi, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,25,0,5" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
                     <!-- Text One Overlay -->
-                    <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
+                    <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Aplikasi Fairbanc untuk mempermudah anda dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
                     <!-- Text Two Overlay -->
                 </Grid>
             </Grid>
@@ -77,7 +77,7 @@
                         <Button x:Name="ConfigButton" Content="Config" Height="55" Width="75" CornerRadius="30" Background="Blue" Foreground="White" BorderBrush="AntiqueWhite" BorderThickness="2" FontWeight="Bold" Click="ConfigButton_Click" ToolTipService.ToolTip="Tekan untuk melakuan konfigurasi jadwal pengiriman data otomatis." />
                     </StackPanel>
                     <StackPanel  VerticalAlignment="Bottom" Grid.Row="4" Margin="0,0,10,10">
-                        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" BorderBrush="Gray" Foreground="Black"/>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" BorderBrush="Gray" Foreground="Black" CornerRadius="15"/>
                     </StackPanel>
                 </Grid>
 

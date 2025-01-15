@@ -83,6 +83,15 @@
 		<Content Update="Assets\FTI_Logo_Transparent.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Update="Assets\icon1.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="Assets\icon2.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="Assets\icon3.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Update="Assets\Navigation_Pic.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>

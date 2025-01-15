@@ -38,7 +38,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Name="UserGreetings01" Text="Hai, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
                     <!-- Text One Overlay -->
-                    <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="Inter" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
+                    <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Aplikasi Fairbanc untuk mempermudah anda dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="Inter" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
                     <!-- Text Two Overlay -->
                 </Grid>
             </Grid>

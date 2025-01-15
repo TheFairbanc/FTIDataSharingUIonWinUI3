@@ -13,23 +13,81 @@
 
         <Grid BorderBrush="WhiteSmoke" BorderThickness="2" CornerRadius="8" Width="600" Height="450" Background="#FFFFFF">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100" />
-                <!-- Header Image and Text Overlay -->
                 <RowDefinition Height="*" />
                 <!-- Form Elements Row -->
             </Grid.RowDefinitions>
-            <!-- Header Image -->
-            <Image Source="/Assets/FTI_Blue_internal_Header_Left.png" Stretch="None" Grid.Row="0"/>
-            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
+            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
 
                 <!-- Logo -->
                 <Image Source="/Assets/FTI_Header_Left.png" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Height="100"/>
                 <!-- Title -->
                 <TextBlock Text="Syarat dan Ketentuan" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" Foreground="#0093CD"/>
                 <!-- Checkbox -->
-                <CheckBox Name="agreeCheckBox" Content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non condimentum mauris, vitae aliquam nisl. Suspendisse vitae enim massa" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,20,30,0" Checked="agreeCheckBox_Checked" Unchecked="agreeCheckBox_Unchecked"/>
+                <CheckBox Name="agreeCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,20,30,0" Checked="agreeCheckBox_Checked" Unchecked="agreeCheckBox_Unchecked" Height="100">
+                    <CheckBox.Content>
+                        
+                        <TextBlock TextWrapping="Wrap" ScrollViewer.VerticalScrollMode="Enabled">
+                            Dengan mencentang check box berikut, saya mengetahui dan menyetujui S&amp;K dan Pricacy Policy yang berlaku&#x0a;
+            KEBIJAKAN PRIVASI
+            A. PENDAHULUAN
+            Kebijakan Privasi ini dirancang untuk membantu dan memberikan pemahaman kepada Pengguna (sebagaimana didefinisikan dibawah ini) bagaimana PT Fairbanc Technologies Indonesia (“Fairbanc” atau “Kami”) mengumpulkan, menggunakan, mengungkapkan, melindungi, dan menyimpan Informasi Pribadi Pengguna dan pengunjung Situs Web dan hak-hak Pengguna terkait dengan informasi tersebut. Kebijakan Privasi ini berlaku untuk semua layanan yang Kami sediakan. Kebijakan Privasi ini adalah komitmen nyata dari Fairbanc untuk menghargai dan melindungi privasi Informasi Pribadi Anda sesuai dengan peraturan perundang-undangan yang berlaku, termasuk Undang-Undang No. 27 Tahun 2022 tentang Pelindungan Data Pribadi.
+            Kebijakan Privasi ini mencakup sebagai berikut:
+            a) Pengumpulan Informasi Pribadi;
+            b) Penggunaan Informasi Pribadi;
+            c) Pengungkapan Informasi Pribadi;
+            d) Perlindungan Informasi Pribadi;
+            e) Penyimpanan Informasi Pribadi;
+            f) Hak Pengguna; 
+            g) Platform Pihak Ketiga;
+            h) Pengakuan dan Persetujuan;
+            i) Perubahan dan Pembaruan Kebijakan Privasi; dan
+            j) Kontak.
+            B. DEFINISI
+            1. "Kebijakan Privasi" adalah sebuah dokumen dan/atau pernyataan yang dibuat oleh Fairbanc yang menjelaskan bagaimana Fairbanc mengumpulkan, menggunakan, mengungkapkan, melindungi dan menyimpan Informasi Pribadi Pengguna.
+            2. "Informasi Pribadi" adalah setiap informasi yang digunakan untuk mengidentifikasi suatu individu, badan usaha atau badan hukum, baik secara terpisah maupun bersama-sama dengan informasi lainnya, baik melalui sistem elektronik maupun non-elektronik, yang termasuk namun tidak terbatas pada nama, jenis kelamin, alamat, nomor telepon, alamat email, tanggal lahir, nomor identitas, informasi korporasi dan informasi keuangan.
+            3. "Pengguna" atau “Anda” adalah perorangan, badan usaha atau badan hukum yang mengakses, menggunakan dan/atau mendapatkan manfaat dari layanan yang ditawarkan oleh Fairbanc.
+            4. "Situs Web" adalah situs web milik Fairbanc yang diakses melalui tautan www.fairbanc.app.
+            C. PENGUMPULAN INFORMASI PRIBADI 
+            5. Setelah Anda menekan atau mengklik tombol ’setuju/agree’, Anda memberikan persetujuan kepada Kami untuk mengumpulkan beberapa Informasi Pribadi Anda untuk disimpan oleh Kami dan digunakan seperti yang dijelaskan dalam Kebijakan Privasi ini, ketika:
+            a) Anda mendaftar sebagai Pengguna di Situs Web;
+            b) Anda mengisi formulir kontak atau formulir pendaftaran acara di Situs Web kami;
+            c) Anda mengunggah data, informasi dan/atau keterangan di Situs Web kami;
+            d) Anda berpartisipasi dalam survei atau studi pasar yang diadakan oleh Fairbanc; dan
+            e) Anda berinteraksi langsung dengan tim Kami melalui email, media sosial atau cara-cara lainnya.
+            6. Pada saat Kami mengumpulkan Informasi Pribadi Anda, Kami dapat sewaktu-waktu meminta dokumen tambahan, dan apabila diperlukan menggabungkan Informasi Pribadi yang telah dikumpulkan dengan informasi lain yang telah Kami miliki atau terima dari sumber pihak ketiga (apabila ada) berdasarkan ketentuan hukum yang berlaku.
+            7. Kami mengumpulkan informasi pribadi Anda berdasarkan dasar hukum yang sah, seperti persetujuan Anda atau kebutuhan bisnis kami. Kami hanya mengumpulkan Informasi Pribadi yang relevan dengan tujuan bisnis Kami dan sesuai dengan ketentuan hukum yang berlaku. Kami tidak mengumpulkan Informasi Pribadi tanpa persetujuan Anda.
+            8. Pengguna harus memastikan bahwa Informasi Pribadi yang diberikan kepada Fairbanc adalah informasi yang benar, tepat, dan sesuai. Dalam hal Pengguna mengetahui bahwa terdapat kesalahan dalam Informasi Pribadi tersebut, maka Pengguna dengan segera harus memberitahukan kepada Fairbanc untuk mengoreksi Informasi Pribadi tersebut.
+            9. Tujuan pengumpulan Informasi Pribadi tersebut, diantaranya sebagai berikut:
+            (i) Memproses layanan Fairbanc;
+            (ii) Memproses transaksi;
+            (iii) Memberikan layanan;
+            (iv) Melakukan verifikasi identitas;
+            (v) Memberikan dukungan Pengguna dan menanggapi pertanyaan Anda;
+            (vi) Memberikan informasi tentang layanan Kami;
+            (vii) Memperbaiki layanan Kami;
+            (viii) Melakukan penelitian dan analisis untuk meningkatkan layanan Kami;
+            (ix) Menyediakan layanan pemasaran dan iklan yang relevan dengan kepentingan Anda;
+            (x) Mematuhi dan memenuhi kewajiban hukum Kami; dan/atau
+            (xi) Menjaga keamanan dan keandalan situs web Kami.
+            D. PENGGUNAAN INFORMASI PRIBADI
+            10. Informasi Pribadi yang dikumpulkan dari Pengguna, akan digunakan oleh Fairbanc untuk:
+            (i) menyediakan layanan;
+            (ii) menganalisa, memperbaiki dan mengembangkan layanan;
+            (iii) mematuhi kewajiban hukum dan penegakan hukum dan/atau bisnis kami;
+            (iv) membantu Pengguna pada saat berkomunikasi dengan customer service untuk mengatasi permasalahan atau permintaan yang diajukan oleh Pengguna; dan
+            (v) untuk penggunaan lainnya yang dinilai perlu yang berkaitan dengan layanan Kami.
+            11. Penggunaan dan/atau pemrosesan Informasi Pribadi, dilakukan secara bertanggung jawab, akurat, lengkap, tidak menyesatkan, mutakhir, dan dapat dibuktikan secara jelas, serta sesuai dengan tujuan pemrosesan Informasi Pribadi tersebut.
+            E. PEMBAGIAN/PENGUNGKAPAN INFORMASI PRIBADI
+            12. Kami tidak akan membagikan/mengungkapkan Informasi Pribadi Anda kepada pihak ketiga manapun tanpa persetujuan Anda, kecuali kepada pihak yang ditentukan dalam Kebijakan ini dan pihak lain yang diperbolehkan oleh undang-undang atau ketentuan yang berlaku, serta diperintahkan oleh aparatur negara, Instansi Kepolisian Republik Indonesia, dan badan-badan berwenang lainnya.
+            13. Anda setuju bahwa Informasi Pribadi dapat kami kumpulkan, proses, dan diungkapkan kepada pihak ketiga yang telah bekerjasama dengan Kami, dengan tujuan untuk:
+            a) Badan Penilaian Kredit, Biro Kredit &amp; Perusahaan Credit Scoring: Kami dapat menunjuk badan penilaian kredit, biro kredit, dan/atau perusahaan credit scoring untuk tujuan verifikasi data sehubungan dengan rencana transaksi antara Pengguna dan Fairbanc.
+            b) Perusahaan Pendukung Penyedia Layanan: Kami dapat bekerjasama untuk menyediakan layanan kepada Anda antara lain untuk membantu dalam pengolahan dan penyajian data.
+                        </TextBlock>
+                    </CheckBox.Content>
+                </CheckBox>
+
                 <!-- Agree Button -->
-                <Button Content="Agree" IsEnabled="False" Name="ButtonAgree" Background="#0078D7" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30,20,30,0" Click="ButtonAgree_Click" />
+                <Button Content="Setuju" IsEnabled="False" Name="ButtonAgree" Background="#0078D7" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30,20,30,0" Click="ButtonAgree_Click" CornerRadius="15"/>
             </StackPanel>
         </Grid>
         <!-- Footer -->

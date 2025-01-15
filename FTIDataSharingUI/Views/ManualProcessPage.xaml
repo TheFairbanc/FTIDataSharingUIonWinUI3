@@ -37,7 +37,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Name="UserGreetings01"  Text="Hai, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
                     <!-- Text One Overlay -->
-                    <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="Inter" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
+                    <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Aplikasi Fairbanc untuk mempermudah anda dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="Inter" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
                     <!-- Text Two Overlay -->
                 </Grid>
             </Grid>
@@ -121,10 +121,10 @@
                         <Button x:Name="Outlet" Grid.Row="4" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
 
                     </Grid>
-                    <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="1500" Y2="15" StrokeThickness="3"/>
+                    <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="800" Y2="15" StrokeThickness="3" Margin="0,0,15,0"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,10,0">
-                        <Button Content="Proses" x:Name="btnProcess" Click="btnProcess_Click" Margin="0,0,10,0"/>
-                        <Button Content="Tutup" Width="75" x:Name="bntClose" Click="btnBack_Click"/>
+                        <Button Content="Proses" x:Name="btnProcess" Click="btnProcess_Click" Margin="0,20,10,0" BorderBrush="Gray" CornerRadius="15"/>
+                        <Button Content="Tutup" Width="75" x:Name="bntClose" Click="btnBack_Click" BorderBrush="Gray" CornerRadius="15" Margin="0,20,5,0" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

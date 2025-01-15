@@ -42,7 +42,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Name="UserGreetings01" Text="Hai, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="10,20,5,5" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
                     <!-- Text Overlay -->
-                    <TextBlock Name="UserGreetings02" MaxWidth="460" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Salah satu aplikasi Fairbanc untuk mempermudah distributor dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1"/>
+                    <TextBlock Name="UserGreetings02" MaxWidth="460" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Aplikasi Fairbanc untuk mempermudah anda dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1"/>
                 </Grid>
             </Grid>
             <!-- Form Elements -->
@@ -57,7 +57,7 @@
                                 <ColumnDefinition Width="383" />
                                 <!-- Text Overlay -->
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Assets/WindowIcon.ico" Height="25" Grid.Column="0" HorizontalAlignment="Right" Margin="20,0,20,0" />
+                            <Image Source="/Assets/icon1.png" Height="25" Grid.Column="0" HorizontalAlignment="Right" Margin="20,0,20,0" />
                             <StackPanel Orientation="Vertical" Grid.Column="1" x:Name="SplitColTwoStack1">
                                 <TextBlock Text="Automatic Data Submission" FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Left" FontFamily="Inter" FontSize="14"/>
                                 <TextBlock MaxWidth="350" Text="Program otomatisasi dalam pengiriman laporan bulanan distributor melalui pengaturan tanggal dan waktu setiap bulan" Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="WrapWholeWords"/>
@@ -76,7 +76,7 @@
                                 <ColumnDefinition Width="383" />
                                 <!-- Text Overlay -->
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Assets/WindowIcon.ico" Height="25" Grid.Column="0" HorizontalAlignment="Right" Margin="20,0,20,0"/>
+                            <Image Source="/Assets/icon2.png" Height="25" Grid.Column="0" HorizontalAlignment="Right" Margin="20,0,20,0"/>
                             <StackPanel Orientation="Vertical" Grid.Column="1" >
                                 <TextBlock Text="Manual Data Submission" FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Left" FontFamily="Inter" FontSize="14"/>
                                 <TextBlock MaxWidth="350" Text="Mempermudah distributor dalam mengupload laporan bulanan hanya dengan cara drag and drop." Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="WrapWholeWords"/>
@@ -95,7 +95,7 @@
                                 <ColumnDefinition Width="383" />
                                 <!-- Text Overlay -->
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Assets/WindowIcon.ico" Height="25" Grid.Column="0" Margin="20,0,20,0"/>
+                            <Image Source="/Assets/icon3.png" Height="25" Grid.Column="0" Margin="20,0,20,0"/>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="History Log" FontWeight="SemiBold" Foreground="Black" FontFamily="Inter" FontSize="14"/>
                                 <TextBlock MaxWidth="350" Text="Membantu distributor untuk melihat riwayat pengiriman laporan bulanan kepadaFairbanc, baik menggunakan otomatisasi maupun manual." Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="Wrap"/>
