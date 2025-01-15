@@ -114,9 +114,9 @@
                     <TextBox Width="300" Grid.Row="4" Grid.Column="1" PlaceholderText="contoh kata -> toko,outlet,customer,klien" VerticalAlignment="Center" Background="GhostWhite" BorderThickness="1" HorizontalAlignment="Left" Name="TextBox_NamaFileOutlet"/>
                 </Grid>
                 <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="1500" Y2="15" StrokeThickness="3"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-                    <Button Content="Batal" x:Name="btnCancel" Click="btnCancel_Click" Margin="0,0,10,0"/>
-                    <Button Content="Simpan" x:Name="bntSave" Click="bntSave_Click"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,5">
+                    <Button Content="Batal" x:Name="btnCancel" Click="btnCancel_Click" Margin="0,0,10,0" BorderBrush="Gray" CornerRadius="15"/>
+                    <Button Content="Simpan" x:Name="bntSave" Click="bntSave_Click" BorderBrush="Gray" CornerRadius="15"/>
                 </StackPanel>
             </StackPanel>
 
