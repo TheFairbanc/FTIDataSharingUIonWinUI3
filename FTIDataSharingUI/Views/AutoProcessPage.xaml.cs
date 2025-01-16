@@ -29,6 +29,8 @@ public sealed partial class AutoProcessPage : Page
         ViewModel = App.GetService<AutoProcessViewModel>();
         InitializeComponent();
         ThemeHelper.ApplyTheme(this);
+
+        // Overide theme helper function - which is reseting all color setup in page XAML to standart color
         ConfigButton.Foreground = new SolidColorBrush(Colors.White);
     }
 

@@ -77,16 +77,15 @@
                                 <StackPanel x:Name="IconsPanel01" Orientation="Vertical" />
                                 <TextBlock x:Name="MessageTextBlock01" Text="Drag dan drop file Invoice Penjualan (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
                                 <Button x:Name="btnRemove01"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" />
-                                
                             </StackPanel>
                         </Grid>
-                        <Button x:Name="btnPreview01" Grid.Row="2" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
+                        <Button x:Name="btnPreview01" Grid.Row="2" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
                                 <TextBlock Text="Lihat" />
                             </StackPanel>
                         </Button>
-                        <Button x:Name="Penjualan" Grid.Row="2" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
+                        <Button x:Name="btnPilihPenjualan" Grid.Row="2" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
 
                         <TextBlock Text="Data Pembayaran : "  Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
                         <Grid x:Name="Drop02" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropAR" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"  Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
@@ -96,13 +95,13 @@
                                 <Button x:Name="btnRemove02"  Content="&#xE711;"  FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke"/>
                             </StackPanel>
                         </Grid>
-                        <Button x:Name="btnPreview02"  Grid.Row="3" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
+                        <Button x:Name="btnPreview02"  Grid.Row="3" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
                                 <TextBlock Text="Lihat" />
                             </StackPanel>
                         </Button>
-                        <Button x:Name="Pembayaran" Grid.Row="3" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
+                        <Button x:Name="btnPilihPembayaran" Grid.Row="3" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
 
                         <TextBlock Text="Data Customer : "  Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
                         <Grid x:Name="Drop03" Background="WhiteSmoke" AllowDrop="True" DragOver="OnDragOver" Drop="OnDropOutlet" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Height="70" BorderBrush="DarkSlateGray" BorderThickness="1" CornerRadius="5">
@@ -112,19 +111,19 @@
                                 <Button x:Name="btnRemove03"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" BorderThickness="0"/>
                             </StackPanel>
                         </Grid>
-                        <Button x:Name="btnPreview03" Grid.Row="4" Grid.Column="2" Margin="5" Click="btnPreview_Click" Visibility="Collapsed">
+                        <Button x:Name="btnPreview03" Grid.Row="4" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
                                 <TextBlock Text="Lihat" />
                             </StackPanel>
                         </Button>
-                        <Button x:Name="Outlet" Grid.Row="4" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
+                        <Button x:Name="btnPilihOutlet" Grid.Row="4" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
 
                     </Grid>
                     <Line Stroke="#A9A9A9" X1="0" Y1="15" X2="800" Y2="15" StrokeThickness="3" Margin="0,0,15,0"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,10,0">
-                        <Button Content="Proses" x:Name="btnProcess" Click="btnProcess_Click" Margin="0,20,10,0" BorderBrush="Gray" CornerRadius="15"/>
-                        <Button Content="Tutup" Width="75" x:Name="bntClose" Click="btnBack_Click" BorderBrush="Gray" CornerRadius="15" Margin="0,20,5,0" />
+                        <Button Content="Proses" x:Name="btnProcess" Click="btnProcess_Click" Margin="0,20,10,0" BorderBrush="Gray" CornerRadius="15" Background="Blue"/>
+                        <Button Content="Tutup" Width="75" x:Name="bntClose" Click="btnBack_Click" BorderBrush="Gray" CornerRadius="15" Margin="0,20,5,0" Background="LightGray"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

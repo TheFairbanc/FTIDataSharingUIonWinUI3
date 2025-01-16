@@ -25,10 +25,12 @@ using Windows.Storage.Pickers;
 using System.Linq.Expressions;
 using System;
 
+
 namespace FTIDataSharingUI.Views;
 
 public sealed partial class ManualProcessPage : Page
 {
+    System.Globalization.CultureInfo indonesianCulture = new System.Globalization.CultureInfo("id-ID");
     private ObservableCollection<string> cbitem = new ObservableCollection<string>();
     private MyParameterType _ParameterType = new();
     //private const int MaxFiles = 1;
@@ -53,11 +55,15 @@ public sealed partial class ManualProcessPage : Page
         ViewModel = App.GetService<ManualProcessViewModel>();
         InitializeComponent();
         ThemeHelper.ApplyTheme(this);
+
+        // Overide theme helper function - which is reseting all color setup in page XAML to standart color
+        btnProcess.Foreground = new SolidColorBrush(Colors.White);
+
         _logger = Log.Logger;
 
-        cbitem.Add(DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"));
-        cbitem.Add(DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"));
-        cbitem.Add(DateTime.Now.AddMonths(-3).ToString("MMMM yyyy"));
+        cbitem.Add(DateTime.Now.AddMonths(-1).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-2).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-3).ToString("MMMM yyyy", indonesianCulture));
 
         if (PresistentFiles.hasValue())
         {
@@ -85,13 +91,22 @@ public sealed partial class ManualProcessPage : Page
         if (indexOfComboBoxDataPeriod >= 0) { DataPeriod.SelectedIndex = indexOfComboBoxDataPeriod; }
         if (isWindows10())
         {
-            Penjualan.Visibility = Visibility.Visible;
-            Pembayaran.Visibility = Visibility.Visible;
-            Outlet.Visibility = Visibility.Visible;
+            if (btnPreview01.Visibility == Visibility.Collapsed)
+            {
+                btnPilihPenjualan.Visibility = Visibility.Visible;
+                MessageTextBlock01.Text = "File Invoice Penjualan";
+            }
+            if (btnPreview02.Visibility == Visibility.Collapsed)
+            {
+                btnPilihPembayaran.Visibility = Visibility.Visible;
+                MessageTextBlock02.Text = "File Penerimaan Pembayaran Invoice";
+            }
+            if (btnPreview01.Visibility == Visibility.Collapsed)
+            {
+                btnPilihOutlet.Visibility = Visibility.Visible;
+                MessageTextBlock03.Text = "File Data Customer/Outlet";
+            }
 
-            MessageTextBlock01.Text = "File Invoice Penjualan";
-            MessageTextBlock02.Text = "File Penerimaan Pembayaran Invoice";
-            MessageTextBlock03.Text = "File Data Customer/Outlet";
         }
     }
 
@@ -315,7 +330,7 @@ public sealed partial class ManualProcessPage : Page
             PresistentFiles.droppedFilesSales.Clear();
             if (isWindows10())
             {
-                Penjualan.Visibility = Visibility.Visible;
+                btnPilihPenjualan.Visibility = Visibility.Visible;
                 MessageTextBlock01.Text = "File Invoice Penjualan";
             }
         }
@@ -329,7 +344,7 @@ public sealed partial class ManualProcessPage : Page
             PresistentFiles.droppedFilesAR.Clear();
             if (isWindows10())
             {
-                Pembayaran.Visibility = Visibility.Visible;
+                btnPilihPembayaran.Visibility = Visibility.Visible;
                 MessageTextBlock02.Text = "File Penerimaan Pembayaran Invoice";
             }
         }
@@ -343,7 +358,7 @@ public sealed partial class ManualProcessPage : Page
             PresistentFiles.droppedFilesOutlet.Clear();
             if (isWindows10())
             {
-                Outlet.Visibility = Visibility.Visible;
+                btnPilihOutlet.Visibility = Visibility.Visible;
                 MessageTextBlock03.Text = "File Data Customer/Outlet";
             }
         }
@@ -593,8 +608,24 @@ public sealed partial class ManualProcessPage : Page
                 //File.Copy(OutletFileABS, DataFolder + Path.DirectorySeparatorChar + OutletFile, true);
             }
 
+            string uploadPeriod = "yyyyMM";
+            switch (indexOfComboBoxDataPeriod)
+            {
+                case 0:
+                    uploadPeriod = DateTime.Now.AddMonths(-1).ToString("yyyyMM");
+                    break;
+                case 1:
+                    uploadPeriod = DateTime.Now.AddMonths(-2).ToString("yyyyMM");
+                    break;
+                case 2:
+                    uploadPeriod = DateTime.Now.AddMonths(-3).ToString("yyyyMM");
+                    break;
+                default:
+                    uploadPeriod = DateTime.Now.AddMonths(0).ToString("yyyyMM");
+                    break;
+            }
             _uploadProcess = new UploadProcessAsync("N", "Y", SalesFileABS, RepaymentFileABS, OutletFileABS, "",
-                _ParameterType.Property1, _ParameterType.Property2, AppWorkingFolder , _logger);
+                _ParameterType.Property1, _ParameterType.Property2, AppWorkingFolder , _logger, uploadPeriod);
 
             _logger.Information(">> At {time} performing data upload by executing Data Sharing app at the specified time.", DateTimeOffset.Now);
             //_logger.LogInformation($">>>> [RESULT] File info value in sequence are {Date1} ,{Date2} ,{Date3} ,{Time} ,{Sales}, {Repayment}, {Outlet}, {DataFolder} {DTid} and {DistName} ...");
@@ -756,7 +787,7 @@ public sealed partial class ManualProcessPage : Page
                 {
                     switch (tb.Name)
                     {
-                        case "Penjualan":
+                        case "btnPilihPenjualan":
                             if (droppedFilesSales.Count > 0)
                             {
                                 droppedFilesSales.RemoveAll(x => IsExcelFile(file));
@@ -765,7 +796,7 @@ public sealed partial class ManualProcessPage : Page
                             PresistentFiles.droppedFilesSales = droppedFilesSales;
                             UpdateMessageTextBlock(Drop01, file.Name);
                             break;
-                        case "Pembayaran":
+                        case "btnPilihPembayaran":
                             if (droppedFilesAR.Count > 0)
                             {
                                 droppedFilesAR.RemoveAll(x => IsExcelFile(file));
@@ -774,7 +805,7 @@ public sealed partial class ManualProcessPage : Page
                             PresistentFiles.droppedFilesAR = droppedFilesAR;
                             UpdateMessageTextBlock(Drop02, file.Name);
                             break;
-                        case "Outlet":
+                        case "btnPilihOutlet":
                             if (droppedFilesOutlet.Count > 0)
                             {
                                 droppedFilesOutlet.RemoveAll(x => IsExcelFile(file));
@@ -792,7 +823,7 @@ public sealed partial class ManualProcessPage : Page
                 }
                 else
                 {
-                    UpdateMessageTextBlock(sender, "Only Excel files (.xls, .xlsx, or .xlsm) are allowed.");
+                    UpdateMessageTextBlock(sender, "Hanya file Excel (.xls, .xlsx, or .xlsm) yang diperbolehkan.");
                 }
             }
         }

@@ -58,7 +58,7 @@
                 </controls:DataGrid>
             </StackPanel>
             <StackPanel Grid.Row="2">
-                <Button Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" HorizontalAlignment="Right" Margin="0,0,20,10" BorderBrush="Gray"/>
+                <Button Content="Kembali ke menu" x:Name="btnBack" Click="btnBack_Click" HorizontalAlignment="Right" Margin="0,0,20,10" BorderBrush="Gray" Background="LightGray"/>
             </StackPanel>
         </Grid>
     </Grid>

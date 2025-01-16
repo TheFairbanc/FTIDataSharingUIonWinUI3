@@ -31,7 +31,7 @@ public class UploadProcessAsync
 
     public UploadProcessAsync(string sandboxBoolean, string secureHTTP, string salesPattern, string payPattern,
                         string outletPattern, string dataFolder, string distID, string distName, string workingFolder,
-                        ILogger logger)
+                        ILogger logger, string uploadPeriod)
     {
         try
         {
@@ -53,7 +53,7 @@ public class UploadProcessAsync
             _dataSourceDir = dataFolder;
             _workingDir = workingFolder;
 
-            _period = DateTime.Now.AddMonths(-1).ToString("yyyyMM");
+            _period = uploadPeriod;
 
             _expDir = Path.Combine(_workingDir, $"FTI-sharing{_period}");
             _uploadDir = Path.Combine(_workingDir, "FTI-upload");

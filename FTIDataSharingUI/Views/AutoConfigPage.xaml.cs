@@ -9,6 +9,9 @@ using DataSubmission.Contracts.Services;
 using DataSubmission.Models;
 using DataSubmission.Views;
 using DataSubmissionApp.Helpers;
+using Microsoft.UI.Xaml.Media;
+using Windows.UI;
+using Microsoft.UI;
 
 namespace FTIDataSharingUI.Views;
 
@@ -26,6 +29,9 @@ public sealed partial class AutoConfigPage : Page
         JamMenit_Picker.Time = DateTime.Now.TimeOfDay;
         _ = ReadDateTimeFromFileAsync();
         ThemeHelper.ApplyTheme(this);
+
+        // Overide theme helper function - which is reseting all color setup in page XAML to standart color
+        btnSave.Foreground = new SolidColorBrush(Colors.White);
     }
 
 
