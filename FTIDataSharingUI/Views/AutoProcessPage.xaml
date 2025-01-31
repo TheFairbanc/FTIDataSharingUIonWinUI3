@@ -66,7 +66,7 @@
                         <!-- Text Five -->
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Automatic Data Submission to Fairbanc" FontSize="18" FontWeight="Bold" Grid.Row="0" Margin="25,30,0,0" />
+                    <TextBlock Text="Fairbanc - Upload data otomatis" FontSize="18" FontWeight="Bold" Grid.Row="0" Margin="25,30,0,0" />
                     <TextBlock Text="Silahkan menjalankan proses otomatis upload (Sesuai tanggal yang telah di konfigurasikan)." TextWrapping="WrapWholeWords" Grid.Row="1" Margin="25,0,0,0"  />
                     <StackPanel x:Name="PnlStatus" Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" Margin="25,35,0,0" Width="150" Height="80" Background="LightGray" CornerRadius="8">
                         <TextBlock x:Name="TxtStatus" Text="Status: " Margin="27,0,0,0" Foreground="Gray" FontSize="16" VerticalAlignment="Center" />

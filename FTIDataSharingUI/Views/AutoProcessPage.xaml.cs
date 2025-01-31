@@ -96,17 +96,21 @@ public sealed partial class AutoProcessPage : Page
     {
         try
         {
-            var readconfig = await ReadDateTimeFromFileAsync();
-            if (!readconfig)
+            var senderButton = sender as Button;
+            if (senderButton.Content == "Start")
             {
-                ContentDialog infoDialog = new ContentDialog();
-                infoDialog.XamlRoot = this.XamlRoot;
-                infoDialog.Title = "Informasi";
-                infoDialog.CloseButtonText = "OK";
-                infoDialog.DefaultButton = ContentDialogButton.Close;
-                infoDialog.Content = "Belum tersedia konfigurasi untuk upload data.\nMohon melakukan konfigurasi terlebih dahulu.\nSilahkan gunakan tombol 'Config'.";
-                await infoDialog.ShowAsync();
-                return;
+                var readconfig = await ReadDateTimeFromFileAsync();
+                if (!readconfig)
+                {
+                    ContentDialog infoDialog = new ContentDialog();
+                    infoDialog.XamlRoot = this.XamlRoot;
+                    infoDialog.Title = "Informasi";
+                    infoDialog.CloseButtonText = "OK";
+                    infoDialog.DefaultButton = ContentDialogButton.Close;
+                    infoDialog.Content = "Belum tersedia konfigurasi untuk upload data.\nMohon melakukan konfigurasi terlebih dahulu.\nSilahkan gunakan tombol 'Config'.";
+                    await infoDialog.ShowAsync();
+                    return;
+                }
             }
             _StartButclickCount++;
 
