@@ -76,7 +76,6 @@ public sealed partial class MainMenuPage : Page
             var navigationService = App.GetService<INavigationService>();
             navigationService.NavigateTo(typeof(LogScreenViewModel).FullName!, _ParameterType, true);
             navigationService = null;
-
         }
         catch (Exception ex)
         {

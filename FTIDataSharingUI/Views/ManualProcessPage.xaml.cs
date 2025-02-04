@@ -24,6 +24,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Pickers;
 using System.Linq.Expressions;
 using System;
+using DataSubmissionApp.Helpers;
 
 
 namespace FTIDataSharingUI.Views;
@@ -862,5 +863,94 @@ public sealed partial class ManualProcessPage : Page
             return false;
         }
 
+    }
+
+    private async void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            ContentDialog dialog = new ContentDialog();
+
+            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+            dialog.XamlRoot = this.XamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Title = "Konfirmasi";
+            dialog.Content = "Apakah anda ingin membuka layar 'Data Upload Otomatis' ?";
+            dialog.PrimaryButtonText = "Ya";
+            dialog.CloseButtonText = "Tidak";
+            dialog.DefaultButton = ContentDialogButton.Secondary;
+
+            var result = await dialog.ShowAsync();
+
+            DonwloadAndInstallService _donwloadAndInstallService = new DonwloadAndInstallService();
+            var isServiceDownloaded = await _donwloadAndInstallService.IsServiceInstalled();
+            if (!isServiceDownloaded)
+            {
+                await _donwloadAndInstallService.StartDownloading();
+            }
+            await Task.Delay(3000);
+            var navigationService = App.GetService<INavigationService>();
+            navigationService.NavigateTo(typeof(AutoProcessViewModel).FullName!, _ParameterType, true);
+        }
+        catch (Exception ex)
+        {
+            LogException(ex);
+        }
+    }
+
+    private void Button_Click_2(object sender, RoutedEventArgs e)
+    {
+        // do nothing
+    }
+
+    private async void Button_Click_3(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            ContentDialog dialog = new ContentDialog();
+
+            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+            dialog.XamlRoot = this.XamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Title = "Konfirmasi";
+            dialog.Content = "Apakah anda ingin membuka layar 'Catatan sejarah kegiatan applikasi (Log)' ?";
+            dialog.PrimaryButtonText = "Ya";
+            dialog.CloseButtonText = "Tidak";
+            dialog.DefaultButton = ContentDialogButton.Secondary;
+
+            var result = await dialog.ShowAsync();
+
+            var navigationService = App.GetService<INavigationService>();
+            navigationService.NavigateTo(typeof(LogScreenViewModel).FullName!, _ParameterType, true);
+            navigationService = null;
+        }
+        catch (Exception ex)
+        {
+            LogException(ex);
+        }
+    }
+
+    private async void LogException(Exception ex)
+    {
+        try
+        {
+            // Create a function to log exceptions
+            string logFilePath = Path.Combine(@"C:\ProgramData\FairbancData", "error.log");
+            // Append the exception message and stack trace to the log file
+            File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n{ex.StackTrace}\n\n");
+        }
+        catch (Exception logEx)
+        {
+            // Handle any exceptions related to logging itself (e.g., permission issues)
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Info Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Terjadi error sebagai berikut:/n {logEx.Message}"
+            };
+            await errorDialog.ShowAsync();
+        }
     }
 }

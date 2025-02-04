@@ -51,6 +51,20 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="/Assets/Navigation_Pic.png" Grid.Column="0" Stretch="Uniform" />
+                <Grid x:Name="SplitRowNavigation" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <!-- Transparent Buttons for Clickable Areas -->
+                    <Button Grid.Column="0" Width="110" Height="50" Background="Transparent" Grid.Row="0"
+                        HorizontalAlignment="Left" Click="Button_Click_1"/>
+                    <Button Grid.Column="0" Width="110" Height="50" Background="Transparent" Grid.Row="1"
+                        HorizontalAlignment="Left" Click="Button_Click_2"/>
+                    <Button Grid.Column="0" Width="110" Height="50" Background="Transparent" Grid.Row="2"
+                    HorizontalAlignment="Left"  Click="Button_Click_3"/>
+                </Grid>
                 <Grid x:Name="SplitRowThree" Grid.Column="1" BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Background="#FFFFFF" Grid.Row="1" Margin="20,20,20,20">
 
                     <Grid.RowDefinitions>
