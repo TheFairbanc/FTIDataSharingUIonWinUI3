@@ -316,7 +316,7 @@ public class UploadProcessAsync
         try
         {
             await Task.Run(() => File.Copy(sourcePath, destinationPath, overwrite: true));
-            await Task.Run(() => File.Delete(sourcePath));
+            //await Task.Run(() => File.Delete(sourcePath));
         }
         catch (Exception ex)
         {

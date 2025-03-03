@@ -287,21 +287,21 @@ public sealed partial class ManualProcessPage : Page
         {
             IconsPanel01.Children.Clear();
             IconsPanel01.Children.Add(icon);
-            btnRemove01.Visibility = Visibility.Visible;
+            //btnRemove01.Visibility = Visibility.Visible;
             btnPreview01.Visibility = Visibility.Visible;
         }
         if (senderGrid.Name == "Drop02")
         {
             IconsPanel02.Children.Clear();
             IconsPanel02.Children.Add(icon);
-            btnRemove02.Visibility = Visibility.Visible;
+            //btnRemove02.Visibility = Visibility.Visible;
             btnPreview02.Visibility = Visibility.Visible;
         }
         if (senderGrid.Name == "Drop03")
         {
             IconsPanel03.Children.Clear();
             IconsPanel03.Children.Add(icon);
-            btnRemove03.Visibility = Visibility.Visible;
+            //btnRemove03.Visibility = Visibility.Visible;
             btnPreview03.Visibility = Visibility.Visible;
         }
     }
@@ -321,9 +321,9 @@ public sealed partial class ManualProcessPage : Page
     private void btnRemove_Click(object sender, RoutedEventArgs e)
     {
         var senderButton = sender as Button;
-        if (senderButton.Name == "btnRemove01")
+        if (senderButton.Name == "btnRemove01" || senderButton .Name == "btnPreview01") 
         {
-            btnRemove01.Visibility = Visibility.Collapsed;
+            //btnRemove01.Visibility = Visibility.Collapsed;
             btnPreview01.Visibility = Visibility.Collapsed;
             IconsPanel01.Children.Clear();
             MessageTextBlock01.Text = "Drag dan drop file Invoice Penjualan (Excel) di sini !";
@@ -335,9 +335,9 @@ public sealed partial class ManualProcessPage : Page
                 MessageTextBlock01.Text = "File Invoice Penjualan";
             }
         }
-        if (senderButton.Name == "btnRemove02")
+        if (senderButton.Name == "btnRemove02" || senderButton.Name == "btnPreview02")
         {
-            btnRemove02.Visibility = Visibility.Collapsed;
+            //btnRemove02.Visibility = Visibility.Collapsed;
             btnPreview02.Visibility = Visibility.Collapsed;
             IconsPanel02.Children.Clear();
             MessageTextBlock02.Text = "Drag dan drop file Pembayaran Invoice (Excel) di sini !";
@@ -349,9 +349,9 @@ public sealed partial class ManualProcessPage : Page
                 MessageTextBlock02.Text = "File Penerimaan Pembayaran Invoice";
             }
         }
-        if (senderButton.Name == "btnRemove03")
+        if (senderButton.Name == "btnRemove03" || senderButton.Name == "btnPreview03")
         {
-            btnRemove03.Visibility = Visibility.Collapsed;
+            //btnRemove03.Visibility = Visibility.Collapsed;
             btnPreview03.Visibility = Visibility.Collapsed;
             IconsPanel03.Children.Clear();
             MessageTextBlock03.Text = "Drag dan drop file data Customer (Excel) di sini !";
@@ -367,6 +367,9 @@ public sealed partial class ManualProcessPage : Page
 
     private void btnPreview_Click(object sender, RoutedEventArgs e)
     {
+        btnRemove_Click(sender, e);
+        return;
+
         var navigationService = App.GetService<INavigationService>();
         var senderButton = sender as Button;
         if (senderButton.Name == "btnPreview01")

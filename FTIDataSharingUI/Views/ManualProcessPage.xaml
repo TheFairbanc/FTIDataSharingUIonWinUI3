@@ -91,13 +91,13 @@
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <StackPanel x:Name="IconsPanel01" Orientation="Vertical" />
                                 <TextBlock x:Name="MessageTextBlock01" Text="Drag dan drop file Invoice Penjualan (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
-                                <Button x:Name="btnRemove01"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" />
+                                <Button x:Name="btnRemove01x"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" />
                             </StackPanel>
                         </Grid>
                         <Button x:Name="btnPreview01" Grid.Row="2" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                                <TextBlock Text="Lihat" />
+                                <TextBlock Text="&#xE711;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="Red" FontWeight="ExtraBold" />
+                                <TextBlock Text="Hapus" />
                             </StackPanel>
                         </Button>
                         <Button x:Name="btnPilihPenjualan" Grid.Row="2" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
@@ -107,13 +107,13 @@
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <StackPanel x:Name="IconsPanel02" Orientation="Vertical"/>
                                 <TextBlock x:Name="MessageTextBlock02" Text="Drag dan drop file Pembayaran Invoice (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
-                                <Button x:Name="btnRemove02"  Content="&#xE711;"  FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke"/>
+                                <Button x:Name="btnRemove02x"  Content="&#xE711;"  FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke"/>
                             </StackPanel>
                         </Grid>
                         <Button x:Name="btnPreview02"  Grid.Row="3" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                                <TextBlock Text="Lihat" />
+                                <TextBlock Text="&#xE711;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="Red" FontWeight="ExtraBold" />
+                                <TextBlock Text="Hapus" />
                             </StackPanel>
                         </Button>
                         <Button x:Name="btnPilihPembayaran" Grid.Row="3" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
@@ -123,13 +123,13 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <StackPanel x:Name="IconsPanel03" Orientation="Vertical" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="MessageTextBlock03" Text="Drag dan drop file data Customer (Excel) di sini !" Foreground="DodgerBlue" Margin="0"  VerticalAlignment="Center"/>
-                                <Button x:Name="btnRemove03"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" BorderThickness="0"/>
+                                <Button x:Name="btnRemove0x"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" BorderThickness="0"/>
                             </StackPanel>
                         </Grid>
                         <Button x:Name="btnPreview03" Grid.Row="4" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                                <TextBlock Text="Lihat" />
+                                <TextBlock Text="&#xE711;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="Red" FontWeight="ExtraBold" />
+                                <TextBlock Text="Hapus" />
                             </StackPanel>
                         </Button>
                         <Button x:Name="btnPilihOutlet" Grid.Row="4" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
