@@ -20,6 +20,9 @@
             <!-- Header Image -->
             <Image Source="/Assets/FTI_Blue_internal_Header_Left.png"  Grid.Row="0" Margin="0,0,0,0" Stretch="UniformToFill"/>
             <!-- Header Image and Text Overlay -->
+            <Button x:Name="Logout"  Width="100" Height="45" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Click="Logout_Click">
+                <Image Source="/Assets/Logout.png" Stretch="Fill" HorizontalAlignment="Right"/>
+            </Button>
             <!-- Text Overlay -->
             <Grid x:Name="SplitColHeader" Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -100,7 +103,6 @@
 
         </Grid>
 
-        <TextBlock Text="© 2024 by Fairbanc Technologies Indonesia" Foreground="#05437F" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Row="2" />
 
     </Grid>
 

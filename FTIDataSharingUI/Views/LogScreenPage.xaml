@@ -19,16 +19,20 @@
                 <!-- Form Elements Row -->
             </Grid.RowDefinitions>
             <!-- Header Image -->
-            <Image Source="/Assets/FTI_Blue_internal_Header_Right.png" Stretch="Fill" Grid.Row="0"  Margin="0,0,0,0"/>
+            <Image Source="/Assets/FTI_Blue_internal_Header_Left.png" Stretch="Fill" Grid.Row="0"  Margin="0,0,0,0"/>
+            <Button x:Name="Logout"  Width="100" Height="45" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Click="Logout_Click" BorderBrush="Transparent">
+                <Image Source="/Assets/Logout.png" Stretch="Fill" HorizontalAlignment="Right"/>
+            </Button>
+
             <Grid x:Name="SplitColHeader" Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0" />
+                    <ColumnDefinition Width="90" />
                     <!-- Text Blank -->
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <!-- Text Overlay -->
                 </Grid.ColumnDefinitions>
                 <!-- Text Blank -->
-                <TextBlock Text="" FontSize="14"  Grid.Column="0" FontFamily="Inter" />
+                <TextBlock Text="" FontSize="14" Foreground="White" Grid.Column="0" FontFamily="Inter" />
                 <Grid x:Name="SplitRowTwo" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*" />

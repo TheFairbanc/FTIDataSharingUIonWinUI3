@@ -9,6 +9,30 @@
     <Grid x:Name="MainGrid">
         <!-- Background Image -->
         <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
+        <Grid x:Name="LayoutLogour" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,10,0,-25">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="600"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button x:Name="Logout"  Width="100" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" Click="Logout_Click">
+                        <Image Source="/Assets/Logout.png" Stretch="Fill" HorizontalAlignment="Right"/>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="2">
+                </Grid>
+
+            </Grid>
+        </Grid>
         <Grid x:Name="ContentArea">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
@@ -30,9 +54,7 @@
 
                 <!-- Header Image -->
                 <Image Source="/Assets/FTI_Blue_internal_Header_Left.png" Stretch="UniformToFill"/>
-                <Button x:Name="Logout"  Width="80" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" >
-                    <Image Source="/Assets/Logout.png" Stretch="Uniform" />
-                </Button>
+
                 <!-- Header Image and Text Overlay -->
                 <!-- Text Overlay -->
                 <Grid x:Name="SplitRowOne" Grid.Row="0">
