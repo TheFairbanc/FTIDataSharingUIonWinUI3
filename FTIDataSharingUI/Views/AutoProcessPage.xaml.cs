@@ -4,6 +4,7 @@ using DataSubmission.Contracts.Services;
 using DataSubmission.Models;
 using DataSubmission.ViewModels;
 using DataSubmission.Views;
+using DataSubmissionApp.Helpers;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -315,6 +316,100 @@ public sealed partial class AutoProcessPage : Page
             TxtStatus.Foreground = new SolidColorBrush(Colors.Gray); ;
             TxtStatusValue.Foreground = new SolidColorBrush(Colors.Gray);
         }
+    }
+
+    private void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+        // do nothing
+    }
+
+    private async void Button_Click_2(object sender, RoutedEventArgs e)
+    {
+        ContentDialog dialog = new ContentDialog();
+
+        // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+        dialog.XamlRoot = this.XamlRoot;
+        dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+        dialog.Title = "Konfirmasi";
+        dialog.Content = "Apakah anda ingin membuka layar 'Manual Data Upload' ?";
+        dialog.PrimaryButtonText = "Ya";
+        dialog.CloseButtonText = "Tidak";
+        dialog.DefaultButton = ContentDialogButton.Secondary;
+
+        var result = await dialog.ShowAsync();
+
+        var navigationService = App.GetService<INavigationService>();
+        navigationService.NavigateTo(typeof(ManualProcessViewModel).FullName!, _ParameterType, true);
+    }
+
+    private async void Button_Click_3(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            ContentDialog dialog = new ContentDialog();
+
+            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+            dialog.XamlRoot = this.XamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Title = "Konfirmasi";
+            dialog.Content = "Apakah anda ingin membuka layar 'Catatan sejarah kegiatan applikasi (Log)' ?";
+            dialog.PrimaryButtonText = "Ya";
+            dialog.CloseButtonText = "Tidak";
+            dialog.DefaultButton = ContentDialogButton.Secondary;
+
+            var result = await dialog.ShowAsync();
+
+            var navigationService = App.GetService<INavigationService>();
+            navigationService.NavigateTo(typeof(LogScreenViewModel).FullName!, _ParameterType, true);
+            navigationService = null;
+        }
+        catch (Exception ex)
+        {
+            LogException(ex);
+        }
+    }
+
+    private async void LogException(Exception ex)
+    {
+        try
+        {
+            // Create a function to log exceptions
+            string logFilePath = Path.Combine(@"C:\ProgramData\FairbancData", "error.log");
+            // Append the exception message and stack trace to the log file
+            File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n{ex.StackTrace}\n\n");
+        }
+        catch (Exception logEx)
+        {
+            // Handle any exceptions related to logging itself (e.g., permission issues)
+            ContentDialog errorDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Info Kesalahan",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                Content = $"Terjadi error sebagai berikut:/n {logEx.Message}"
+            };
+            await errorDialog.ShowAsync();
+        }
+    }
+
+    private async void Logout_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ContentDialog errorDialog = new ContentDialog
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "Konfirmasi",
+            PrimaryButtonText = "Tidak",
+            CloseButtonText = "Ya",
+            DefaultButton = ContentDialogButton.Primary,
+            Content = $"Apakah anda ingin keluar ?"
+        };
+        var x = await errorDialog.ShowAsync();
+        if (x == ContentDialogResult.Primary)
+        {
+            return;
+        }
+        App.MainWindow.Close();
     }
 }
 

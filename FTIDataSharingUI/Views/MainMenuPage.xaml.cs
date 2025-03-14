@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using DataSubmission.Views;
 using DataSubmissionApp.Helpers;
+using DocumentFormat.OpenXml.Vml.Spreadsheet;
 
 namespace FTIDataSharingUI.Views;
 
@@ -76,7 +77,6 @@ public sealed partial class MainMenuPage : Page
             var navigationService = App.GetService<INavigationService>();
             navigationService.NavigateTo(typeof(LogScreenViewModel).FullName!, _ParameterType, true);
             navigationService = null;
-
         }
         catch (Exception ex)
         {
@@ -108,6 +108,28 @@ public sealed partial class MainMenuPage : Page
             };
             await errorDialog.ShowAsync();
         }
+    }
+
+    private async void Logout_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ContentDialog errorDialog = new ContentDialog
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "Konfirmasi",
+            PrimaryButtonText = "Tidak",
+            CloseButtonText = "Ya",
+            DefaultButton = ContentDialogButton.Primary,
+            Content = $"Apakah anda ingin keluar ?"
+        };
+        var x = await errorDialog.ShowAsync();
+        if (x == ContentDialogResult.Primary)
+        {
+            return;
+        }   
+        App.MainWindow.Close();
+        ;
+
+
     }
 }
 

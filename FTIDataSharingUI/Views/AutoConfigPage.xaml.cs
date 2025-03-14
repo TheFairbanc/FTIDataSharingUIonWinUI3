@@ -281,5 +281,23 @@ public sealed partial class AutoConfigPage : Page
         }
     }
 
+    private async void Logout_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ContentDialog errorDialog = new ContentDialog
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "Konfirmasi",
+            PrimaryButtonText = "Tidak",
+            CloseButtonText = "Ya",
+            DefaultButton = ContentDialogButton.Primary,
+            Content = $"Apakah anda ingin keluar ?"
+        };
+        var x = await errorDialog.ShowAsync();
+        if (x == ContentDialogResult.Primary)
+        {
+            return;
+        }
+        App.MainWindow.Close();
+    }
 }
 

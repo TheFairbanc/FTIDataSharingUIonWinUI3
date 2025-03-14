@@ -18,10 +18,13 @@
                 <!-- Form Elements Row -->
             </Grid.RowDefinitions>
             <!-- Header Image -->
-            <Image Source="/Assets/FTI_Blue_internal_Header_Right.png" Stretch="Fill" Grid.Row="0"  Margin="0,0,0,0"/>
+            <Image Source="/Assets/FTI_Blue_internal_Header_Left.png" Stretch="Fill" Grid.Row="0"  Margin="0,0,0,0"/>
+            <Button x:Name="Logout"  Width="100" Height="45" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Click="Logout_Click" BorderBrush="Transparent">
+                <Image Source="/Assets/Logout.png" Stretch="Fill" HorizontalAlignment="Right"/>
+            </Button>
             <Grid x:Name="SplitColHeader" Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0" />
+                    <ColumnDefinition Width="90" />
                     <!-- Text Blank -->
                     <ColumnDefinition Width="*" />
                     <!-- Text Overlay -->
@@ -46,7 +49,22 @@
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="/Assets/Navigation_Pic2.png" Grid.Column="0" Stretch="Fill" />
+                <Image Source="/Assets/Navigation_Pic2.png" Stretch="Fill"  Grid.Column="0"/>
+                <Grid x:Name="SplitRowNavigation" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <!-- Transparent Buttons for Clickable Areas -->
+                    <Button Grid.Column="0" Width="110" Height="50" Background="Transparent" Grid.Row="0"
+                        HorizontalAlignment="Left" Click="Button_Click_1"/>
+                    <Button Grid.Column="0" Width="110" Height="50" Background="Transparent" Grid.Row="1"
+                        HorizontalAlignment="Left" Click="Button_Click_2"/>
+                    <Button Grid.Column="0" Width="110" Height="50" Background="Transparent" Grid.Row="2"
+                    HorizontalAlignment="Left"  Click="Button_Click_3"/>
+                </Grid>
+
                 <StackPanel Margin="20,20,0,0" Grid.Column="1"  >
                     <TextBlock Text="Manual Data Submission to Fairbanc" FontSize="16" FontWeight="Bold"/>
                     <TextBlock Text="Silahkan atur bulan dan tahun untuk pengiriman data file secara manual." Margin="0,10,0,20"/>
@@ -76,13 +94,13 @@
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <StackPanel x:Name="IconsPanel01" Orientation="Vertical" />
                                 <TextBlock x:Name="MessageTextBlock01" Text="Drag dan drop file Invoice Penjualan (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
-                                <Button x:Name="btnRemove01"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" />
+                                <Button x:Name="btnRemove01x"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" />
                             </StackPanel>
                         </Grid>
                         <Button x:Name="btnPreview01" Grid.Row="2" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                                <TextBlock Text="Lihat" />
+                                <TextBlock Text="&#xE711;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="Red" FontWeight="ExtraBold" />
+                                <TextBlock Text="Hapus" />
                             </StackPanel>
                         </Button>
                         <Button x:Name="btnPilihPenjualan" Grid.Row="2" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
@@ -92,13 +110,13 @@
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <StackPanel x:Name="IconsPanel02" Orientation="Vertical"/>
                                 <TextBlock x:Name="MessageTextBlock02" Text="Drag dan drop file Pembayaran Invoice (Excel) di sini !" Foreground="DodgerBlue" Margin="0" VerticalAlignment="Center" />
-                                <Button x:Name="btnRemove02"  Content="&#xE711;"  FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke"/>
+                                <Button x:Name="btnRemove02x"  Content="&#xE711;"  FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke"/>
                             </StackPanel>
                         </Grid>
                         <Button x:Name="btnPreview02"  Grid.Row="3" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                                <TextBlock Text="Lihat" />
+                                <TextBlock Text="&#xE711;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="Red" FontWeight="ExtraBold" />
+                                <TextBlock Text="Hapus" />
                             </StackPanel>
                         </Button>
                         <Button x:Name="btnPilihPembayaran" Grid.Row="3" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>
@@ -108,13 +126,13 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <StackPanel x:Name="IconsPanel03" Orientation="Vertical" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="MessageTextBlock03" Text="Drag dan drop file data Customer (Excel) di sini !" Foreground="DodgerBlue" Margin="0"  VerticalAlignment="Center"/>
-                                <Button x:Name="btnRemove03"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" BorderThickness="0"/>
+                                <Button x:Name="btnRemove0x"  Content="&#xE711;" FontFamily="{StaticResource SegoeMDL2}" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="20,0,0,0" Click="btnRemove_Click" Background="WhiteSmoke" BorderThickness="0"/>
                             </StackPanel>
                         </Grid>
                         <Button x:Name="btnPreview03" Grid.Row="4" Grid.Column="2" Margin="25,5,-25,0" Click="btnPreview_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE7B3;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="SlateGray" FontWeight="ExtraBold" />
-                                <TextBlock Text="Lihat" />
+                                <TextBlock Text="&#xE711;" FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16" Margin="0,0,10,0" Foreground="Red" FontWeight="ExtraBold" />
+                                <TextBlock Text="Hapus" />
                             </StackPanel>
                         </Button>
                         <Button x:Name="btnPilihOutlet" Grid.Row="4" Grid.Column="3" Content="Pilih..." Visibility="Collapsed" HorizontalAlignment="Right" Margin="35,0,0,0" Background="WhiteSmoke"  Click="OpenFileButton_Click"/>

@@ -55,19 +55,6 @@
         </uap:DefaultTile >
         <uap:LockScreen BadgeLogo="Assets\StoreLogo.png" Notification="badge"/>
       </uap:VisualElements>
-      <Extensions>
-          <desktop:Extension Category="windows.toastNotificationActivation">
-              <desktop:ToastNotificationActivation ToastActivatorCLSID="3e2519f8-c239-4daa-93ce-c865c9ca7138" />
-          </desktop:Extension>
-
-          <com:Extension Category="windows.comServer">
-              <com:ComServer>
-                  <com:ExeServer Executable="FTIDataSharingUI.exe" Arguments="----AppNotificationActivated:" DisplayName="Toast activator">
-                      <com:Class Id="3e2519f8-c239-4daa-93ce-c865c9ca7138" DisplayName="Toast activator"/>
-                  </com:ExeServer>
-              </com:ComServer>
-          </com:Extension>
-      </Extensions>
     </Application>
   </Applications>
 
