@@ -145,7 +145,6 @@ public sealed partial class LoginPage : Page
         string separator = new string('*', 3); // Separator
         string rightPart = number.Substring(number.Length - 1, 1); // Last character of A2
 
-        // Combine parts to create the custom string
         return leftPart + midPart + lengthOfText + separator + rightPart;
     }
 
