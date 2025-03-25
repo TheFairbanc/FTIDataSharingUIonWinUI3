@@ -55,11 +55,23 @@ public sealed partial class LoginPage : Page
                 await infoDialog.ShowAsync();
                 return;
             }
-#if (DEBUG)
-            var parameter = new MyParameterType { Property1 = DTIDTextBox.Text.Trim(), Property2 = dtIDandName };
-            var navigationService = App.GetService<INavigationService>();
-            navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, parameter, true);
-#else
+//#if (DEBUG)
+            //var parameter = new MyParameterType { Property1 = DTIDTextBox.Text.Trim(), Property2 = dtIDandName };
+            //var navigationService = App.GetService<INavigationService>();
+            //navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, parameter, true);
+//#else
+            if (TextBox_Password.Password.Trim() == "")
+            {
+                // No DT Id Entered.
+                ContentDialog infoDialog = new ContentDialog();
+                infoDialog.XamlRoot = this.XamlRoot;
+                infoDialog.Title = "Info";
+                infoDialog.CloseButtonText = "OK";
+                infoDialog.DefaultButton = ContentDialogButton.Close;
+                infoDialog.Content = "Mohon masukan Password !";
+                await infoDialog.ShowAsync();
+                return;
+            }
 
             var password = GeneratePassword(DTIDTextBox.Text.Trim(), dtIDandName);
             if (password == TextBox_Password.Password.Trim())
@@ -80,7 +92,7 @@ public sealed partial class LoginPage : Page
             }
 
 
-#endif
+//#endif
         }
         catch (Exception)
         {
@@ -90,7 +102,7 @@ public sealed partial class LoginPage : Page
             infoDialog.Title = "Informasi";
             infoDialog.CloseButtonText = "OK";
             infoDialog.DefaultButton = ContentDialogButton.Close;
-            infoDialog.Content = "Sistem akan membuat konfigurasi baru. Lanjukan ?";
+            infoDialog.Content = "Maaf, telah terjadi kesalahan.";
             await infoDialog.ShowAsync();
         }
 
@@ -139,7 +151,15 @@ public sealed partial class LoginPage : Page
     {
         //GSheet Formulat >> =CONCATENATE(LEFT(A2, 2), MID(B2, 4, 4), LEN(B2), REPT("*", 3), RIGHT(A2, 1))
 
-        string leftPart = number.Substring(0, 2); // First 2 characters of A2
+        var leftPart = "";
+        if (number.Length < 2)
+        {
+            leftPart = number;
+        }
+        else
+        {
+            leftPart = number.Substring(0, 2); // First 2 characters of A2
+        }
         string midPart = text.Substring(3, Math.Min(4, text.Length - 3)); // 4 characters starting from the 4th char in B2
         int lengthOfText = text.Length; // Length of B2
         string separator = new string('*', 3); // Separator
