@@ -42,20 +42,6 @@ public sealed partial class LoginPage : Page
     {
         try
         {
-#if (DEBUG)
-#else
-            if (TextBox_Password.Password.Trim() != "123")
-            {
-                ContentDialog infoDialog = new ContentDialog();
-                infoDialog.XamlRoot = this.XamlRoot;
-                infoDialog.Title = "Info";
-                infoDialog.CloseButtonText = "OK";
-                infoDialog.DefaultButton = ContentDialogButton.Close;
-                infoDialog.Content = "Password salah.";
-                await infoDialog.ShowAsync();
-                return;
-            }
-#endif
             var value = await GetDistributorNameAsync();
             if (value == "")
             {
@@ -69,10 +55,32 @@ public sealed partial class LoginPage : Page
                 await infoDialog.ShowAsync();
                 return;
             }
-
+#if (DEBUG)
             var parameter = new MyParameterType { Property1 = DTIDTextBox.Text.Trim(), Property2 = dtIDandName };
             var navigationService = App.GetService<INavigationService>();
             navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, parameter, true);
+#else
+
+            var password = GeneratePassword(DTIDTextBox.Text.Trim(), dtIDandName);
+            if (password == TextBox_Password.Password.Trim())
+            {
+                var parameter = new MyParameterType { Property1 = DTIDTextBox.Text.Trim(), Property2 = dtIDandName };
+                var navigationService = App.GetService<INavigationService>();
+                navigationService.NavigateTo(typeof(MainMenuViewModel).FullName!, parameter, true);
+            }
+            else
+            {
+                ContentDialog infoDialog = new ContentDialog();
+                infoDialog.XamlRoot = this.XamlRoot;
+                infoDialog.Title = "Password";
+                infoDialog.CloseButtonText = "OK";
+                infoDialog.DefaultButton = ContentDialogButton.Close;
+                infoDialog.Content = "Password salah !";
+                await infoDialog.ShowAsync();
+            }
+
+
+#endif
         }
         catch (Exception)
         {
@@ -125,7 +133,21 @@ public sealed partial class LoginPage : Page
         {
             return "";
         }
-
     }
+
+    private string GeneratePassword(string number, string text)
+    {
+        //GSheet Formulat >> =CONCATENATE(LEFT(A2, 2), MID(B2, 4, 4), LEN(B2), REPT("*", 3), RIGHT(A2, 1))
+
+        string leftPart = number.Substring(0, 2); // First 2 characters of A2
+        string midPart = text.Substring(3, Math.Min(4, text.Length - 3)); // 4 characters starting from the 4th char in B2
+        int lengthOfText = text.Length; // Length of B2
+        string separator = new string('*', 3); // Separator
+        string rightPart = number.Substring(number.Length - 1, 1); // Last character of A2
+
+        // Combine parts to create the custom string
+        return leftPart + midPart + lengthOfText + separator + rightPart;
+    }
+
 }
 
