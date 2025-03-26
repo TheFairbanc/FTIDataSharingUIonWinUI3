@@ -1,0 +1,150 @@
+﻿<Page
+    x:Class="FTIDataSharingUI.Views.MainMenuPage"
+
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" >
+    <Grid x:Name="MainGrid">
+        <!-- Background Image -->
+        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
+        <Grid x:Name="LayoutLogour" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,10,0,-25">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="600"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button x:Name="Logout"  Width="100" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" Click="Logout_Click">
+                        <Image Source="/Assets/Logout.png" Stretch="Fill" HorizontalAlignment="Right" />
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="2">
+                </Grid>
+
+            </Grid>
+        </Grid>
+        <Grid x:Name="ContentArea">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="600"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+            </Grid>
+            <!-- Content -->
+            <Grid x:Name="SplitCols02" BorderBrush="WhiteSmoke" BorderThickness="2" CornerRadius="8" Width="600" Height="450" Background="#FFFFFF" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="100" />
+                    <!-- Header Image and Text Overlay -->
+                    <RowDefinition Height="*" />
+                    <!-- Form Elements Row -->
+                </Grid.RowDefinitions>
+
+                <!-- Header Image -->
+                <Image Source="/Assets/FTI_Blue_internal_Header_Left.png" Stretch="UniformToFill"/>
+
+                <!-- Header Image and Text Overlay -->
+                <!-- Text Overlay -->
+                <Grid x:Name="SplitRowOne" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <!-- Text Blank -->
+                        <ColumnDefinition Width="475" />
+                        <!-- Text Overlay -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Text Blank -->
+                    <TextBlock Text="" FontSize="14" Foreground="White" Grid.Column="0" FontFamily="Inter" />
+                    <Grid x:Name="SplitRowsTwo" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <!-- Text One Overlay -->
+                            <RowDefinition Height="*" />
+                            <!-- Text Two Overlay -->
+                        </Grid.RowDefinitions>
+                        <TextBlock Name="UserGreetings01" Text="Hai, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="10,20,5,5" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <!-- Text Overlay -->
+                        <TextBlock Name="UserGreetings02" MaxWidth="460" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Aplikasi Fairbanc untuk mempermudah anda dalam pengiriman laporan bulanan secara otomatis dan manual." FontSize="12" FontFamily="Inter" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1"/>
+                    </Grid>
+                </Grid>
+                <!-- Form Elements -->
+                <StackPanel Orientation="Vertical" Name="StackerButton"  HorizontalAlignment="Center" Grid.Row="1" Spacing="15" Margin="20,20,0,0">
+                    <!-- Automatic Setting Button -->
+                    <Button x:Name="ButtonAuto" MaxWidth="450" Height="90" Click="ButtonAuto_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Data excel akan ter-upload secara otomatis pada tanggal tertentu setiap bulan-nya." IsEnabled="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid x:Name="SplitColTwo">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="67"/>
+                                    <!-- Text Blank -->
+                                    <ColumnDefinition Width="383" />
+                                    <!-- Text Overlay -->
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/icon1.png" Height="25" Grid.Column="0" HorizontalAlignment="Right" Margin="20,0,20,0" />
+                                <StackPanel Orientation="Vertical" Grid.Column="1" x:Name="SplitColTwoStack1">
+                                    <TextBlock Text="Automatic Data Submission" FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Left" FontFamily="Inter" FontSize="14"/>
+                                    <TextBlock MaxWidth="350" Text="Program otomatisasi dalam pengiriman laporan bulanan distributor melalui pengaturan tanggal dan waktu setiap bulan" Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="WrapWholeWords"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Manual Setting Button -->
+                    <Button x:Name="ButtonManual" Width="450" Height="90" Click="ButtonManual_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Data excel akan di-upload oleh penguna pada saat yang di inginkan.">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid x:Name="SplitColThree">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="67"/>
+                                    <!-- Text Blank -->
+                                    <ColumnDefinition Width="383" />
+                                    <!-- Text Overlay -->
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/icon2.png" Height="25" Grid.Column="0" HorizontalAlignment="Right" Margin="20,0,20,0"/>
+                                <StackPanel Orientation="Vertical" Grid.Column="1" >
+                                    <TextBlock Text="Manual Data Submission" FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Left" FontFamily="Inter" FontSize="14"/>
+                                    <TextBlock MaxWidth="350" Text="Mempermudah distributor dalam mengupload laporan bulanan hanya dengan cara drag and drop." Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="WrapWholeWords"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Logs Setting Button -->
+                    <Button x:Name="ButtonLogs" Width="450" Height="90" Click="ButtonLogs_Click" BorderBrush="LightSkyBlue" BorderThickness="1" ToolTipService.ToolTip="Melihat sejarah peng-upload-an data pada tanggal sebelumnya." >
+                        <StackPanel Orientation="Horizontal">
+                            <Grid x:Name="SplitColFour">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="67"/>
+                                    <!-- Text Blank -->
+                                    <ColumnDefinition Width="383" />
+                                    <!-- Text Overlay -->
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/icon3.png" Height="25" Grid.Column="0" Margin="20,0,20,0"/>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="History Log" FontWeight="SemiBold" Foreground="Black" FontFamily="Inter" FontSize="14"/>
+                                    <TextBlock MaxWidth="350" Text="Membantu distributor untuk melihat riwayat pengiriman laporan bulanan kepadaFairbanc, baik menggunakan otomatisasi maupun manual." Foreground="Black" HorizontalAlignment="Left" FontSize="11" FontFamily="Inter" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <!-- Footer -->
+            </Grid>
+            <Grid Grid.Column="2">
+            </Grid>
+        </Grid>
+        <TextBlock Text="© 2024 by Fairbanc Technologies Indonesia" Foreground="#05437F" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Row="2" />
+
+    </Grid>
+
+</Page>
