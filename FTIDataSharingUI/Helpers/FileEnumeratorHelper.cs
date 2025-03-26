@@ -215,4 +215,21 @@ internal class FileEnumeratorHelper
         }
         return null;
     }
+
+    public Boolean DeleteIniFiles()
+    {
+        try
+        {
+            string[] files = Directory.GetFiles(@"C:\ProgramData\FairbancData\", "*.ini");
+            foreach (string file in files)
+            {
+                File.Delete(file);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
 }

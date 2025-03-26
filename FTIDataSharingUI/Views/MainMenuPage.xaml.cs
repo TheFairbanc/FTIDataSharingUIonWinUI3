@@ -60,7 +60,7 @@ public sealed partial class MainMenuPage : Page
             {
                 await _donwloadAndInstallService.StartDownloading();
             }
-            await Task.Delay(3000);
+            await Task.Delay(1000);
             var navigationService = App.GetService<INavigationService>();
             navigationService.NavigateTo(typeof(AutoProcessViewModel).FullName!, _ParameterType, true);
         }
@@ -125,11 +125,11 @@ public sealed partial class MainMenuPage : Page
         if (x == ContentDialogResult.Primary)
         {
             return;
-        }   
+        }
+
+        var helper = new DataSubmission.Helpers.FileEnumeratorHelper();
+        helper.DeleteIniFiles();
         App.MainWindow.Close();
-        ;
-
-
     }
 }
 

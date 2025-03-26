@@ -978,6 +978,8 @@ public sealed partial class ManualProcessPage : Page
         {
             return;
         }
+        var helper = new DataSubmission.Helpers.FileEnumeratorHelper();
+        helper.DeleteIniFiles();
         App.MainWindow.Close();
     }
 

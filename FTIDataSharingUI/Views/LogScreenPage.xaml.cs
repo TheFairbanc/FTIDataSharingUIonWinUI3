@@ -188,6 +188,8 @@ public sealed partial class LogScreenPage : Page
         {
             return;
         }
+        var helper = new DataSubmission.Helpers.FileEnumeratorHelper();
+        helper.DeleteIniFiles();
         App.MainWindow.Close();
     }
 }

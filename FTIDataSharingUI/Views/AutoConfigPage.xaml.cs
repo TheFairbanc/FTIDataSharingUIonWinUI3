@@ -297,6 +297,8 @@ public sealed partial class AutoConfigPage : Page
         {
             return;
         }
+        var helper = new DataSubmission.Helpers.FileEnumeratorHelper();
+        helper.DeleteIniFiles();
         App.MainWindow.Close();
     }
 }

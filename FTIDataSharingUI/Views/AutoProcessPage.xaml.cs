@@ -409,6 +409,8 @@ public sealed partial class AutoProcessPage : Page
         {
             return;
         }
+        var helper = new DataSubmission.Helpers.FileEnumeratorHelper();
+        helper.DeleteIniFiles();
         App.MainWindow.Close();
     }
 }
