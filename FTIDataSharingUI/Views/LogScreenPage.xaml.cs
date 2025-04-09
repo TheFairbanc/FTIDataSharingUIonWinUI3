@@ -12,6 +12,12 @@ using DataSubmission.ViewModels;
 using DataSubmission.Contracts.Services;
 using DataSubmission.Models;
 using DataSubmission.Views;
+using System.Text;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+//using System.Text;
 
 namespace FTIDataSharingUI.Views;
 
@@ -53,6 +59,7 @@ public sealed partial class LogScreenPage : Page
 
             // Get the Data Sharing working folder
             var downloadsPath = Path.Combine(@"C:\ProgramData\FairbancData", "Datasharing-result");
+            //downloadsPath = Path.Combine(@"C:\ProgramData\FairbancData", "");
 
             Directory.CreateDirectory(downloadsPath);
             downloadsFolder = await StorageFolder.GetFolderFromPathAsync(downloadsPath);
@@ -68,6 +75,7 @@ public sealed partial class LogScreenPage : Page
                 if (file.FileType == ".log" && file.DateCreated > latestCreationTime.ToLocalTime())
                 {
                     latestLogFile = file;
+                    latestCreationTime = file.DateCreated.LocalDateTime;
                 }
             }
 
@@ -192,4 +200,76 @@ public sealed partial class LogScreenPage : Page
         helper.DeleteIniFiles();
         App.MainWindow.Close();
     }
+}
+
+
+
+public class LogFileLoader
+{
+    public static List<string> LoadLogFiles(string folderPath, long maxSizeInKB)
+    {
+        // Step 1: Get list of all .log files in the folder, sorted by last modified date (newest first)
+        var logFilesList = Directory.GetFiles(folderPath, "*.log");
+        Array.Sort(logFilesList, (x, y) => File.GetLastWriteTime(y).CompareTo(File.GetLastWriteTime(x)));
+
+        // Step 2: Create a collection to store log data
+        var logDataCollection = new List<string>();
+        long currentTotalSize = 0; // Track the total size in bytes
+
+        // Step 3: Iterate through each log file
+        foreach (var logFile in logFilesList)
+        {
+            try
+            {
+                // Step 3.1: Read the file content
+                var logData = File.ReadAllText(logFile);
+                var logDataSize = Encoding.UTF8.GetByteCount(logData); // Calculate size in bytes
+
+                // Step 3.2: Check if adding this log would exceed the max size
+                if (currentTotalSize + logDataSize <= maxSizeInKB * 1024)
+                {
+                    // Add the full log data if it fits within the limit
+                    logDataCollection.Add(logData);
+                    currentTotalSize += logDataSize;
+                }
+                else
+                {
+                    // If it exceeds, trim the log to fit the remaining space
+                    var remainingSize = (maxSizeInKB * 1024) - currentTotalSize;
+                    if (remainingSize > 0)
+                    {
+                        var trimmedLog = logData.Substring(logData.Length - (int)remainingSize / 2); // Keep only the latest part
+                        logDataCollection.Add(trimmedLog);
+                        currentTotalSize += remainingSize;
+                    }
+                    break; // Stop processing further logs once the limit is reached
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors (e.g., file reading issues)
+                Console.WriteLine($"Error reading file {logFile}: {ex.Message}");
+            }
+        }
+
+        // Step 4: Return the collection of log data
+        return logDataCollection;
+    }
+
+    public static string CombineLogData(List<string> logDataCollection)
+    {
+        // Step 1: Initialize an empty string to hold the combined result
+        var combinedLogData = string.Empty;
+
+        // Step 2: Iterate through each log entry in the collection
+        foreach (var logData in logDataCollection)
+        {
+            // Step 3: Append each log entry to the combined string
+            combinedLogData += logData + Environment.NewLine; // Add a newline for separation
+        }
+
+        // Step 4: Return the combined result
+        return combinedLogData;
+    }
+
 }
