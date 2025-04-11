@@ -38,8 +38,10 @@ The application leverages the following technologies:
 - **Community Toolkit for MVVM**: Implements the MVVM design pattern for clean and maintainable code.
 - **Slack Integration**: Enables notifications for submission updates.
 
-## Getting Started
+## How to download the app
 
-### Published app (in Indonesian Windows Store - Please change your computer Windows setting -> Region  to Indonesia - to view it) ###
-Downloaad the App from Microsoft Store.
-   === --> https://apps.microsoft.com/detail/9nlrw8q7pq2c?cid=DevShareMCLPCS&hl=en-US&gl=ID
+### Published app (in Indonesian Windows Store) ###
+Note - Please change your computer Windows setting -> Region  to Indonesia - to be able to view it.
+1. Downloaad the App from Microsoft Store
+   
+   --> https://apps.microsoft.com/detail/9nlrw8q7pq2c?cid=DevShareMCLPCS&hl=en-US&gl=ID
