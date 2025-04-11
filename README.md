@@ -9,7 +9,7 @@ The **Fairbanc - Data Submission App** is a Windows-based application designed t
 - Automatically notify the Fairbanc team via Slack upon successful submissions.
 - Supports configuration of Excel file types with keywords for Sales, Payments, and Customer data.
 
-### 2. Manual Data Submission *(In Development)*
+### 2. Manual Data Submission 
 - Drag-and-drop interface for uploading sales, payments, and customer data files.
 - Select specific periods (month and year) for manual submissions.
 - Process multiple file types with a streamlined interface.
@@ -40,7 +40,6 @@ The application leverages the following technologies:
 
 ## Getting Started
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/TheFairbanc/FTIDataSharingUIonWinUI3.git
+### Published app (in Indonesian Windows Store - Please change your computer Windows setting -> Region  to Indonesia - to view it) ###
+Downloaad the App from Microsoft Store.
+   === --> https://apps.microsoft.com/detail/9nlrw8q7pq2c?cid=DevShareMCLPCS&hl=en-US&gl=ID
