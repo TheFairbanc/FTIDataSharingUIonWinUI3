@@ -2,6 +2,24 @@
 
 The **Fairbanc - Data Submission App** is a Windows-based application designed to automate and manage data submission processes. Built using modern technologies, the app simplifies report submissions by offering features like automatic scheduling, manual uploads, and comprehensive logging.
 
+<a href="https://dotnet.microsoft.com/id-id/languages/csharp">
+  <img src="https://sharpminds.com/wp-content/uploads/2022/06/c-sharp.svg" width="150" heigh="150" alt="CSharpp">
+</a>
+<a href="https://learn.microsoft.com/en-us/windows/apps/winui/">
+   <img src="https://betanews.com/wp-content/uploads/2021/02/winui.jpg" height="180" alt="WinUI_33">                                                             
+</a>
+<a href="https://www.remoterocketship.com">
+   <img scr="https://rehansaeed.com/images/hero/MVVM-1366x768.png" alt="MVVM"> 
+</a>
+                                                                       
+</br>
+<a href="https://apps.microsoft.com/detail/9nlrw8q7pq2c?cid=DevShareMCLPCS&hl=en-US&gl=ID">
+  <img src="https://www.safetysign.com/images/source/large-images/F2010.png" width="100" alt="Build Status">
+</a>
+
+
+
+
 ## Features
 
 ### 1. Automatic Data Submission
@@ -38,10 +56,9 @@ The application leverages the following technologies:
 - **Community Toolkit for MVVM**: Implements the MVVM design pattern for clean and maintainable code.
 - **Slack Integration**: Enables notifications for submission updates.
 
-## How to download the app
+## How to download the app ###
 
 ### Published app (in Indonesian Windows Store) ###
-Note - Please change your computer Windows setting -> Region  to Indonesia - to be able to view it.
+Note: Please change your computer Windows settings -> Region to Indonesia - to be able to view it.
 1. Downloaad the App from Microsoft Store
-   
-   --> https://apps.microsoft.com/detail/9nlrw8q7pq2c?cid=DevShareMCLPCS&hl=en-US&gl=ID
+   [![Donwload](https://get.microsoft.com/images/en-us%20light.svg)](https://apps.microsoft.com/detail/9nlrw8q7pq2c?cid=DevShareMCLPCS&hl=en-US&gl=ID)
