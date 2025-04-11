@@ -8,11 +8,12 @@ The **Fairbanc - Data Submission App** is a Windows-based application designed t
 <a href="https://learn.microsoft.com/en-us/windows/apps/winui/">
    <img src="https://betanews.com/wp-content/uploads/2021/02/winui.jpg" height="180" alt="WinUI_33">                                                             
 </a>
-<a href="https://www.remoterocketship.com">
-   <img scr="https://rehansaeed.com/images/hero/MVVM-1366x768.png" alt="MVVM"> 
-</a>
-                                                                       
-</br>
+
+<a href="https://learn.microsoft.com/en-us/windows/apps/develop/data-binding/data-binding-and-mvvm">
+   <img src="https://www.remoterocketship.com/_next/image?url=%2Fimages%2Fblog%2FMVVM-icon-for-blog.jpg&w=640&q=75" height="180" alt="Mvvm"> 
+</a>                                                                 
+<br></br>
+
 <a href="https://apps.microsoft.com/detail/9nlrw8q7pq2c?cid=DevShareMCLPCS&hl=en-US&gl=ID">
   <img src="https://www.safetysign.com/images/source/large-images/F2010.png" width="100" alt="Build Status">
 </a>
