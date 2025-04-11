@@ -61,5 +61,5 @@ The application leverages the following technologies:
 
 ### Published app (in Indonesian Windows Store) ###
 Note: Please change your computer Windows settings -> Region to Indonesia - to be able to view it.
-1. Downloaad the App from Microsoft Store
+1. Download the App from Microsoft Store, here:   
    [![Donwload](https://get.microsoft.com/images/en-us%20light.svg)](https://apps.microsoft.com/detail/9nlrw8q7pq2c?cid=DevShareMCLPCS&hl=en-US&gl=ID)
