@@ -297,6 +297,28 @@ public sealed partial class AutoConfigPage : Page
         {
             return;
         }
+
+        // Stopping & Deleting Background Service
+        string serviceName = "DataSubmission";
+        var processInfo = new ProcessStartInfo();
+        {
+            processInfo.CreateNoWindow = true;
+            processInfo.UseShellExecute = true;
+            processInfo.FileName = "sc";
+            processInfo.Verb = "runas";
+
+            processInfo.Arguments = $"stop {serviceName}";
+        }
+        Process.Start(processInfo);
+        {
+            processInfo.CreateNoWindow = true;
+            processInfo.UseShellExecute = true;
+            processInfo.FileName = "sc";
+            processInfo.Verb = "runas";
+
+            processInfo.Arguments = $"delete {serviceName}";
+        }
+        Process.Start(processInfo);
         var helper = new DataSubmission.Helpers.FileEnumeratorHelper();
         helper.DeleteIniFiles();
         App.MainWindow.Close();

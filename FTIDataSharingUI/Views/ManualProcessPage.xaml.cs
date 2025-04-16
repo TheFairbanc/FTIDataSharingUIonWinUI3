@@ -498,7 +498,7 @@ public sealed partial class ManualProcessPage : Page
                 Title = "Info Kesalahan",
                 CloseButtonText = "OK",
                 DefaultButton = ContentDialogButton.Close,
-                Content = $"File Excel belum di pilih."
+                Content = $"File Excel untuk data penjualan belum di pilih.\rFile Data penjualan adalah syarat utama untuk melanjutkan proses upload."
             };
             await resultDialog.ShowAsync();
             return;
@@ -506,10 +506,34 @@ public sealed partial class ManualProcessPage : Page
 
         //= > call CheckDropFileInFolder
         if (!CheckDropFileInFolder(droppedFilesSales)) return;
-        if (!CheckDropFileInFolder(droppedFilesAR)) return;
-        if (!CheckDropFileInFolder(droppedFilesOutlet)) return;
 
-        var progressBar = new ProgressBar
+        // continue CheckDropFileInFolder base on OS ver 
+        if (!isWindows10())
+        {
+            if (MessageTextBlock02.Text != "Drag dan drop file Pembayaran Invoice (Excel) di sini !")
+            {
+                if (!CheckDropFileInFolder(droppedFilesAR)) return;
+            }
+            if (MessageTextBlock03.Text != "Drag dan drop file data Customer (Excel) di sini !")
+            {
+                if (!CheckDropFileInFolder(droppedFilesOutlet)) return;
+            }
+        }
+
+        if (isWindows10())
+        {
+            if (MessageTextBlock02.Text != "File Penerimaan Pembayaran Invoice")
+            {
+                if (!CheckDropFileInFolder(droppedFilesAR)) return;
+            }
+            if (MessageTextBlock03.Text != "File Data Customer/Outlet")
+            {
+                if (!CheckDropFileInFolder(droppedFilesOutlet)) return;
+            }
+        }
+
+
+            var progressBar = new ProgressBar
         {
             IsIndeterminate = true,
             VerticalAlignment = VerticalAlignment.Center,
@@ -852,7 +876,7 @@ public sealed partial class ManualProcessPage : Page
             OperatingSystem os = Environment.OSVersion;
             Version version = os.Version;
 
-            if (os.Platform == PlatformID.Win32NT && version.Major == 10)
+            if (version.Major == 10 && version.Build < 22000)
             {
                 return true;
             }
@@ -978,6 +1002,28 @@ public sealed partial class ManualProcessPage : Page
         {
             return;
         }
+
+        // Stopping & Deleting Background Service
+        string serviceName = "DataSubmission";
+        var processInfo = new ProcessStartInfo();
+        {
+            processInfo.CreateNoWindow = true;
+            processInfo.UseShellExecute = true;
+            processInfo.FileName = "sc";
+            processInfo.Verb = "runas";
+
+            processInfo.Arguments = $"stop {serviceName}";
+        }
+        Process.Start(processInfo);
+        {
+            processInfo.CreateNoWindow = true;
+            processInfo.UseShellExecute = true;
+            processInfo.FileName = "sc";
+            processInfo.Verb = "runas";
+
+            processInfo.Arguments = $"delete {serviceName}";
+        }
+        Process.Start(processInfo);
         var helper = new DataSubmission.Helpers.FileEnumeratorHelper();
         helper.DeleteIniFiles();
         App.MainWindow.Close();
