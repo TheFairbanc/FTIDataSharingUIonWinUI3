@@ -43,14 +43,17 @@
                         <RowDefinition Height="2*" />
                         <!-- Text Two Overlay -->
                     </Grid.RowDefinitions>
-                    <TextBlock Name="UserGreetings01" Text="Hai, (USER NAME)" FontFamily="Inter" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
+
+
+
+                    <TextBlock Name="UserGreetings01" Text="Hai, (USER NAME)" FontFamily="ms-appx:///Fonts/Roboto-Regular.ttf#Roboto" FontSize="16" Foreground="White" Margin="20,30,0,10" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center"/>
                     <!-- Text One Overlay -->
-                    <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Aplikasi Fairbanc untuk mempermudah anda dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="Inter" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
+                    <TextBlock Name="UserGreetings02" Text="Selamat datang di Fairbanc Data Submission App!&#x0a;Aplikasi Fairbanc untuk mempermudah anda dalam pengiriman laporan bulanan secara otomatis dan manual." FontFamily="ms-appx:///Fonts/Roboto-Regular.ttf#Roboto" FontSize="11" FontStretch="Condensed" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,0,0,10" Grid.Row="1"/>
                     <!-- Text Two Overlay -->
                 </Grid>
             </Grid>
             <StackPanel Margin="20,20,20,0" Padding="0" Grid.Row="1" >
-                <controls:DataGrid x:Name="logDataGrid" Height="400" AutoGenerateColumns="False"  BorderBrush="SteelBlue" BorderThickness="1" FontSize="10" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" RequestedTheme="Light">
+                <controls:DataGrid x:Name="logDataGrid" Height="400" AutoGenerateColumns="False"  BorderBrush="SteelBlue" BorderThickness="1" FontSize="10" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" RequestedTheme="Light" FontFamily="Segoe UI">
                     <controls:DataGrid.Columns>
                         <controls:DataGridTextColumn Header="Tanggal" Binding="{Binding Date}" Width="Auto" FontSize="12"/>
                         <controls:DataGridTextColumn Header="Waktu" Binding="{Binding Time}" Width="Auto"  FontSize="12"/>

@@ -144,7 +144,7 @@
             <Grid Grid.Column="2">
             </Grid>
         </Grid>
-        <TextBlock Text="© 2024 by Fairbanc Technologies Indonesia" Foreground="#05437F" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Row="2" />
+        <TextBlock Text="© 2024-2025 by Fairbanc Technologies Indonesia" Foreground="#05437F" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Row="2" />
 
     </Grid>
 
