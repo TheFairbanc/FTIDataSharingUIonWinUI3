@@ -7,9 +7,10 @@
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" VerticalAlignment="Center" RequestedTheme="Light">
+        <Grid x:Name="OverlayGrid" Visibility="Collapsed" Canvas.ZIndex="1" Width="300" Height="75" />
         <!-- Background Image -->
-        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
-        <Grid x:Name="SplitRow" Width="Auto" Height="600" CornerRadius="8" Background="#FFFFFF" BorderBrush="LightGray" BorderThickness="2" MaxWidth="800" MaxHeight="580" HorizontalAlignment="Center">
+        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" Height="600" Width="800" />
+        <Grid x:Name="SplitRow" Width="Auto" Height="600" CornerRadius="8" Background="Transparent" BorderBrush="LightGray" BorderThickness="2" MaxWidth="800" MaxHeight="580" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
                 <!-- Header Image and Text Overlay -->

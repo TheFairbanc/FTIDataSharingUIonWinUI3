@@ -117,11 +117,13 @@
                     DefaultHeader="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
                     <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                         <DataTemplate>
+                            <!--
                             <Grid>
                                 <TextBlock
                                     Text="{Binding}"
                                     Style="{ThemeResource TitleTextBlockStyle}" />
                             </Grid>
+                            -->
                         </DataTemplate>
                     </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                 </behaviors:NavigationViewHeaderBehavior>

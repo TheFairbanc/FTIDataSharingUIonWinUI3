@@ -8,9 +8,10 @@
     mc:Ignorable="d">
 
     <Grid x:Name="ContentArea">
+        <Grid x:Name="OverlayGrid" Visibility="Collapsed" Canvas.ZIndex="1" Width="300" Height="75" />
         <!-- Background Image -->
-        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" />
-        <Grid x:Name="SplitRow" Width="800" Height="530" Background="#FFFFFF" BorderThickness="2" BorderBrush="WhiteSmoke" CornerRadius="8">
+        <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" Height="600" Width="800" />
+        <Grid x:Name="SplitRow" Width="800" Height="530" Background="Transparent"  BorderThickness="2" BorderBrush="WhiteSmoke" CornerRadius="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
                 <!-- Header Image and Text Overlay -->
@@ -68,7 +69,7 @@
                     <Button Grid.Column="0" Width="110" Height="50" Background="Transparent" Grid.Row="2"
                     HorizontalAlignment="Left"  Click="Button_Click_3"/>
                 </Grid>
-                <Grid x:Name="SplitRowThree" Grid.Column="1" BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Background="#FFFFFF" Grid.Row="1" Margin="20,20,20,20">
+                <Grid x:Name="SplitRowThree" Grid.Column="1" BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Background="Transparent" Grid.Row="1" Margin="20,20,20,20">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="70" />
