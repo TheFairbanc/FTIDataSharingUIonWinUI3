@@ -43,7 +43,7 @@ The **Fairbanc - Data Submission App** is a Windows-based application designed t
 - Save and reuse configurations for future submissions.
 
 ### 5. Slack Integration
-- Notifications are sent to the `3report-ind-test` Slack channel.
+- Notifications are sent to the `#report-ind-test` Slack channel.
 - Includes zipped files and log details for every submission.
 
 ## Tech Stack
