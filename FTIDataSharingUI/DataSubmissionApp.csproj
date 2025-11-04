@@ -62,6 +62,12 @@
 		<Content Update="Assets\Background_FTI_Desktop.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Update="Assets\Data_submission_logo_ico.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="Assets\FairData_Logo_Transp.png">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
 		<Content Update="Assets\Fonts\Roboto-Bold.ttf">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

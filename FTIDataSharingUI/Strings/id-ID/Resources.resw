@@ -118,10 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>Fairbanc - Data Submissions App</value>
+    <value>FairData- Data Submissions</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>Applikasi buatan PT Fairbanc Technologies Indonesia - Data Submissions App</value>
+    <value>Automate, Track, and Secure Your Monthly Reports
+FairData helps you manage and submit your monthly reports easily, securely, and seamlessly connected to Fairbanc's system. With automated submission, manual upload, and transparent upload history,FairData ensures all your reports are safely delivered—without the hassle.</value>
   </data>
   <data name="Shell_Landing.Content" xml:space="preserve">
     <value>Landing</value>
