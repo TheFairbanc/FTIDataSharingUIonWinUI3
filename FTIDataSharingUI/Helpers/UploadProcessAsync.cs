@@ -66,7 +66,7 @@ public class UploadProcessAsync
         }
     }
 
-    public async Task ExecuteAsync()
+    public async Task ExecuteAsynctemp()
     {
         try
         {
@@ -151,6 +151,118 @@ public class UploadProcessAsync
                     }
                     catch
                     { }
+
+                    await WriteLogAsync($"WARNING: Failed to upload, Data Sharing cURL STATUS CODE: {_statusCode}", _logFileName);
+                }
+            }
+            else
+            {
+                await WriteLogAsync("WARNING: No uploaded file(s) found - Neither Sales nor Payment Excel Files Processed.", _logFileName);
+            }
+
+            await SendRequestAsync(_logFileName, _sandboxBoolean, _secureHTTP);
+            _logger.Information(">>>> [OUTPUT] Excel Data Sharing process will be completed soon!");
+            _logger.Information(">>>> [OUTPUT] Please wait, data is being uploaded.\n");
+        }
+        catch (Exception ex)
+        {
+            await WriteLogAsync($"WARNING: Error occurred: {ex.Message}", _logFileName);
+            _logger.Error(ex, "Error occurred in Main process");
+        }
+    }
+
+    public async Task ExecuteAsync()
+    {
+        try
+        {
+            _logFileName = $"DEBUG-{_distID}-{_distName}-{_period}.log";
+            _logFileName = Path.Combine(_workingDir, _logFileName);
+
+            await CheckAndRefreshFolderAsync(_expDir);
+            await CheckAndRefreshFolderAsync(_uploadDir);
+
+            await WriteLogAsync("Starting process of Excel file sales, payment, and outlet.", _logFileName);
+            await WriteLogAsync("Uploaded via FTI Submission App - Window Service.", _logFileName);
+            await WriteLogAsync($"Using Working folder -> {_workingDir} , Zip folder -> {_expDir} , Upload Folder -> {_uploadDir}", _logFileName);
+
+            _logger.Information(">>>> [OUTPUT] Starting application...\n");
+
+            if (!string.IsNullOrWhiteSpace(_salesFileName))
+                await WriteLogAsync($"Sales file to process: {_salesFileName.Trim()}", _logFileName);
+            if (!string.IsNullOrWhiteSpace(_payFileName))
+                await WriteLogAsync($"Payment file to process: {_payFileName.Trim()}", _logFileName);
+            if (!string.IsNullOrWhiteSpace(_outletFileName))
+                await WriteLogAsync($"Outlet file to process: {_outletFileName.Trim()}", _logFileName);
+
+            string salesFileDataName = "", payFileDataName = "", outletFileDataName = "";
+
+            if (IsValidExcelFile(_salesFileName))
+            {
+                salesFileDataName = _salesFileName.ToLower().EndsWith("xls")
+                    ? $"ds-{_distID}-{_distName}-{_period}_SALES.xls"
+                    : $"ds-{_distID}-{_distName}-{_period}_SALES.xlsx";
+
+                File.Copy(_salesFileName, Path.Combine(_uploadDir, Path.GetFileName(_salesFileName)), true);
+                await CopyAndDeleteCopiedFileAsync(_salesFileName, Path.Combine(_expDir, salesFileDataName), _logFileName);
+            }
+            else
+            {
+                await WriteLogAsync($"WARNING: Skipped temp or invalid Sales file: {_salesFileName}", _logFileName);
+            }
+
+            if (IsValidExcelFile(_payFileName))
+            {
+                payFileDataName = _payFileName.ToLower().EndsWith("xls")
+                    ? $"ds-{_distID}-{_distName}-{_period}_PAYMENT.xls"
+                    : $"ds-{_distID}-{_distName}-{_period}_PAYMENT.xlsx";
+
+                File.Copy(_payFileName, Path.Combine(_uploadDir, Path.GetFileName(_payFileName)), true);
+                await CopyAndDeleteCopiedFileAsync(_payFileName, Path.Combine(_expDir, payFileDataName), _logFileName);
+            }
+            else
+            {
+                await WriteLogAsync($"WARNING: Skipped temp or invalid Payment file: {_payFileName}", _logFileName);
+            }
+
+            if (IsValidExcelFile(_outletFileName))
+            {
+                outletFileDataName = _outletFileName.ToLower().EndsWith("xls")
+                    ? $"ds-{_distID}-{_distName}-{_period}_OUTLET.xls"
+                    : $"ds-{_distID}-{_distName}-{_period}_OUTLET.xlsx";
+
+                File.Copy(_outletFileName, Path.Combine(_uploadDir, Path.GetFileName(_outletFileName)), true);
+                await CopyAndDeleteCopiedFileAsync(_outletFileName, Path.Combine(_expDir, outletFileDataName), _logFileName);
+            }
+            else
+            {
+                await WriteLogAsync($"WARNING: Skipped temp or invalid Outlet file: {_outletFileName}", _logFileName);
+            }
+
+            if (!await IsDirectoryEmptyAsync(_uploadDir))
+            {
+                await WriteLogAsync("Copy process for Excel files (sales, payment, outlet) done, starting archive process.", _logFileName);
+                _zipFile = $"{_distID}-{_distName}_{_period}.zip";
+
+                ZipFile.CreateFromDirectory(_expDir, _workingDir + Path.DirectorySeparatorChar + _zipFile);
+                File.Move(_workingDir + Path.DirectorySeparatorChar + _zipFile, _expDir + Path.DirectorySeparatorChar + _zipFile, true);
+                await WriteLogAsync("Archive process for Excel files (sales, payment, outlet) done.", _logFileName);
+
+                _statusCode = await SendRequestAsync(Path.Combine(_expDir, _zipFile), _sandboxBoolean, _secureHTTP);
+                await WriteLogAsync("Upload process for Excel files (sales, payment, outlet) done.", _logFileName);
+
+                if (_statusCode == "200")
+                {
+                    await WriteLogAsync("Data Sharing - COMPLETED", _logFileName);
+                }
+                else
+                {
+                    await CopyAndDeleteCopiedFileAsync(Path.Combine(_expDir, salesFileDataName), _salesFileName, _logFileName);
+                    try
+                    {
+                        await CopyAndDeleteCopiedFileAsync(Path.Combine(_expDir, payFileDataName), _payFileName, _logFileName);
+                        await CopyAndDeleteCopiedFileAsync(Path.Combine(_expDir, outletFileDataName), _outletFileName, _logFileName);
+                    }
+                    catch { }
 
                     await WriteLogAsync($"WARNING: Failed to upload, Data Sharing cURL STATUS CODE: {_statusCode}", _logFileName);
                 }
@@ -321,6 +433,28 @@ public class UploadProcessAsync
         catch (Exception ex)
         {
             await WriteLogAsync($"WARNING: Error occurred: {ex.Message}", logFile);
+        }
+    }
+
+    private bool IsValidExcelFile(string filePath)
+    {
+        var fileName = Path.GetFileName(filePath);
+        return !string.IsNullOrEmpty(fileName) &&
+               !fileName.StartsWith("~$") &&
+               (fileName.EndsWith(".xls", StringComparison.OrdinalIgnoreCase) ||
+                fileName.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase));
+    }
+
+    private async Task CopyAndDeleteCopiedFileAsync(string sourceFile, string copiedPath, string logFile)
+    {
+        try
+        {
+            File.Copy(sourceFile, copiedPath, true);
+            File.Delete(copiedPath);
+        }
+        catch (Exception ex)
+        {
+            await WriteLogAsync($"WARNING: Could not process file: {sourceFile}. Error: {ex.Message}", logFile);
         }
     }
 }

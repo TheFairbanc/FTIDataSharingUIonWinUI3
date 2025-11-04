@@ -65,6 +65,15 @@ public sealed partial class ManualProcessPage : Page
         cbitem.Add(DateTime.Now.AddMonths(-1).ToString("MMMM yyyy", indonesianCulture));
         cbitem.Add(DateTime.Now.AddMonths(-2).ToString("MMMM yyyy", indonesianCulture));
         cbitem.Add(DateTime.Now.AddMonths(-3).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-4).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-5).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-6).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-7).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-8).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-9).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-10).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-11).ToString("MMMM yyyy", indonesianCulture));
+        cbitem.Add(DateTime.Now.AddMonths(-12).ToString("MMMM yyyy", indonesianCulture));
 
         if (PresistentFiles.hasValue())
         {
@@ -107,7 +116,6 @@ public sealed partial class ManualProcessPage : Page
                 btnPilihOutlet.Visibility = Visibility.Visible;
                 MessageTextBlock03.Text = "File Data Customer/Outlet";
             }
-
         }
     }
 
@@ -648,6 +656,33 @@ public sealed partial class ManualProcessPage : Page
                 case 2:
                     uploadPeriod = DateTime.Now.AddMonths(-3).ToString("yyyyMM");
                     break;
+                case 3:
+                    uploadPeriod = DateTime.Now.AddMonths(-4).ToString("yyyyMM");
+                    break;
+                case 4:
+                    uploadPeriod = DateTime.Now.AddMonths(-5).ToString("yyyyMM");
+                    break;
+                case 5:
+                    uploadPeriod = DateTime.Now.AddMonths(-6).ToString("yyyyMM");
+                    break;
+                case 6:
+                    uploadPeriod = DateTime.Now.AddMonths(-7).ToString("yyyyMM");
+                    break;
+                case 7:
+                    uploadPeriod = DateTime.Now.AddMonths(-8).ToString("yyyyMM");
+                    break;
+                case 8:
+                    uploadPeriod = DateTime.Now.AddMonths(-9).ToString("yyyyMM");
+                    break;
+                case 9:
+                    uploadPeriod = DateTime.Now.AddMonths(-10).ToString("yyyyMM");
+                    break;
+                case 10:
+                    uploadPeriod = DateTime.Now.AddMonths(-11).ToString("yyyyMM");
+                    break;
+                case 11:
+                    uploadPeriod = DateTime.Now.AddMonths(-12).ToString("yyyyMM");
+                    break;
                 default:
                     uploadPeriod = DateTime.Now.AddMonths(0).ToString("yyyyMM");
                     break;
@@ -882,7 +917,10 @@ public sealed partial class ManualProcessPage : Page
             }
             else
             {
-                return false;
+                //1 line below is the real code to detect Windows 11
+                //return false;
+                //Change to true to enable Windows 11 to use file picker
+                return true;
             }
         }
         catch (Exception)

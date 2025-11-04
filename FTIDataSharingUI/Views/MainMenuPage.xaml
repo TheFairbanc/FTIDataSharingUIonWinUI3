@@ -7,10 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
     <Grid x:Name="MainGrid">
-        <Grid x:Name="OverlayGrid" Visibility="Collapsed" Canvas.ZIndex="1" Width="300" Height="75" />
+        <Grid x:Name="OverlayGrid" Visibility="Collapsed" Canvas.ZIndex="1" Width="300" Height="75"  />
         <!-- Background Image -->
         <Image Source="/Assets/Background_FTI_Desktop.png" Stretch="Fill" Height="600" Width="800" />
-        <Grid x:Name="LayoutLogour" Margin="0,0,0,0">
+        <Grid x:Name="LayoutLogour" Margin="0,0,0,0"  HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="55" />
             </Grid.RowDefinitions>
@@ -34,7 +34,7 @@
 
             </Grid>
         </Grid>
-        <Grid x:Name="ContentArea">
+        <Grid x:Name="ContentArea"  HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="600"/>

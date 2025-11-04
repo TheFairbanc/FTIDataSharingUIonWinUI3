@@ -1,5 +1,6 @@
 {
   "AppSettings": {
-    "WinServiceUrl": "https://dl.dropboxusercontent.com/scl/fi/e5frmw5iqw8sgkuzmbtbl/DataSubmit.zip?rlkey=pinjekf4bzqwuub7p6wgtn4t9&st=zv12b5dp&dl=0"
+    "WSurl_old": "https://dl.dropboxusercontent.com/scl/fi/e5frmw5iqw8sgkuzmbtbl/DataSubmit.zip?rlkey=pinjekf4bzqwuub7p6wgtn4t9&st=zv12b5dp&dl=0",
+    "WinServiceUrl": "https://www.dropbox.com/scl/fi/ifgz4xff4dmud9hsmi2pg/DataSubmit.zip?rlkey=ldusbydm0wotxwsu0rv5olu0s&st=1e88sgcs&dl=1"
   }
 }
