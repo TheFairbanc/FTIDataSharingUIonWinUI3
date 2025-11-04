@@ -32,6 +32,7 @@
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<ItemGroup>
+		<AppxManifest Include="Package.appxmanifest" />
 		<Manifest Include="$(ApplicationManifest)" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
