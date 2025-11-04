@@ -124,7 +124,6 @@
 		<PackageCertificateKeyFile>DataSubmissionApp_TemporaryKey.pfx</PackageCertificateKeyFile>
 		<AppInstallerUri>https://fairbanc.app/FairbancApp.exe</AppInstallerUri>
 		<DefaultLanguage>id-ID</DefaultLanguage>
-		<PackageCertificateThumbprint>2B348CB5AF6A456A4F9BFB4D514C0F96E9DB8FC7</PackageCertificateThumbprint>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
 		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
